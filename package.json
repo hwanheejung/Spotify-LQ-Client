@@ -12,9 +12,12 @@
     "test": "jest --passWithNoTests"
   },
   "lint-staged": {
-    "*.{js,jsx,ts,tsx,css,scss}": [
-      "prettier --write",
-      "eslint --fix"
+    "*.{js,jsx,ts,tsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{css,scss}": [
+      "prettier --write"
     ]
   },
   "dependencies": {

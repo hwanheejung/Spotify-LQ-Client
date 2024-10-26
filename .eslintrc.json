@@ -21,6 +21,7 @@
   },
   "plugins": ["prettier", "@typescript-eslint"],
   "rules": {
+    "camelcase": "off",
     "no-shadow": "off",
     "arrow-body-style": "off",
     "import/extensions": "off",

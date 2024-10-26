@@ -12,6 +12,14 @@ const config: Config = {
         background: 'var(--background)',
         foreground: 'var(--foreground)',
       },
+      fontFamily: {
+        gotham: [
+          'var(--font-gotham-book)',
+          'var(--font-gotham-bold)',
+          'var(--font-gotham-light)',
+          'var(--font-gotham-medium)',
+        ],
+      },
     },
   },
   plugins: [],
