@@ -3,8 +3,15 @@
 @tailwind utilities;
 
 :root {
-  --background: #0a0a0a;
-  --foreground: #ededed;
+  --background: #000;
+  --foreground: #fff;
+  --dynamic-vh: 100vh;
+}
+
+@supports (height: 100dvh) {
+  :root {
+    --dynamic-vh: 100dvh;
+  }
 }
 
 body {
