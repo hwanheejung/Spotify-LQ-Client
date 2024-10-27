@@ -65,9 +65,9 @@ export default function RootLayout({
         className={`${GothamBold.variable} ${GothamBoldItalic.variable} ${GothamBook.variable} ${GothamBookItalic.variable} ${GothamLight.variable} ${GothamLightItalic.variable} ${GothamMedium_1.variable} ${GothamMedium.variable} ${GothamMediumItalic.variable} flex h-dvh flex-col antialiased`}
       >
         <Header />
-        <div className="flex flex-1">
+        <div className="flex flex-1 gap-3 px-3">
           <aside>{yourLibrary}</aside>
-          <main className="flex-1 bg-gray-500">{main}</main>
+          <main className="flex-1">{main}</main>
           <aside>{sidebar}</aside>
         </div>
         <PlayingBar />

@@ -30,6 +30,7 @@ body {
   .font-bold {
     font-family: var(--font-gotham-bold);
     font-weight: 700;
+    padding-top: 10px;
   }
 
   /* Bold Italic */

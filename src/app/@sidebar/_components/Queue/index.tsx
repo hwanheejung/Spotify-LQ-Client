@@ -1,5 +1,11 @@
+import Header from '../Header'
+
 const Queue = () => {
-  return <div>Queue</div>
+  return (
+    <div>
+      <Header title="Queue" />
+    </div>
+  )
 }
 
 export default Queue

@@ -1,4 +1,10 @@
+import Header from '../Header'
+
 const NowPlaying = () => {
-  return <div>Now Playing</div>
+  return (
+    <div className="">
+      <Header title="Now Playing" />
+    </div>
+  )
 }
 export default NowPlaying

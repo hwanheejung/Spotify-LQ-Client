@@ -7,8 +7,10 @@ import Device from './_components/Device'
 
 const SideBarPage = () => {
   const { activeComponent } = useSidebarStore()
+
+  if (!activeComponent) return null
   return (
-    <div>
+    <div className="h-full min-w-[250px] rounded-lg bg-gray-700">
       <div>{activeComponent === 'NowPlaying' && <NowPlaying />}</div>
       <div>{activeComponent === 'Queue' && <Queue />}</div>
       <div>{activeComponent === 'Device' && <Device />}</div>
