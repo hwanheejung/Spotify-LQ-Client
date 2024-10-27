@@ -4,7 +4,7 @@ import SidebarNav from './SidebarNav'
 
 const PlayingBar = () => {
   return (
-    <div className="flex w-full">
+    <div className="flex w-full px-5 py-3">
       <CurrentTrack />
       <Player />
       <SidebarNav />

@@ -23,8 +23,12 @@ const SidebarNav = () => {
   const router = useRouter()
   const pathname = usePathname()
 
+  const toggleLyricsRoute = () => {
+    router.push(pathname === '/lyrics' ? '/' : '/lyrics')
+  }
+
   return (
-    <div className="flex">
+    <div className="ml-auto flex">
       <Button
         tooltip="Now Playing"
         selected={activeComponent === 'NowPlaying'}
@@ -38,7 +42,7 @@ const SidebarNav = () => {
         tooltip="Lyrics"
         selected={pathname === '/lyrics'}
         available
-        onClick={() => router.push('/lyrics')}
+        onClick={toggleLyricsRoute}
       >
         <Button.Icon icon={<TbMicrophone2 size="1.2rem" />} />
         <Indicator selected={pathname === '/lyrics'} />
