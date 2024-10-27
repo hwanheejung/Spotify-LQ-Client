@@ -1,10 +1,12 @@
-import Link from 'next/link'
+import CurrentTrack from './CurrentTrack'
+import Player from './Player'
 import SidebarNav from './SidebarNav'
 
 const PlayingBar = () => {
   return (
-    <div className="w-full bg-gray-300">
-      <Link href="/lyrics">Lyrics</Link>
+    <div className="flex w-full">
+      <CurrentTrack />
+      <Player />
       <SidebarNav />
     </div>
   )
