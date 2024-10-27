@@ -1,5 +1,7 @@
+import NowPlaying from './_components/NowPlaying'
+
 const DefaultSidebar = () => {
-  return <div>Sidebar Default</div>
+  return <NowPlaying />
 }
 
 export default DefaultSidebar
