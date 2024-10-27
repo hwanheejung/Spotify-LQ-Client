@@ -1,6 +1,9 @@
 import type { Metadata } from 'next'
 import localFont from 'next/font/local'
 import '../styles/globals.css'
+import Header from '@/components/Header'
+import PlayingBar from '@/components/PlayingBar'
+import { ReactNode } from 'react'
 
 const GothamBold = localFont({
   src: '../../public/fonts/GothamBold.ttf',
@@ -45,17 +48,29 @@ export const metadata: Metadata = {
     'A Spotify lyrics translation and real-time synchronization tool',
 }
 
+interface RootLayoutProps {
+  main: ReactNode
+  yourLibrary: ReactNode
+  sidebar: ReactNode
+}
+
 export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode
-}>) {
+  main,
+  yourLibrary,
+  sidebar,
+}: Readonly<RootLayoutProps>) {
   return (
     <html lang="en">
       <body
-        className={`${GothamBold.variable} ${GothamBoldItalic.variable} ${GothamBook.variable} ${GothamBookItalic.variable} ${GothamLight.variable} ${GothamLightItalic.variable} ${GothamMedium_1.variable} ${GothamMedium.variable} ${GothamMediumItalic.variable} antialiased`}
+        className={`${GothamBold.variable} ${GothamBoldItalic.variable} ${GothamBook.variable} ${GothamBookItalic.variable} ${GothamLight.variable} ${GothamLightItalic.variable} ${GothamMedium_1.variable} ${GothamMedium.variable} ${GothamMediumItalic.variable} flex h-dvh flex-col antialiased`}
       >
-        {children}
+        <Header />
+        <div className="flex flex-1">
+          <aside>{yourLibrary}</aside>
+          <main className="flex-1 bg-gray-500">{main}</main>
+          <aside>{sidebar}</aside>
+        </div>
+        <PlayingBar />
       </body>
     </html>
   )
