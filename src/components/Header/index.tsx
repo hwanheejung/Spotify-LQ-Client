@@ -1,6 +1,7 @@
 import Home from './Home'
+import LoginBtn from '../Button/LoginBtn'
 import Logo from './Logo'
-import Profile from './Profile'
+// import Profile from './Profile'
 import Search from './Search'
 
 const Header = () => {
@@ -11,7 +12,8 @@ const Header = () => {
         <Home />
         <Search />
       </div>
-      <Profile />
+      <LoginBtn />
+      {/* <Profile /> */}
     </div>
   )
 }
