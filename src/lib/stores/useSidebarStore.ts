@@ -6,9 +6,7 @@ interface SidebarState {
   setActiveComponent: (component: Sidebar) => void
 }
 
-type DefaultSidebar = Exclude<Sidebar, null>
-
 export const useSidebarStore = create<SidebarState>((set) => ({
-  activeComponent: 'NowPlaying' as DefaultSidebar,
+  activeComponent: 'NowPlaying',
   setActiveComponent: (component) => set({ activeComponent: component }),
 }))

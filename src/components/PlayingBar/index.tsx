@@ -4,7 +4,7 @@ import Player from './Player'
 import SidebarNav from './SidebarNav'
 
 const PlayingBar = () => {
-  const authenticated = false
+  const authenticated = true
 
   if (!authenticated) return <LoginBanner />
   return (
