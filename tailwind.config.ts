@@ -45,14 +45,6 @@ const config: Config = {
       '2xl': '52px',
     },
     extend: {
-      fontFamily: {
-        gotham: [
-          'var(--font-gotham-book)',
-          'var(--font-gotham-bold)',
-          'var(--font-gotham-light)',
-          'var(--font-gotham-medium)',
-        ],
-      },
       height: {
         dvh: 'var(--dynamic-vh)',
       },

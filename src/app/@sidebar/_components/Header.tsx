@@ -10,7 +10,7 @@ interface HeaderProps {
 const Header = ({ title }: HeaderProps) => {
   const { setActiveComponent } = useSidebarStore()
   return (
-    <div className="flex items-center justify-between px-3 py-3">
+    <div className="flex items-center justify-between px-4 py-5">
       <p className="font-bold">{title}</p>
       <button onClick={() => setActiveComponent(null)}>
         <LiaTimesSolid size="1.3rem" />
