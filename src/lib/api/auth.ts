@@ -1,5 +1,7 @@
 'use server'
 
+import { User } from '@/types/auth'
+
 const handleResponse = async (res: Response) => {
   const text = await res.text()
 
@@ -28,4 +30,18 @@ export const getSpotifyUrl = async () => {
 
   const data = await handleResponse(res)
   return data.url
+}
+
+export const login = async (code: string): Promise<User> => {
+  const res = await fetch(`${process.env.API_HOST}/api/auth/spotify/callback`, {
+    method: 'POST',
+    body: JSON.stringify({ code }),
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+
+  const data = await handleResponse(res)
+
+  return data
 }
