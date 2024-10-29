@@ -1,7 +1,17 @@
 import type { NextConfig } from 'next'
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  env: {
+    API_HOST: process.env.API_HOST,
+  },
+  async rewrites() {
+    return [
+      {
+        source: '/api/auth/spotify',
+        destination: '/api/auth/spotify',
+      },
+    ]
+  },
 }
 
 export default nextConfig
