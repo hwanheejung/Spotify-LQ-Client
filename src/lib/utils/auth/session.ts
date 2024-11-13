@@ -1,27 +1,22 @@
-import 'server-only'
+import jwt, { JwtPayload } from 'jsonwebtoken'
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
-import jwt, { JwtPayload } from 'jsonwebtoken'
+import 'server-only'
+
+const options = {
+  httpOnly: true,
+  secure: true,
+  sameSite: 'lax' as const,
+  path: '/',
+}
 
 const accessInCookie = {
-  name: 'acceess',
-  options: {
-    httpOnly: true,
-    secure: true,
-    sameSite: 'lax' as const,
-    path: '/',
-  },
+  name: 'access',
   duration: 24 * 60 * 60 * 1000,
 }
 
 const refreshInCookie = {
   name: 'refresh',
-  options: {
-    httpOnly: true,
-    secure: true,
-    sameSite: 'lax' as const,
-    path: '/',
-  },
   duration: 7 * 24 * 60 * 60 * 1000,
 }
 
@@ -29,7 +24,7 @@ interface DecodedToken extends JwtPayload {
   userId: string
 }
 
-const decode = (accessToken: string): DecodedToken | null => {
+export const decode = (accessToken: string): DecodedToken | null => {
   try {
     const decoded = jwt.decode(accessToken) as DecodedToken
     console.log(decoded)
@@ -46,22 +41,22 @@ export const createSession = async (
 ) => {
   const cookieStore = await cookies()
   cookieStore.set(accessInCookie.name, accessToken, {
-    ...accessInCookie.options,
+    ...options,
     expires: new Date(Date.now() + accessInCookie.duration),
   })
   cookieStore.set(refreshInCookie.name, refreshToken, {
-    ...refreshInCookie.options,
+    ...options,
     expires: new Date(Date.now() + refreshInCookie.duration),
   })
 }
 
-export const verifySession = async (): Promise<{ userId: string } | void> => {
+export const verifySession = async (): Promise<{ userId: string } | null> => {
   const cookieStore = await cookies()
   const tokenFromCookie = cookieStore.get(accessInCookie.name)?.value
-  if (!tokenFromCookie) redirect('/login')
+  if (!tokenFromCookie) return null
 
   const session = await decode(tokenFromCookie)
-  if (!session?.userId) redirect('/login')
+  if (!session?.userId) return null
 
   return { userId: session.userId }
 }
@@ -69,5 +64,6 @@ export const verifySession = async (): Promise<{ userId: string } | void> => {
 export const deleteSession = async () => {
   const cookieStore = await cookies()
   cookieStore.delete(accessInCookie.name)
-  redirect('/login')
+  cookieStore.delete(refreshInCookie.name)
+  redirect('/')
 }
