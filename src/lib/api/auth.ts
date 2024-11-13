@@ -1,6 +1,7 @@
 'use server'
 
 import { User } from '@/types/auth'
+import { createSession } from '../utils/auth/session'
 
 const handleResponse = async (res: Response) => {
   const text = await res.text()
@@ -21,7 +22,7 @@ const handleResponse = async (res: Response) => {
 }
 
 export const getSpotifyUrl = async () => {
-  const res = await fetch(`${process.env.API_HOST}/api/auth/spotify-url`, {
+  const res = await fetch(`${process.env.API_HOST}/api/auth/spotify-auth-url`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -33,7 +34,7 @@ export const getSpotifyUrl = async () => {
 }
 
 export const login = async (code: string): Promise<User> => {
-  const res = await fetch(`${process.env.API_HOST}/api/auth/spotify/callback`, {
+  const res = await fetch(`${process.env.API_HOST}/api/auth/spotify-callback`, {
     method: 'POST',
     body: JSON.stringify({ code }),
     headers: {
@@ -41,7 +42,10 @@ export const login = async (code: string): Promise<User> => {
     },
   })
 
-  const data = await handleResponse(res)
+  const data: User = await handleResponse(res)
+  const { accessToken, refreshToken } = data.token
+
+  await createSession(accessToken, refreshToken)
 
   return data
 }

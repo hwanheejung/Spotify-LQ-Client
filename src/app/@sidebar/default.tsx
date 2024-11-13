@@ -8,7 +8,9 @@ import Device from './_components/Device'
 const DefaultSidebar = () => {
   const { activeComponent } = useSidebarStore()
 
-  if (!activeComponent) return null
+  const authenticated = true
+
+  if (!activeComponent || !authenticated) return null
   return (
     <div className="h-full min-w-[250px] rounded-lg bg-gray-700">
       <div>{activeComponent === 'NowPlaying' && <NowPlaying />}</div>
