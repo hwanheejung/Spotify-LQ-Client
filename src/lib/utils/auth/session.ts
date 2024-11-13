@@ -27,7 +27,6 @@ interface DecodedToken extends JwtPayload {
 export const decode = (accessToken: string): DecodedToken | null => {
   try {
     const decoded = jwt.decode(accessToken) as DecodedToken
-    console.log(decoded)
     return decoded
   } catch (error) {
     console.error('Invalid token:', error)
@@ -52,10 +51,10 @@ export const createSession = async (
 
 export const verifySession = async (): Promise<{ userId: string } | null> => {
   const cookieStore = await cookies()
-  const tokenFromCookie = cookieStore.get(accessInCookie.name)?.value
-  if (!tokenFromCookie) return null
+  const accessToken = cookieStore.get(accessInCookie.name)?.value
+  if (!accessToken) return null
 
-  const session = await decode(tokenFromCookie)
+  const session = await decode(accessToken)
   if (!session?.userId) return null
 
   return { userId: session.userId }
