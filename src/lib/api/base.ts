@@ -39,8 +39,9 @@ const fetchApi = async (
     )
 
   const { headers } = res
-  const data = await res.json()
-  return { headers, data }
+  const text = await res.text()
+
+  return { headers, data: text ? JSON.parse(text) : null }
 }
 
 export const get = async (

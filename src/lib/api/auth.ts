@@ -2,7 +2,8 @@
 
 import { User } from '@/types/auth'
 import { cookies } from 'next/headers'
-import { get, post } from './base'
+import { revalidateTag } from 'next/cache'
+import { deleteApi, get, post } from './base'
 import { extractSessionId } from '../utils/auth/extractSessionId'
 
 export const getSpotifyUrl = async () => {
@@ -27,7 +28,16 @@ export const login = async (code: string): Promise<User> => {
   return data.user
 }
 
+export const logout = async () => {
+  await deleteApi('/api/auth/logout')
+  revalidateTag('session')
+}
+
 export const verifySession = async (): Promise<boolean> => {
-  const { data } = await get('/api/auth/status')
+  const { data } = await get('/api/auth/status', {
+    next: {
+      tags: ['session'],
+    },
+  })
   return data.authenticated
 }

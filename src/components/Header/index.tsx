@@ -1,4 +1,5 @@
 import { auth } from '@/lib/utils/auth/auth'
+import { logout } from '@/lib/api/auth'
 import Home from './Home'
 import LoginBtn from '../Button/LoginBtn'
 import Logo from './Logo'
@@ -8,10 +9,10 @@ import Search from './Search'
 const Header = async () => {
   const { isAuthenticated } = await auth()
 
-  const logout = async () => {
+  const signout = async () => {
     'use server'
 
-    // await deleteSession()
+    await logout()
   }
 
   return (
@@ -21,7 +22,7 @@ const Header = async () => {
         <Home />
         <Search />
       </div>
-      {isAuthenticated ? <Profile logout={logout} /> : <LoginBtn />}
+      {isAuthenticated ? <Profile logout={signout} /> : <LoginBtn />}
     </div>
   )
 }
