@@ -3,6 +3,7 @@ import PlayingBar from '@/components/PlayingBar'
 import type { Metadata } from 'next'
 import { ReactNode } from 'react'
 import '../styles/globals.css'
+import { ApolloWrapper } from '@/components/ApolloWrapper'
 
 export const metadata: Metadata = {
   title: 'Spotify',
@@ -24,13 +25,15 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="flex h-dvh flex-col antialiased">
-        <Header />
-        <div className="flex flex-1 gap-3 px-3">
-          <aside>{yourLibrary}</aside>
-          <main className="flex-1">{main}</main>
-          <aside>{sidebar}</aside>
-        </div>
-        <PlayingBar />
+        <ApolloWrapper>
+          <Header />
+          <div className="flex flex-1 gap-3 px-3">
+            <aside>{yourLibrary}</aside>
+            <main className="flex-1">{main}</main>
+            <aside>{sidebar}</aside>
+          </div>
+          <PlayingBar />
+        </ApolloWrapper>
       </body>
     </html>
   )
