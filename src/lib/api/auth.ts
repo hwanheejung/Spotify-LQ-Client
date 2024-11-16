@@ -3,46 +3,31 @@
 import { User } from '@/types/auth'
 import { cookies } from 'next/headers'
 import { get, post } from './base'
+import { extractSessionId } from '../utils/auth/extractSessionId'
 
 export const getSpotifyUrl = async () => {
-  const res = await get(`/api/auth/spotify-auth-url`)
-  return res.url
-}
-
-interface LoginResponse {
-  message: string
-  user: User
+  const { data } = await get(`/api/auth/spotify-auth-url`)
+  return data.url
 }
 
 export const login = async (code: string): Promise<User> => {
-  const res: LoginResponse = await post(`/api/auth/spotify-callback`, {
+  const { data, headers } = await post(`/api/auth/spotify-callback`, {
     body: JSON.stringify({ code }),
   })
 
-  console.log('login', res)
-
-  return res.user
-}
-
-export const check = async () => {
+  const sessionId = extractSessionId(headers.get('set-cookie')!)
   const cookieStore = await cookies()
-
   cookieStore.set({
-    name: 'testing',
-    value: 'hihi',
+    name: 'sessionId',
+    value: sessionId || '',
     httpOnly: true,
-    sameSite: 'lax',
     path: '/',
   })
 
-  console.log('cookieStore', cookieStore.getAll())
-  const sessionId = cookieStore.get('sessionId')?.value
-  console.log('sessionId', sessionId)
+  return data.user
 }
 
 export const verifySession = async (): Promise<boolean> => {
-  const res = await get('/api/auth/status')
-
-  console.log('verifySession', res)
-  return res.authenticated
+  const { data } = await get('/api/auth/status')
+  return data.authenticated
 }

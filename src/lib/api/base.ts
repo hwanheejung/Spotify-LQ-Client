@@ -1,6 +1,7 @@
 'use server'
 
 import { RequestInit } from 'next/dist/server/web/spec-extension/request'
+import { cookies } from 'next/headers'
 
 const ERRORS = {
   FETCH_FAILED: '데이터를 불러오는데 실패했습니다.',
@@ -17,10 +18,14 @@ const fetchApi = async (
   useMocked: boolean,
   errorMessage: string,
 ) => {
+  const cookieStore = await cookies()
+  const sessionId = cookieStore.get('sessionId')?.value
+
   const fetchOptions = {
     ...options,
     headers: {
       'content-type': 'application/json',
+      ...(sessionId ? { Cookie: `sessionId=${sessionId}` } : {}),
       ...options?.headers,
     },
     credentials: 'include' as RequestCredentials,
@@ -32,9 +37,10 @@ const fetchApi = async (
     throw new Error(
       `[ERROR] ${res.status} - ${res.statusText}. ${errorMessage}`,
     )
-  console.log('Response Headers:', res.headers)
 
-  return res.json()
+  const { headers } = res
+  const data = await res.json()
+  return { headers, data }
 }
 
 export const get = async (

@@ -9,7 +9,8 @@
     "format": "prettier --cache --write .",
     "lint": "next lint --cache .",
     "prepare": "husky",
-    "test": "jest --passWithNoTests"
+    "test": "jest --passWithNoTests",
+    "secure": "node server.js"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
