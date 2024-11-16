@@ -1,5 +1,4 @@
 import { auth } from '@/lib/utils/auth/auth'
-import { deleteSession } from '@/lib/utils/auth/session'
 import Home from './Home'
 import LoginBtn from '../Button/LoginBtn'
 import Logo from './Logo'
@@ -12,7 +11,7 @@ const Header = async () => {
   const logout = async () => {
     'use server'
 
-    await deleteSession()
+    // await deleteSession()
   }
 
   return (
