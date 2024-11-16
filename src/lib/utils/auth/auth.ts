@@ -1,4 +1,4 @@
-import { verifySession } from './session'
+import { verifySession } from '@/lib/api/auth'
 
 interface Auth {
   isAuthenticated: boolean

@@ -1,51 +1,48 @@
 'use server'
 
 import { User } from '@/types/auth'
-import { createSession } from '../utils/auth/session'
-
-const handleResponse = async (res: Response) => {
-  const text = await res.text()
-
-  if (!res.ok)
-    throw new Error(
-      `Request failed: ${res.status} - ${res.statusText} - ${text || 'No error message provided'}`,
-    )
-
-  if (!text) throw new Error('No response body')
-
-  try {
-    return JSON.parse(text)
-    /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
-  } catch (error: any) {
-    throw new Error(`Failed to parse JSON: ${error.message}`)
-  }
-}
+import { cookies } from 'next/headers'
+import { get, post } from './base'
 
 export const getSpotifyUrl = async () => {
-  const res = await fetch(`${process.env.API_HOST}/api/auth/spotify-auth-url`, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  })
+  const res = await get(`/api/auth/spotify-auth-url`)
+  return res.url
+}
 
-  const data = await handleResponse(res)
-  return data.url
+interface LoginResponse {
+  message: string
+  user: User
 }
 
 export const login = async (code: string): Promise<User> => {
-  const res = await fetch(`${process.env.API_HOST}/api/auth/spotify-callback`, {
-    method: 'POST',
+  const res: LoginResponse = await post(`/api/auth/spotify-callback`, {
     body: JSON.stringify({ code }),
-    headers: {
-      'Content-Type': 'application/json',
-    },
   })
 
-  const data: User = await handleResponse(res)
-  const { accessToken, refreshToken } = data.token
+  console.log('login', res)
 
-  await createSession(accessToken, refreshToken)
+  return res.user
+}
 
-  return data
+export const check = async () => {
+  const cookieStore = await cookies()
+
+  cookieStore.set({
+    name: 'testing',
+    value: 'hihi',
+    httpOnly: true,
+    sameSite: 'lax',
+    path: '/',
+  })
+
+  console.log('cookieStore', cookieStore.getAll())
+  const sessionId = cookieStore.get('sessionId')?.value
+  console.log('sessionId', sessionId)
+}
+
+export const verifySession = async (): Promise<boolean> => {
+  const res = await get('/api/auth/status')
+
+  console.log('verifySession', res)
+  return res.authenticated
 }

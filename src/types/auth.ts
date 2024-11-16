@@ -8,8 +8,4 @@ export type User = {
   }>
   product: 'premium'
   country: 'KR'
-  token: {
-    accessToken: string
-    refreshToken: string
-  }
 }
