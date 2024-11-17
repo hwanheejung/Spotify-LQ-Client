@@ -1,14 +1,56 @@
+'use client'
+
+import { useYourLibraryStore } from '@/lib/stores/useYourLibraryStore'
+import { GoArrowLeft, GoArrowRight, GoPlus } from 'react-icons/go'
 import { IoLibrarySharp } from 'react-icons/io5'
-import { GoPlus } from 'react-icons/go'
+import { twMerge } from 'tailwind-merge'
+import { FiSearch } from 'react-icons/fi'
+import { MdOutlineFormatListBulleted } from 'react-icons/md'
+
+const OpenedContentsHeader = () => (
+  <div className="mx-3 flex h-10 items-center justify-between border-b-[0.5px] border-gray-300 text-xxs font-bold">
+    <span>Title</span>
+    <span>Date Added</span>
+  </div>
+)
+
+const ClosedContentsHeader = () => (
+  <div className="mx-3 flex h-10 items-center justify-between border-b-[0.5px] border-gray-300 text-xs font-bold">
+    <FiSearch size="1.2rem" />
+    <div className="flex items-center gap-1">
+      <span>Recents</span>
+      <MdOutlineFormatListBulleted size="1.2rem" />
+    </div>
+  </div>
+)
 
 const Header = () => {
+  const { isOpen, setIsOpen } = useYourLibraryStore()
+
   return (
-    <div className="flex items-center justify-between px-3 py-4 text-gray-200">
-      <button className="flex gap-2 hover:text-gray-0">
-        <IoLibrarySharp size="1.4rem" style={{ paddingBottom: 2 }} />
-        <span className="text-md font-bold">Your Library</span>
-      </button>
-      <GoPlus size="1.6rem" />
+    <div
+      className={twMerge(
+        'min-w-[250px] text-gray-200',
+        isOpen ? 'w-[500px]' : '',
+      )}
+    >
+      <div className="flex items-center justify-between px-3 py-4">
+        <button className="flex gap-2 hover:text-gray-0">
+          <IoLibrarySharp size="1.4rem" style={{ paddingBottom: 2 }} />
+          <span className="text-md font-bold">Your Library</span>
+        </button>
+        <div className="mr-3 flex items-center gap-3">
+          <GoPlus size="1.6rem" />
+          <button>
+            {isOpen ? (
+              <GoArrowLeft size="1.5rem" onClick={() => setIsOpen(false)} />
+            ) : (
+              <GoArrowRight size="1.5rem" onClick={() => setIsOpen(true)} />
+            )}
+          </button>
+        </div>
+      </div>
+      {isOpen ? <OpenedContentsHeader /> : <ClosedContentsHeader />}
     </div>
   )
 }

@@ -25,8 +25,8 @@ const config: Config = {
       foreground: 'var(--foreground)',
     },
     fontSize: {
-      xxs: '10px',
-      xs: '12px',
+      xxs: '12px',
+      xs: '14px',
       sm: '16px',
       md: '18px',
       lg: '20px',
