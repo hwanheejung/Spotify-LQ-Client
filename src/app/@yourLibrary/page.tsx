@@ -1,25 +1,16 @@
-// import { getClient } from '@/lib/apollo/ApolloClient'
-// import { GET_USER } from '@/lib/queries/userQuery'
 import { auth } from '@/lib/utils/auth/auth'
-import Header from './_components/Header'
+import Albums from './_components/Albums'
 import CreatePlaylist from './_components/CreatePlaylist'
+import Header from './_components/Header'
 
 const YourLibraryPage = async () => {
-  // const { data } = await getClient().query({ query: GET_USER })
-  // console.log('User data:', data.getUserInfo)
-
   const { isAuthenticated } = await auth()
   return (
-    <div className="h-full min-w-[250px] rounded-lg bg-gray-700">
+    <div className="min-w-[250px] max-w-[400px] overflow-hidden rounded-lg bg-gray-700">
       <Header />
-      {isAuthenticated ? (
-        <div>
-          <h2>Your Library</h2>
-          <p>Playlists, artists, albums, podcasts</p>
-        </div>
-      ) : (
-        <CreatePlaylist />
-      )}
+      <div className="max-h-[calc(100dvh-180px)] overflow-y-scroll">
+        {isAuthenticated ? <Albums /> : <CreatePlaylist />}
+      </div>
     </div>
   )
 }

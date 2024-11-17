@@ -27,10 +27,10 @@ export default function RootLayout({
       <body className="flex h-dvh flex-col antialiased">
         <ApolloWrapper>
           <Header />
-          <div className="flex flex-1 gap-3 px-3">
-            <aside>{yourLibrary}</aside>
+          <div className="flex flex-1 gap-3 overflow-hidden px-3">
+            {yourLibrary}
             <main className="flex-1">{main}</main>
-            <aside>{sidebar}</aside>
+            {sidebar}
           </div>
           <PlayingBar />
         </ApolloWrapper>

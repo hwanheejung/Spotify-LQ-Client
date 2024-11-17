@@ -1,7 +1,8 @@
-import { createServer } from 'https'
-import { parse } from 'url'
-import next from 'next'
-import fs from 'fs'
+/* eslint-disable @typescript-eslint/no-require-imports */
+const { createServer } = require('https')
+const { parse } = require('url')
+const next = require('next')
+const fs = require('fs')
 
 const hostname = 'localhost'
 const port = 3000
