@@ -1,11 +1,4 @@
-import { AlbumItemDTO } from '@/types/albums'
 import { gql } from '@apollo/client'
-
-export type GetSavedAlbumsResponse = {
-  getSavedAlbums: {
-    items: AlbumItemDTO[]
-  }
-}
 
 export const GET_SAVED_ALBUMS = gql`
   query ($offset: Int = 0, $limit: Int = 20) {
@@ -22,6 +15,54 @@ export const GET_SAVED_ALBUMS = gql`
           artists {
             name
           }
+        }
+      }
+    }
+  }
+`
+
+export const GET_ALBUM_TRACKS = gql`
+  query ($albumId: String!) {
+    getAlbumTracks(albumId: $albumId) {
+      items {
+        id
+        name
+        artists {
+          name
+        }
+        duration_ms
+        track_number
+      }
+    }
+  }
+`
+
+export const GET_ALBUM = gql`
+  query ($albumId: String!) {
+    getAlbum(albumId: $albumId) {
+      id
+      name
+      images {
+        url
+        height
+        width
+      }
+      artists {
+        name
+      }
+      album_type
+      total_tracks
+      release_date
+      tracks {
+        total
+        items {
+          id
+          name
+          artists {
+            name
+          }
+          duration_ms
+          track_number
         }
       }
     }

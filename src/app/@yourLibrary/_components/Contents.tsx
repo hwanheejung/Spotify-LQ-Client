@@ -13,7 +13,7 @@ const Contents = async () => {
     <div className="overflow-hidden text-gray-0">
       <div className="flex flex-col overflow-y-scroll">
         {data.getSavedAlbums.items.map((item: AlbumItemDTO) => (
-          <AlbumContainer key={item.album.id}>
+          <AlbumContainer key={item.album.id} id={item.album.id}>
             <Album album={item.album} />
             <DateAdded added_at={item.added_at} />
           </AlbumContainer>
