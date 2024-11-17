@@ -1,4 +1,5 @@
-export type AlbumItem = {
+export type AlbumItemDTO = {
+  added_at: string
   album: {
     id: string
     images: {

@@ -1,16 +1,20 @@
 import { auth } from '@/lib/utils/auth/auth'
-import Albums from './_components/Albums'
+import Contents from './_components/Contents'
 import CreatePlaylist from './_components/CreatePlaylist'
 import Header from './_components/Header'
 
 const YourLibraryPage = async () => {
   const { isAuthenticated } = await auth()
   return (
-    <div className="min-w-[250px] max-w-[400px] overflow-hidden rounded-lg bg-gray-700">
+    <div className="overflow-hidden rounded-lg bg-gray-700">
       <Header />
-      <div className="max-h-[calc(100dvh-180px)] overflow-y-scroll">
-        {isAuthenticated ? <Albums /> : <CreatePlaylist />}
-      </div>
+      {isAuthenticated ? (
+        <div className="max-h-[calc(100dvh-200px)] overflow-y-scroll">
+          <Contents />
+        </div>
+      ) : (
+        <CreatePlaylist />
+      )}
     </div>
   )
 }
