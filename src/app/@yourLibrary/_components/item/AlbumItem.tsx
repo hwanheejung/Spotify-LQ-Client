@@ -5,6 +5,7 @@ import { capitalizeFirstLetter } from '@/lib/utils/capitalizeFirstLetter'
 import { getTimeAgo } from '@/lib/utils/getTimeAgo'
 import { AlbumItemDTO } from '@/types/albums'
 import Image from 'next/image'
+import Link from 'next/link'
 import { ReactNode } from 'react'
 
 export const DateAdded = ({ added_at }: Pick<AlbumItemDTO, 'added_at'>) => {
@@ -18,6 +19,7 @@ export const DateAdded = ({ added_at }: Pick<AlbumItemDTO, 'added_at'>) => {
 
 export const Album = ({ album }: Pick<AlbumItemDTO, 'album'>) => {
   const { isOpen } = useYourLibraryStore()
+
   return (
     <div className="flex cursor-pointer items-center gap-4 rounded-md">
       <Image
@@ -29,7 +31,7 @@ export const Album = ({ album }: Pick<AlbumItemDTO, 'album'>) => {
       />
       <div>
         <div
-          className={`${isOpen ? 'w-[200px]' : 'w-[250px]'} overflow-hidden text-ellipsis whitespace-nowrap`}
+          className={`${isOpen ? 'w-[300px]' : 'w-[250px]'} overflow-hidden text-ellipsis whitespace-nowrap`}
         >
           {album.name}
         </div>
@@ -46,16 +48,21 @@ export const Album = ({ album }: Pick<AlbumItemDTO, 'album'>) => {
 const AlbumContainer = ({
   children,
   key,
+  id,
 }: {
   children: ReactNode
   key: string
-}) => (
-  <div
-    key={key}
-    className="flex items-center justify-between gap-5 px-3 py-3 hover:bg-gray-300"
-  >
-    {children}
-  </div>
-)
+  id: string
+}) => {
+  return (
+    <Link
+      href={`/album/${id}`}
+      key={key}
+      className="flex items-center justify-between gap-5 px-3 py-3 hover:bg-gray-300"
+    >
+      {children}
+    </Link>
+  )
+}
 
 export default AlbumContainer

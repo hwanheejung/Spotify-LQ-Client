@@ -29,7 +29,7 @@ export default function RootLayout({
           <Header />
           <div className="flex flex-1 gap-3 overflow-hidden px-3">
             {yourLibrary}
-            <main className="flex-1">{main}</main>
+            <main className="flex-1 overflow-y-scroll">{main}</main>
             {sidebar}
           </div>
           <PlayingBar />

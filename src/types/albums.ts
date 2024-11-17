@@ -12,3 +12,13 @@ export type AlbumItemDTO = {
     }[]
   }
 }
+
+export type AlbumTrackDTO = {
+  id: string
+  name: string
+  artists: {
+    name: string
+  }[]
+  duration_ms: number
+  track_number: number
+}
