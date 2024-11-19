@@ -2,6 +2,7 @@ import { capitalizeFirstLetter } from '@/lib/utils/capitalizeFirstLetter'
 import { parseDate } from '@/lib/utils/parseDate'
 import { AlbumDTO } from '@/types/albums'
 import Image from 'next/image'
+import Link from 'next/link'
 
 const AlbumOverview = ({
   name,
@@ -29,9 +30,15 @@ const AlbumOverview = ({
           <p className="text-sm">{capitalizeFirstLetter(album_type)}</p>
           <h1 className="text-4xl font-extrabold">{name}</h1>
           <p className="text-xs text-gray-200">
-            <span className="font-bold text-gray-0">
-              {artists.map((artist) => artist.name).join(', ')}
-            </span>{' '}
+            {artists.map((artist) => (
+              <Link
+                key={artist.id}
+                href={`/artist/${artist.id}`}
+                className="font-bold text-gray-0 hover:underline"
+              >
+                {artist.name}
+              </Link>
+            ))}
             • {year} • {total_tracks} songs
           </p>
         </div>

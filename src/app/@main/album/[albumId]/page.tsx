@@ -1,5 +1,5 @@
 import { getClient } from '@/lib/apollo/ApolloClient'
-import { GET_ALBUM } from '@/lib/queries/albumQuery'
+import { GET_ALBUM } from '@/lib/queries/albumsQuery'
 import { AlbumDTO, AlbumTrackDTO } from '@/types/albums'
 import TrackItem from './_components/TrackItem'
 import AlbumOverview from './_components/AlbumOverview'

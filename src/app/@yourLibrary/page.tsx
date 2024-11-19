@@ -9,7 +9,7 @@ const YourLibraryPage = async () => {
     <div className="overflow-hidden rounded-lg bg-gray-700">
       <Header />
       {isAuthenticated ? (
-        <div className="max-h-[calc(100dvh-230px)] overflow-y-scroll">
+        <div className="max-h-[calc(100dvh-230px)] overflow-y-scroll scrollbar-hide">
           <Contents />
         </div>
       ) : (

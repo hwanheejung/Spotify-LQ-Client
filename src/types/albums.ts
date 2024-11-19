@@ -32,6 +32,7 @@ export type AlbumDTO = {
     width: number
   }[]
   artists: {
+    id: string
     name: string
   }[]
   album_type: string
