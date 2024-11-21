@@ -1,21 +1,21 @@
+'use client'
+
+import { GET_ALBUM } from '@/lib/queries/albumsQuery'
 import { capitalizeFirstLetter } from '@/lib/utils/capitalizeFirstLetter'
 import { parseDate } from '@/lib/utils/parseDate'
 import { AlbumDTO } from '@/types/albums'
+import { useSuspenseQuery } from '@apollo/client'
 import Image from 'next/image'
 import Link from 'next/link'
 
-const AlbumOverview = ({
-  name,
-  images,
-  artists,
-  album_type,
-  total_tracks,
-  release_date,
-}: Pick<
-  AlbumDTO,
-  'name' | 'images' | 'artists' | 'album_type' | 'total_tracks' | 'release_date'
->) => {
+const AlbumOverview = ({ albumId }: { albumId: string }) => {
+  const { data } = useSuspenseQuery<{ getAlbum: AlbumDTO }>(GET_ALBUM, {
+    variables: { albumId },
+  })
+  const { name, images, artists, album_type, total_tracks, release_date } =
+    data.getAlbum
   const { year } = parseDate(release_date)
+
   return (
     <div className="px-5 pb-7 pt-10">
       <div className="flex items-end gap-5">
