@@ -1,3 +1,5 @@
+/* eslint-disable global-require */
+/* eslint-disable @typescript-eslint/no-require-imports */
 import type { Config } from 'tailwindcss'
 
 const config: Config = {
@@ -34,6 +36,7 @@ const config: Config = {
       '2xl': '28px',
       '3xl': '32px',
       '4xl': '36px',
+      '5xl': '80px',
     },
     lineHeights: {
       xxs: '12px',
@@ -53,6 +56,6 @@ const config: Config = {
       },
     },
   },
-  plugins: [],
+  plugins: [require('tailwind-scrollbar-hide')],
 }
 export default config

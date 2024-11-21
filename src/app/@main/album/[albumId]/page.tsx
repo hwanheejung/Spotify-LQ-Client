@@ -1,8 +1,9 @@
-import { getClient } from '@/lib/apollo/ApolloClient'
-import { GET_ALBUM } from '@/lib/queries/albumQuery'
-import { AlbumDTO, AlbumTrackDTO } from '@/types/albums'
-import TrackItem from './_components/TrackItem'
-import AlbumOverview from './_components/AlbumOverview'
+import { PreloadQuery } from '@/lib/apollo/ApolloClient'
+import { GET_ALBUM } from '@/lib/queries/albumsQuery'
+import { Suspense, lazy } from 'react'
+
+const AlbumOverview = lazy(() => import('./_components/AlbumOverview'))
+const Tracks = lazy(() => import('./_components/Tracks'))
 
 interface AlbumPageProps {
   params: {
@@ -12,26 +13,17 @@ interface AlbumPageProps {
 
 const AlbumPage = async ({ params }: AlbumPageProps) => {
   const { albumId } = await params
-  const { data } = await getClient().query({
-    query: GET_ALBUM,
-    variables: { albumId },
-  })
-
-  const album = data.getAlbum as AlbumDTO
 
   return (
     <div>
-      <AlbumOverview
-        name={album.name}
-        images={album.images}
-        artists={album.artists}
-        album_type={album.album_type}
-        total_tracks={album.total_tracks}
-        release_date={album.release_date}
-      />
-      {album.tracks.items.map((track: AlbumTrackDTO) => (
-        <TrackItem key={track.id} track={track} />
-      ))}
+      <PreloadQuery query={GET_ALBUM} variables={{ albumId }}>
+        <Suspense fallback={<div>Loading...</div>}>
+          <AlbumOverview albumId={albumId} />
+        </Suspense>
+        <Suspense fallback={<div>Loading...</div>}>
+          <Tracks albumId={albumId} />
+        </Suspense>
+      </PreloadQuery>
     </div>
   )
 }

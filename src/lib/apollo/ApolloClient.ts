@@ -21,6 +21,7 @@ const cookieLink = setContext(async (_, { headers }) => {
 const httpLink = new HttpLink({
   uri: `${process.env.API_HOST}/graphql`,
   credentials: 'include',
+  fetchOptions: { cache: 'force-cache' },
 })
 
 const link = ApolloLink.from([cookieLink.concat(httpLink)])

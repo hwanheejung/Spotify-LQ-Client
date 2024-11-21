@@ -48,6 +48,7 @@ export const GET_ALBUM = gql`
         width
       }
       artists {
+        id
         name
       }
       album_type
