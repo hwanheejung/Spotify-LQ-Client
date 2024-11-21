@@ -1,11 +1,15 @@
-import commaizeNumber from '@/lib/utils/commaizeNumber'
-import { ArtistDTO } from '@/types/artists'
+'use client'
 
-const ProfileHeader = ({
-  name,
-  images,
-  followers,
-}: Pick<ArtistDTO, 'name' | 'images' | 'followers'>) => {
+import { GET_ARTIST } from '@/lib/queries/artistsQuery'
+import { ArtistDTO } from '@/types/artists'
+import { useSuspenseQuery } from '@apollo/client'
+
+const ProfileHeader = ({ artistId }: { artistId: string }) => {
+  const { data } = useSuspenseQuery<{ getArtist: ArtistDTO }>(GET_ARTIST, {
+    variables: { artistId },
+  })
+  const { name, followers, images } = data.getArtist
+
   return (
     <div
       className="relative flex h-80 w-full flex-col justify-end bg-cover bg-center p-5"
@@ -16,7 +20,7 @@ const ProfileHeader = ({
     >
       <div className="absolute left-0 top-0 h-full w-full bg-gradient-to-b from-transparent to-gray-900/90" />
       <div className="z-10 text-5xl font-extrabold">{name}</div>
-      <div className="z-10">{commaizeNumber(followers.total)} followers</div>
+      <div className="z-10">{followers.total} followers</div>
     </div>
   )
 }
