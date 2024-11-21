@@ -28,6 +28,7 @@ const fetchApi = async (
       ...(sessionId ? { Cookie: `sessionId=${sessionId}` } : {}),
       ...options?.headers,
     },
+    cache: 'force-cache' as RequestCache,
     credentials: 'include' as RequestCredentials,
   }
 
