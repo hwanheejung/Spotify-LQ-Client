@@ -11,13 +11,13 @@ const Tooltip = ({
   label,
   placement,
   isDisabled,
-  distance,
+  spacing,
 }: TooltipProps & { children: ReactNode }) => {
   const { isOpen, getTriggerProps, getTooltipProps } = useTooltip({
     label,
     placement,
     isDisabled,
-    distance,
+    spacing,
   })
 
   return (
@@ -26,7 +26,7 @@ const Tooltip = ({
 
       {ReactDOM.createPortal(
         <motion.div
-          className="rounded bg-gray-500 px-2 py-1 text-xs text-gray-0"
+          className="rounded bg-gray-400 px-2 py-1 text-xs text-gray-0"
           {...getTooltipProps()}
           variants={tooltipVariants}
           initial="initial"

@@ -30,7 +30,7 @@ const SidebarNav = () => {
 
   return (
     <div className="ml-auto flex">
-      <Tooltip label="Now playing view" distance={20}>
+      <Tooltip label="Now playing view" spacing={20}>
         <Button
           tooltip="Now Playing"
           selected={activeComponent === 'NowPlaying'}
@@ -41,7 +41,7 @@ const SidebarNav = () => {
           <Indicator selected={activeComponent === 'NowPlaying'} />
         </Button>
       </Tooltip>
-      <Tooltip label="Lyrics" distance={20}>
+      <Tooltip label="Lyrics" spacing={20}>
         <Button
           tooltip="Lyrics"
           selected={pathname === '/lyrics'}
@@ -52,7 +52,7 @@ const SidebarNav = () => {
           <Indicator selected={pathname === '/lyrics'} />
         </Button>
       </Tooltip>
-      <Tooltip label="Queue" distance={20}>
+      <Tooltip label="Queue" spacing={20}>
         <Button
           tooltip="Queue"
           selected={activeComponent === 'Queue'}
@@ -63,7 +63,7 @@ const SidebarNav = () => {
           <Indicator selected={activeComponent === 'Queue'} />
         </Button>
       </Tooltip>
-      <Tooltip label="Connect to a device" distance={20} placement="top-end">
+      <Tooltip label="Connect to a device" spacing={20} placement="top-end">
         <Button
           tooltip="Connect to a device"
           selected={activeComponent === 'Device'}

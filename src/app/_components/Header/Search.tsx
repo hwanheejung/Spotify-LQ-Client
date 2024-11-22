@@ -13,7 +13,7 @@ const Search = () => {
   return (
     <Link
       href="/search"
-      className="flex h-10 min-w-[500px] items-center justify-between rounded-full bg-gray-300 px-3 text-gray-200"
+      className="flex h-10 min-w-[500px] items-center justify-between rounded-full bg-gray-500 px-3 text-gray-200"
     >
       <FiSearch size="1.5rem" />
       <input

@@ -27,19 +27,19 @@ export interface TooltipProps {
   label: string
   placement?: Placement
   isDisabled?: boolean
-  distance?: number
+  spacing?: number
 }
 
 const DEFAULT: Required<Omit<TooltipProps, 'label'>> = {
   placement: 'top',
   isDisabled: false,
-  distance: 6,
+  spacing: 6,
 }
 
 const useTooltip = ({
   placement = DEFAULT.placement,
   isDisabled = DEFAULT.isDisabled,
-  distance = DEFAULT.distance,
+  spacing = DEFAULT.spacing,
 }: TooltipProps) => {
   const [isOpen, setIsOpen] = useState(false)
   const triggerRef = useRef<HTMLElement | null>(null)
@@ -61,57 +61,57 @@ const useTooltip = ({
 
     const offsets: Record<Placement, CSSProperties> = {
       'top-start': {
-        top: triggerRect.top - tooltipRect.height - distance,
+        top: triggerRect.top - tooltipRect.height - spacing,
         left: triggerRect.left,
       },
       top: {
-        top: triggerRect.top - tooltipRect.height - distance,
+        top: triggerRect.top - tooltipRect.height - spacing,
         left: triggerRect.left + triggerRect.width / 2 - tooltipRect.width / 2,
       },
       'top-end': {
-        top: triggerRect.top - tooltipRect.height - distance,
+        top: triggerRect.top - tooltipRect.height - spacing,
         left: triggerRect.right - tooltipRect.width,
       },
       'bottom-start': {
-        top: triggerRect.bottom + distance,
+        top: triggerRect.bottom + spacing,
         left: triggerRect.left,
       },
       bottom: {
-        top: triggerRect.bottom + distance,
+        top: triggerRect.bottom + spacing,
         left: triggerRect.left + triggerRect.width / 2 - tooltipRect.width / 2,
       },
       'bottom-end': {
-        top: triggerRect.bottom + distance,
+        top: triggerRect.bottom + spacing,
         left: triggerRect.right - tooltipRect.width,
       },
       'left-start': {
         top: triggerRect.top,
-        left: triggerRect.left - tooltipRect.width - distance,
+        left: triggerRect.left - tooltipRect.width - spacing,
       },
       left: {
         top: triggerRect.top + triggerRect.height / 2 - tooltipRect.height / 2,
-        left: triggerRect.left - tooltipRect.width - distance,
+        left: triggerRect.left - tooltipRect.width - spacing,
       },
       'left-end': {
         top: triggerRect.bottom - tooltipRect.height,
-        left: triggerRect.left - tooltipRect.width - distance,
+        left: triggerRect.left - tooltipRect.width - spacing,
       },
       'right-start': {
         top: triggerRect.top,
-        left: triggerRect.right + distance,
+        left: triggerRect.right + spacing,
       },
       right: {
         top: triggerRect.top + triggerRect.height / 2 - tooltipRect.height / 2,
-        left: triggerRect.right + distance,
+        left: triggerRect.right + spacing,
       },
       'right-end': {
         top: triggerRect.bottom - tooltipRect.height,
-        left: triggerRect.right + distance,
+        left: triggerRect.right + spacing,
       },
     }
 
     return offsets[placement]
-  }, [placement, distance])
+  }, [placement, spacing])
 
   const getTriggerProps = () => ({
     ref: triggerRef,
