@@ -1,5 +1,5 @@
-import Header from '@/components/Header'
-import PlayingBar from '@/components/PlayingBar'
+import Header from '@/app/_components/Header'
+import PlayingBar from '@/app/_components/PlayingBar'
 import type { Metadata } from 'next'
 import { ReactNode } from 'react'
 import '../styles/globals.css'

@@ -1,11 +1,12 @@
 'use client'
 
+import Tooltip from '@/components/Tooltip'
 import { useYourLibraryStore } from '@/lib/stores/useYourLibraryStore'
+import { FiSearch } from 'react-icons/fi'
 import { GoArrowLeft, GoArrowRight, GoPlus } from 'react-icons/go'
 import { IoLibrarySharp } from 'react-icons/io5'
-import { twMerge } from 'tailwind-merge'
-import { FiSearch } from 'react-icons/fi'
 import { MdOutlineFormatListBulleted } from 'react-icons/md'
+import { twMerge } from 'tailwind-merge'
 
 const OpenedContentsHeader = () => (
   <div className="mx-3 flex h-10 items-center justify-between border-b-[0.5px] border-gray-300 text-xxs font-bold">
@@ -43,9 +44,13 @@ const Header = () => {
           <GoPlus size="1.6rem" />
           <button>
             {isOpen ? (
-              <GoArrowLeft size="1.5rem" onClick={() => setIsOpen(false)} />
+              <Tooltip label="Show More" placement="top">
+                <GoArrowLeft size="1.5rem" onClick={() => setIsOpen(false)} />
+              </Tooltip>
             ) : (
-              <GoArrowRight size="1.5rem" onClick={() => setIsOpen(true)} />
+              <Tooltip label="Show More" placement="top">
+                <GoArrowRight size="1.5rem" onClick={() => setIsOpen(true)} />
+              </Tooltip>
             )}
           </button>
         </div>

@@ -7,7 +7,7 @@ import { HiOutlineDeviceMobile } from 'react-icons/hi'
 import { HiOutlineQueueList } from 'react-icons/hi2'
 import { TbMicrophone2 } from 'react-icons/tb'
 import { twMerge } from 'tailwind-merge'
-import Button from '../Button'
+import Button from '../../../components/Button'
 
 const Indicator = ({ selected }: { selected: boolean }) => (
   <div

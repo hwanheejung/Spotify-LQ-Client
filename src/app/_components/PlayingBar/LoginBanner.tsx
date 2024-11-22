@@ -1,4 +1,4 @@
-import LoginBtn from '../Button/LoginBtn'
+import LoginBtn from '../../../components/Button/LoginBtn'
 
 const LoginBanner = () => {
   return (
