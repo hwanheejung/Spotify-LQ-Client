@@ -1,22 +1,32 @@
 'use client'
 
+import { Tooltip, TooltipOptions } from '@/components/Tooltip'
 import { useSidebarStore } from '@/lib/stores/useSidebarStore'
 import { usePathname, useRouter } from 'next/navigation'
 import { AiOutlinePlaySquare } from 'react-icons/ai'
 import { HiOutlineDeviceMobile } from 'react-icons/hi'
 import { HiOutlineQueueList } from 'react-icons/hi2'
 import { TbMicrophone2 } from 'react-icons/tb'
-import { twMerge } from 'tailwind-merge'
-import { Tooltip } from '@/components/Tooltip'
-import Button from '../../../components/Button'
+import { ReactNode } from 'react'
+import Button from './IconButton'
 
-const Indicator = ({ selected }: { selected: boolean }) => (
-  <div
-    className={twMerge(
-      'mx-auto mt-0.5 h-1 w-1 rounded-full',
-      selected ? 'bg-spotifyGreen' : '',
-    )}
-  />
+interface SidebarNavItemProps extends Pick<TooltipOptions, 'placement'> {
+  label: string
+  selected: boolean
+  onClick: () => void
+  icon: ReactNode
+}
+
+const SidebarNavItem = ({
+  label,
+  selected,
+  onClick,
+  icon,
+  placement = 'top',
+}: SidebarNavItemProps) => (
+  <Tooltip label={label} spacing={20} placement={placement}>
+    <Button selected={selected} onClick={onClick} icon={icon} />
+  </Tooltip>
 )
 
 const SidebarNav = () => {
@@ -24,56 +34,39 @@ const SidebarNav = () => {
   const router = useRouter()
   const pathname = usePathname()
 
-  const toggleLyricsRoute = () => {
-    router.push(pathname === '/lyrics' ? '/' : '/lyrics')
-  }
+  const navItems = [
+    {
+      label: 'Now playing view',
+      selected: activeComponent === 'NowPlaying',
+      onClick: () => setActiveComponent('NowPlaying'),
+      icon: <AiOutlinePlaySquare size="1.2rem" />,
+    },
+    {
+      label: 'Lyrics',
+      selected: pathname === '/lyrics',
+      onClick: () => router.push(pathname === '/lyrics' ? '/' : '/lyrics'),
+      icon: <TbMicrophone2 size="1.2rem" />,
+    },
+    {
+      label: 'Queue',
+      selected: activeComponent === 'Queue',
+      onClick: () => setActiveComponent('Queue'),
+      icon: <HiOutlineQueueList size="1.2rem" />,
+    },
+    {
+      label: 'Connect to a device',
+      selected: activeComponent === 'Device',
+      onClick: () => setActiveComponent('Device'),
+      icon: <HiOutlineDeviceMobile size="1.2rem" />,
+      tooltipPlacement: 'top-end',
+    },
+  ]
 
   return (
     <div className="ml-auto flex">
-      <Tooltip label="Now playing view" spacing={20}>
-        <Button
-          tooltip="Now Playing"
-          selected={activeComponent === 'NowPlaying'}
-          available
-          onClick={() => setActiveComponent('NowPlaying')}
-        >
-          <Button.Icon icon={<AiOutlinePlaySquare size="1.2rem" />} />
-          <Indicator selected={activeComponent === 'NowPlaying'} />
-        </Button>
-      </Tooltip>
-      <Tooltip label="Lyrics" spacing={20}>
-        <Button
-          tooltip="Lyrics"
-          selected={pathname === '/lyrics'}
-          available
-          onClick={toggleLyricsRoute}
-        >
-          <Button.Icon icon={<TbMicrophone2 size="1.2rem" />} />
-          <Indicator selected={pathname === '/lyrics'} />
-        </Button>
-      </Tooltip>
-      <Tooltip label="Queue" spacing={20}>
-        <Button
-          tooltip="Queue"
-          selected={activeComponent === 'Queue'}
-          available
-          onClick={() => setActiveComponent('Queue')}
-        >
-          <Button.Icon icon={<HiOutlineQueueList size="1.2rem" />} />
-          <Indicator selected={activeComponent === 'Queue'} />
-        </Button>
-      </Tooltip>
-      <Tooltip label="Connect to a device" spacing={20} placement="top-end">
-        <Button
-          tooltip="Connect to a device"
-          selected={activeComponent === 'Device'}
-          available
-          onClick={() => setActiveComponent('Device')}
-        >
-          <Button.Icon icon={<HiOutlineDeviceMobile size="1.2rem" />} />
-          <Indicator selected={activeComponent === 'Device'} />
-        </Button>
-      </Tooltip>
+      {navItems.map((item) => (
+        <SidebarNavItem key={item.label} {...item} />
+      ))}
     </div>
   )
 }

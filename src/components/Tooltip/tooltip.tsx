@@ -2,16 +2,23 @@
 
 'use client'
 
-import { ReactNode, useCallback, useRef, useState } from 'react'
+import { HTMLAttributes, ReactNode, useCallback, useRef, useState } from 'react'
 import TooltipPopper from './tooltip-popper'
 import { TooltipOptions } from './types'
 
 export interface TooltipProps extends TooltipOptions {
   children: ReactNode
+  className?: HTMLAttributes<HTMLSpanElement>['className']
 }
 
 const Tooltip = (props: TooltipProps) => {
-  const { children, label, placement = 'top', spacing = 6 } = props
+  const {
+    children,
+    label,
+    placement = 'top',
+    spacing = 6,
+    className = '',
+  } = props
 
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const triggerRef = useRef<HTMLElement | null>(null)
@@ -31,6 +38,7 @@ const Tooltip = (props: TooltipProps) => {
           event.stopPropagation()
           closeTooltip()
         }}
+        className={className}
       >
         {children}
       </span>

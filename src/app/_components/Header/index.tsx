@@ -1,7 +1,7 @@
 import { auth } from '@/lib/utils/auth/auth'
 import { logout } from '@/lib/api/auth'
 import Home from './Home'
-import LoginBtn from '../../../components/Button/LoginBtn'
+import LoginBtn from '../Button/LoginBtn'
 import Logo from './Logo'
 import Profile from './Profile'
 import Search from './Search'
