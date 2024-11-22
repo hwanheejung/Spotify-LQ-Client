@@ -1,36 +1,18 @@
-import {
-  CSSProperties,
-  useCallback,
-  useLayoutEffect,
-  useRef,
-  useState,
-} from 'react'
+import { Placement } from '@/lib/hooks/usePopper'
+import { MotionStyle } from 'framer-motion'
+import { CSSProperties, useCallback, useRef, useState } from 'react'
+import { TooltipOptions } from './types'
 
-export type Placement =
-  | 'top-start'
-  | 'top'
-  | 'top-end'
-  | 'right-start'
-  | 'right'
-  | 'right-end'
-  | 'bottom-start'
-  | 'bottom'
-  | 'bottom-end'
-  | 'left-start'
-  | 'left'
-  | 'left-end'
-
-interface UsePopperOptions {
-  placement: Placement
-  spacing?: number
+interface UseTooltipPositionProps
+  extends Required<Omit<TooltipOptions, 'label'>> {
+  triggerRef: React.RefObject<HTMLElement | null>
 }
 
-const usePopper = (options: UsePopperOptions) => {
-  const { placement, spacing = 6 } = options
+const useTooltipPosition = (props: UseTooltipPositionProps) => {
+  const { placement, spacing, triggerRef } = props
 
-  const triggerRef = useRef<HTMLElement | null>(null)
   const popperRef = useRef<HTMLDivElement | null>(null)
-  const [styles, setStyles] = useState<CSSProperties>({})
+  const [style, setStyle] = useState<MotionStyle>({})
 
   const calculatePosition = useCallback(() => {
     const trigger = triggerRef.current
@@ -92,30 +74,10 @@ const usePopper = (options: UsePopperOptions) => {
       },
     }
 
-    const calculatedStyle = {
-      position: 'absolute',
-      ...offsets[placement],
-    } as CSSProperties
+    setStyle(offsets[placement])
+  }, [placement, spacing, triggerRef])
 
-    setStyles(calculatedStyle)
-  }, [placement, spacing])
-
-  useLayoutEffect(() => {
-    calculatePosition()
-
-    const handleResize = () => calculatePosition()
-    window.addEventListener('resize', handleResize)
-
-    return () => {
-      window.removeEventListener('resize', handleResize)
-    }
-  }, [calculatePosition])
-
-  return {
-    triggerRef,
-    popperRef,
-    styles,
-  }
+  return { style, popperRef, calculatePosition }
 }
 
-export default usePopper
+export default useTooltipPosition

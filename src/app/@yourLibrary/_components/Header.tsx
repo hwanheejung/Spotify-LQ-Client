@@ -1,6 +1,6 @@
 'use client'
 
-import Tooltip from '@/components/Tooltip'
+import { Tooltip } from '@/components/Tooltip'
 import { useYourLibraryStore } from '@/lib/stores/useYourLibraryStore'
 import { FiSearch } from 'react-icons/fi'
 import { GoArrowLeft, GoArrowRight } from 'react-icons/go'
