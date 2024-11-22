@@ -6,17 +6,11 @@ import ReactDOM from 'react-dom'
 import useTooltip, { TooltipProps } from './use-tooltip'
 import { tooltipVariants } from './tooltip.transition'
 
-const Tooltip = ({
-  children,
-  label,
-  placement,
-  isDisabled,
-  spacing,
-}: TooltipProps & { children: ReactNode }) => {
+const Tooltip = (props: TooltipProps & { children: ReactNode }) => {
+  const { children, label, placement, spacing } = props
   const { isOpen, getTriggerProps, getTooltipProps } = useTooltip({
     label,
     placement,
-    isDisabled,
     spacing,
   })
 
