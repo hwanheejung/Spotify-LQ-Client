@@ -1,18 +1,24 @@
-import { Placement } from '@/lib/hooks/usePopper'
 import { MotionStyle } from 'framer-motion'
-import { CSSProperties, useCallback, useRef, useState } from 'react'
-import { TooltipOptions } from './types'
+import {
+  CSSProperties,
+  useCallback,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from 'react'
+import { Placement, TooltipOptions } from './types'
 
 interface UseTooltipPositionProps
   extends Required<Omit<TooltipOptions, 'label'>> {
   triggerRef: React.RefObject<HTMLElement | null>
+  isOpen: boolean
 }
 
 const useTooltipPosition = (props: UseTooltipPositionProps) => {
-  const { placement, spacing, triggerRef } = props
+  const { placement, spacing, triggerRef, isOpen } = props
 
   const popperRef = useRef<HTMLDivElement | null>(null)
-  const [style, setStyle] = useState<MotionStyle>({})
+  const [styles, setStyles] = useState<MotionStyle>({})
 
   const calculatePosition = useCallback(() => {
     const trigger = triggerRef.current
@@ -74,10 +80,22 @@ const useTooltipPosition = (props: UseTooltipPositionProps) => {
       },
     }
 
-    setStyle(offsets[placement])
-  }, [placement, spacing, triggerRef])
+    setStyles(offsets[placement])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [placement, spacing, triggerRef, popperRef, isOpen])
 
-  return { style, popperRef, calculatePosition }
+  useLayoutEffect(() => {
+    calculatePosition()
+
+    const handleResize = () => calculatePosition()
+    window.addEventListener('resize', handleResize)
+
+    return () => {
+      window.removeEventListener('resize', handleResize)
+    }
+  }, [calculatePosition])
+
+  return { styles, popperRef, calculatePosition }
 }
 
 export default useTooltipPosition

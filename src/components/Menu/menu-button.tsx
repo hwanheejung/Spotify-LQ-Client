@@ -8,10 +8,18 @@ interface MenuButtonProps extends ComponentPropsWithoutRef<'button'> {
 
 const MenuButton = (props: MenuButtonProps) => {
   const { children, as: Component = 'button', ...rest } = props
-  const { toggleMenu } = useMenuStore()
+  const { toggleMenu, triggerRef, isOpen, closeMenu } = useMenuStore()
 
   return (
-    <Component onClick={toggleMenu} {...rest}>
+    <Component
+      ref={triggerRef}
+      onClick={toggleMenu}
+      onBlur={closeMenu}
+      aria-haspopup
+      aria-expanded={isOpen}
+      aria-describedby={isOpen ? 'menu' : undefined}
+      {...rest}
+    >
       {children}
     </Component>
   )

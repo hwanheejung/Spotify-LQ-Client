@@ -1,9 +1,8 @@
 import { motion } from 'framer-motion'
-import { useLayoutEffect } from 'react'
 import ReactDOM from 'react-dom'
 import { tooltipVariants } from './transition'
 import { TooltipOptions } from './types'
-import useTooltipPosition from './use-tooltip-position'
+import useTooltipPosition from './use-position'
 
 export interface TooltipPopperProps extends Required<TooltipOptions> {
   isOpen: boolean
@@ -13,22 +12,12 @@ export interface TooltipPopperProps extends Required<TooltipOptions> {
 const TooltipPopper = (props: TooltipPopperProps) => {
   const { placement, spacing, triggerRef, label, isOpen } = props
 
-  const { style, calculatePosition, popperRef } = useTooltipPosition({
+  const { styles, popperRef } = useTooltipPosition({
     placement,
     spacing,
     triggerRef,
+    isOpen,
   })
-
-  useLayoutEffect(() => {
-    calculatePosition()
-
-    const handleResize = () => calculatePosition()
-    window.addEventListener('resize', handleResize)
-
-    return () => {
-      window.removeEventListener('resize', handleResize)
-    }
-  }, [calculatePosition])
 
   if (!isOpen) return null
 
@@ -40,7 +29,7 @@ const TooltipPopper = (props: TooltipPopperProps) => {
       initial="initial"
       animate={isOpen ? 'animate' : 'exit'}
       exit="exit"
-      style={{ ...style, zIndex: 1000 }}
+      style={{ ...styles }}
     >
       {label}
     </motion.div>,

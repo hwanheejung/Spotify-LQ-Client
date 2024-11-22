@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+
 'use client'
 
 import { ReactNode, useCallback, useRef, useState } from 'react'
@@ -25,6 +27,10 @@ const Tooltip = (props: TooltipProps) => {
         onMouseLeave={closeTooltip}
         onFocus={openTooltip}
         onBlur={closeTooltip}
+        onClick={(event) => {
+          event.stopPropagation()
+          closeTooltip()
+        }}
       >
         {children}
       </span>

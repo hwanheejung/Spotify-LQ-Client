@@ -6,7 +6,7 @@ import { TbMusicPlus } from 'react-icons/tb'
 
 const CreateButton = () => {
   return (
-    <Menu>
+    <Menu placement="bottom-end">
       <Tooltip label="Create playlist or folder">
         <MenuButton as="button">
           <GoPlus size="1.6rem" />
