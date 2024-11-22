@@ -1,5 +1,5 @@
 import { ComponentPropsWithoutRef, ElementType, ReactNode } from 'react'
-import { useMenuStore } from './store'
+import { useMenu } from './context'
 
 interface MenuButtonProps extends ComponentPropsWithoutRef<'button'> {
   children: ReactNode
@@ -8,13 +8,12 @@ interface MenuButtonProps extends ComponentPropsWithoutRef<'button'> {
 
 const MenuButton = (props: MenuButtonProps) => {
   const { children, as: Component = 'button', ...rest } = props
-  const { toggleMenu, triggerRef, isOpen, closeMenu } = useMenuStore()
+  const { toggleMenu, triggerRef, isOpen } = useMenu()
 
   return (
     <Component
       ref={triggerRef}
       onClick={toggleMenu}
-      onBlur={closeMenu}
       aria-haspopup
       aria-expanded={isOpen}
       aria-describedby={isOpen ? 'menu' : undefined}

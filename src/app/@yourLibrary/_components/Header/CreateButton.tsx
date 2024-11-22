@@ -1,4 +1,10 @@
-import { Menu, MenuButton, MenuItem, MenuList } from '@/components/Menu'
+import {
+  Divider,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuList,
+} from '@/components/Menu'
 import { Tooltip } from '@/components/Tooltip'
 import { FaRegFolder } from 'react-icons/fa6'
 import { GoPlus } from 'react-icons/go'
@@ -14,6 +20,7 @@ const CreateButton = () => {
       </Tooltip>
       <MenuList>
         <MenuItem iconLeft={<TbMusicPlus />}>Create a new playlist</MenuItem>
+        <Divider />
         <MenuItem iconLeft={<FaRegFolder />}>Create a playlist folder</MenuItem>
       </MenuList>
     </Menu>
