@@ -1,9 +1,9 @@
-import Header from '@/components/Header'
-import PlayingBar from '@/components/PlayingBar'
+import Header from '@/app/_components/Header'
+import PlayingBar from '@/app/_components/PlayingBar'
 import type { Metadata } from 'next'
 import { ReactNode } from 'react'
 import '../styles/globals.css'
-import { ApolloWrapper } from '@/components/ApolloWrapper'
+import { ApolloWrapper } from '@/app/_components/ApolloWrapper'
 
 export const metadata: Metadata = {
   title: 'Spotify',

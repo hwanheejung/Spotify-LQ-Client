@@ -58,7 +58,7 @@ const AlbumContainer = ({
     <Link
       href={`/album/${id}`}
       key={key}
-      className="flex items-center justify-between gap-5 px-3 py-3 hover:bg-gray-300"
+      className="flex items-center justify-between gap-5 px-3 py-3 hover:bg-gray-500"
     >
       {children}
     </Link>

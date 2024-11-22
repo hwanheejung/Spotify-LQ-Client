@@ -9,7 +9,7 @@ const TrackItem = ({ track }: TrackItemProps) => {
   return (
     <div
       key={track.id}
-      className="flex items-center rounded-sm pr-5 text-gray-100 hover:bg-gray-300"
+      className="flex items-center rounded-sm pr-5 text-gray-100 hover:bg-gray-500"
     >
       <p className="px-6 py-5">{track.track_number}</p>
       <div className="flex-1">

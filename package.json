@@ -28,6 +28,7 @@
     "@typescript-eslint/parser": "^8.11.0",
     "eslint-config-airbnb-typescript": "^18.0.0",
     "eslint-import-resolver-typescript": "^3.6.3",
+    "framer-motion": "^11.11.17",
     "graphql": "^16.9.0",
     "jsonwebtoken": "^9.0.2",
     "next": "15.0.1",
