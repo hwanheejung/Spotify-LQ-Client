@@ -4,8 +4,8 @@ import {
   MenuButton,
   MenuItem,
   MenuList,
-} from '@/components/menu'
-import { Tooltip } from '@/components/tooltip'
+} from '@/components/temp-menu'
+import { Tooltip } from '@/components/temp-tooltip'
 import { FaRegFolder } from 'react-icons/fa6'
 import { GoPlus } from 'react-icons/go'
 import { TbMusicPlus } from 'react-icons/tb'

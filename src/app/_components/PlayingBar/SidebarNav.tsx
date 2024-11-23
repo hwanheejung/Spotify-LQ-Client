@@ -1,6 +1,6 @@
 'use client'
 
-import { Tooltip, TooltipOptions } from '@/components/tooltip'
+import { Tooltip, TooltipOptions } from '@/components/temp-tooltip'
 import { useSidebarStore } from '@/lib/stores/sidebar.store'
 import { usePathname, useRouter } from 'next/navigation'
 import { AiOutlinePlaySquare } from 'react-icons/ai'
