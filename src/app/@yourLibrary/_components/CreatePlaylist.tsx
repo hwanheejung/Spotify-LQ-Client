@@ -1,6 +1,6 @@
 'use client'
 
-import { Tooltip } from '@/components/Tooltip'
+import { Tooltip } from '@/components/tooltip'
 
 const CreatePlaylist = () => {
   return (

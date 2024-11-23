@@ -1,6 +1,6 @@
 'use client'
 
-import { useSidebarStore } from '@/lib/stores/useSidebarStore'
+import { useSidebarStore } from '@/lib/stores/sidebar.store'
 import NowPlaying from './_components/NowPlaying'
 import Queue from './_components/Queue'
 import Device from './_components/Device'

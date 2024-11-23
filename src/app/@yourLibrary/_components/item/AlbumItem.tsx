@@ -1,8 +1,8 @@
 'use client'
 
-import { useYourLibraryStore } from '@/lib/stores/useYourLibraryStore'
-import { capitalizeFirstLetter } from '@/lib/utils/capitalizeFirstLetter'
-import { getTimeAgo } from '@/lib/utils/getTimeAgo'
+import { useYourLibraryStore } from '@/lib/stores/your-library.store'
+import { capitalizeFirstLetter } from '@/lib/utils/capitalize-first-letter'
+import { getTimeAgo } from '@/lib/utils/get-time-ago'
 import { AlbumItemDTO } from '@/types/albums'
 import Image from 'next/image'
 import Link from 'next/link'

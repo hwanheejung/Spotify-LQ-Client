@@ -1,5 +1,5 @@
-import { PreloadQuery } from '@/lib/apollo/ApolloClient'
-import { GET_ALBUM } from '@/lib/queries/albumsQuery'
+import { PreloadQuery } from '@/lib/apollo/apollo-client'
+import { GET_ALBUM } from '@/lib/queries/albums.query'
 import { Suspense, lazy } from 'react'
 
 const AlbumOverview = lazy(() => import('./_components/AlbumOverview'))

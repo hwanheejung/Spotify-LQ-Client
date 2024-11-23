@@ -1,5 +1,5 @@
-import { getClient } from '@/lib/apollo/ApolloClient'
-import { GET_SAVED_ALBUMS } from '@/lib/queries/albumsQuery'
+import { getClient } from '@/lib/apollo/apollo-client'
+import { GET_SAVED_ALBUMS } from '@/lib/queries/albums.query'
 import { AlbumItemDTO } from '@/types/albums'
 import AlbumContainer, { Album, DateAdded } from './item/AlbumItem'
 

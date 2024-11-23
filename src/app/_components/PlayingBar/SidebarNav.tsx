@@ -1,7 +1,7 @@
 'use client'
 
-import { Tooltip, TooltipOptions } from '@/components/Tooltip'
-import { useSidebarStore } from '@/lib/stores/useSidebarStore'
+import { Tooltip, TooltipOptions } from '@/components/tooltip'
+import { useSidebarStore } from '@/lib/stores/sidebar.store'
 import { usePathname, useRouter } from 'next/navigation'
 import { AiOutlinePlaySquare } from 'react-icons/ai'
 import { HiOutlineDeviceMobile } from 'react-icons/hi'
