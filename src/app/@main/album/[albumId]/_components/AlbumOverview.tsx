@@ -26,7 +26,7 @@ const AlbumOverview = ({ albumId }: { albumId: string }) => {
           height={150}
           className="rounded-sm"
         />
-        <div>
+        <div className="flex flex-1 flex-col gap-2">
           <p className="text-sm">{capitalizeFirstLetter(album_type)}</p>
           <h1 className="text-4xl font-extrabold">{name}</h1>
           <p className="text-xs text-gray-200">
