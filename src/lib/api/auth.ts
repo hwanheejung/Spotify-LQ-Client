@@ -41,3 +41,9 @@ export const verifySession = async (): Promise<boolean> => {
   })
   return data.authenticated
 }
+
+export const getSpotifyToken = async (): Promise<string> => {
+  const { data } = await get('/api/auth/spotify-token')
+
+  return data.token
+}

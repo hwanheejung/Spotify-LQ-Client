@@ -63,7 +63,7 @@ const SidebarNav = () => {
   ]
 
   return (
-    <div className="ml-auto flex">
+    <div className="flex">
       {navItems.map((item) => (
         <SidebarNavItem key={item.label} {...item} />
       ))}
