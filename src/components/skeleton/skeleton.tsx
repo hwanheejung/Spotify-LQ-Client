@@ -1,44 +1,66 @@
+'use client'
+
 import { MotionProps, motion } from 'framer-motion'
-import { HTMLAttributes } from 'react'
+import { HTMLAttributes, ReactNode } from 'react'
 import { twMerge } from 'tailwind-merge'
 import { createPulseVariants } from './transition'
 import { SkeletonOptions } from './types'
 
-export type SkeletonProps = SkeletonOptions &
-  MotionProps &
-  HTMLAttributes<HTMLDivElement>
+interface SkeletonProps extends SkeletonOptions, MotionProps {
+  className?: HTMLAttributes<HTMLDivElement>['className']
+  children?: ReactNode
+}
 
 const Skeleton = (props: SkeletonProps) => {
   const {
     startColor = '#EDF2F7',
     endColor = '#525a64',
-    isLoaded = true,
     speed = 2,
-    fitContent = false,
+    className,
+    style,
     children,
     ...rest
   } = props
 
   const pulseVariants = createPulseVariants(speed, startColor, endColor)
 
-  if (isLoaded) return children
+  if (children)
+    return (
+      <motion.div
+        {...rest}
+        className={twMerge(
+          'pointer-events-none w-fit select-none rounded-md',
+          className,
+        )}
+        style={{
+          ...style,
+          background: `linear-gradient(90deg, ${startColor}, ${endColor}, ${startColor})`,
+          backgroundSize: '200% 100%',
+        }}
+        variants={pulseVariants}
+        initial="initial"
+        animate="pulse"
+      >
+        <div className="opacity-0">{children}</div>
+      </motion.div>
+    )
+
   return (
     <motion.div
+      {...rest}
       className={twMerge(
         'pointer-events-none select-none rounded-md',
-        fitContent ? 'w-fit' : '',
+        className,
       )}
       style={{
+        ...style,
         background: `linear-gradient(90deg, ${startColor}, ${endColor}, ${startColor})`,
         backgroundSize: '200% 100%',
       }}
       variants={pulseVariants}
       initial="initial"
       animate="pulse"
-      {...rest}
-    >
-      <div className="opacity-0">{children}</div>
-    </motion.div>
+    />
   )
 }
 

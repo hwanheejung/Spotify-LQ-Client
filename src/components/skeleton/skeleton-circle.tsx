@@ -1,24 +1,19 @@
-import { twMerge } from 'tailwind-merge'
-import Skeleton, { SkeletonProps } from './skeleton'
+import Skeleton from './skeleton'
 
-interface SkeletonCircleProps extends SkeletonProps {
+interface SkeletonCircleProps {
   size?: string
 }
 
-const SkeletonCircle = ({
-  size = '50px',
-  className,
-  ...props
-}: SkeletonCircleProps) => (
-  <Skeleton
-    {...props}
-    className={twMerge('rounded-full', className)}
-    style={{
-      width: size,
-      height: size,
-      ...props.style,
-    }}
-  />
-)
+const SkeletonCircle = ({ size = '50px' }: SkeletonCircleProps) => {
+  return (
+    <Skeleton
+      className="rounded-full"
+      style={{
+        width: size,
+        height: size,
+      }}
+    />
+  )
+}
 
 export default SkeletonCircle
