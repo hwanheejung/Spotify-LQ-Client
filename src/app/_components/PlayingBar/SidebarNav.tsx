@@ -63,7 +63,7 @@ const SidebarNav = () => {
   ]
 
   return (
-    <div className="flex">
+    <div className="flex items-center justify-end">
       {navItems.map((item) => (
         <SidebarNavItem key={item.label} {...item} />
       ))}

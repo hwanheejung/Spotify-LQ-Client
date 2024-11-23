@@ -32,8 +32,13 @@ const WebPlayback = ({ token }: { token: string }) => {
       player.addListener('ready', ({ device_id }) => {
         console.log('Ready with Device ID', device_id)
       })
+
       player.addListener('not_ready', ({ device_id }) => {
         console.log('Device ID has gone offline', device_id)
+      })
+
+      player.setName('Project').then(() => {
+        console.log('Player name updated!')
       })
 
       player.addListener('player_state_changed', (state) => {
@@ -43,6 +48,11 @@ const WebPlayback = ({ token }: { token: string }) => {
         setIsPaused(state.paused)
 
         player.getCurrentState().then((state) => {
+          if (!state) {
+            console.error('User is not playing music through the [Project]')
+            return
+          }
+
           !state ? setIsActive(false) : setIsActive(true)
         })
       })
@@ -51,7 +61,7 @@ const WebPlayback = ({ token }: { token: string }) => {
   }, [])
 
   return (
-    <div className="flex w-full items-center justify-between px-5 py-3">
+    <div className="grid w-full grid-cols-3 px-5 py-3">
       <CurrentTrack />
       <Player />
       <SidebarNav />

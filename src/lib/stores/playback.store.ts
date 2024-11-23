@@ -8,11 +8,11 @@ type Track = {
   artists: { name: string }[]
 }
 
-interface PlaybackState {
+export interface PlaybackState {
   /**
    * the Spotify player instance.
    */
-  player: Spotify.Player | null
+  player?: Spotify.Player
 
   /**
    * the current track being played.
@@ -33,7 +33,7 @@ interface PlaybackState {
 }
 
 export const usePlaybackStore = create<PlaybackState>((set) => ({
-  player: null,
+  player: undefined,
   currentTrack: {
     name: '',
     album: {
