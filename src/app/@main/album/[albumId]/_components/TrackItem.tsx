@@ -1,4 +1,4 @@
-import { formatDuration } from '@/lib/utils/formatDuration'
+import { formatDuration } from '@/lib/utils/format-duration'
 import { AlbumTrackDTO } from '@/types/albums'
 
 interface TrackItemProps {

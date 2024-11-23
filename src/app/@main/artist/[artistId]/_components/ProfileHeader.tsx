@@ -1,6 +1,6 @@
 'use client'
 
-import { GET_ARTIST } from '@/lib/queries/artistsQuery'
+import { GET_ARTIST } from '@/lib/queries/artists.query'
 import { ArtistDTO } from '@/types/artists'
 import { useSuspenseQuery } from '@apollo/client'
 

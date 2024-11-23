@@ -4,7 +4,7 @@ import { User } from '@/types/auth'
 import { cookies } from 'next/headers'
 import { revalidateTag } from 'next/cache'
 import { deleteApi, get, post } from './base'
-import { extractSessionId } from '../utils/auth/extractSessionId'
+import { extractSessionId } from '../utils/auth/extract-sessionid'
 
 export const getSpotifyUrl = async () => {
   const { data } = await get(`/api/auth/spotify-auth-url`)

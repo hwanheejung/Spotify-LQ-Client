@@ -1,8 +1,8 @@
 'use client'
 
-import { GET_ALBUM } from '@/lib/queries/albumsQuery'
-import { capitalizeFirstLetter } from '@/lib/utils/capitalizeFirstLetter'
-import { parseDate } from '@/lib/utils/parseDate'
+import { GET_ALBUM } from '@/lib/queries/albums.query'
+import { capitalizeFirstLetter } from '@/lib/utils/capitalize-first-letter'
+import { parseDate } from '@/lib/utils/parse-date'
 import { AlbumDTO } from '@/types/albums'
 import { useSuspenseQuery } from '@apollo/client'
 import Image from 'next/image'

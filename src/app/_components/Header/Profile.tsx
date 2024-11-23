@@ -6,8 +6,8 @@ import {
   MenuButton,
   MenuItem,
   MenuList,
-} from '@/components/Menu'
-import { Tooltip } from '@/components/Tooltip'
+} from '@/components/menu'
+import { Tooltip } from '@/components/tooltip'
 
 const Profile = ({ logout }: { logout: () => Promise<void> }) => {
   return (

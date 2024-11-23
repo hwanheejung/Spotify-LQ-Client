@@ -1,6 +1,6 @@
 'use client'
 
-import { GET_ALBUM } from '@/lib/queries/albumsQuery'
+import { GET_ALBUM } from '@/lib/queries/albums.query'
 import { AlbumDTO, AlbumTrackDTO } from '@/types/albums'
 import { useSuspenseQuery } from '@apollo/client'
 import TrackItem from './TrackItem'

@@ -1,7 +1,7 @@
 'use client'
 
-import { Tooltip } from '@/components/Tooltip'
-import { useSidebarStore } from '@/lib/stores/useSidebarStore'
+import { Tooltip } from '@/components/tooltip'
+import { useSidebarStore } from '@/lib/stores/sidebar.store'
 import { LiaTimesSolid } from 'react-icons/lia'
 
 interface HeaderProps {

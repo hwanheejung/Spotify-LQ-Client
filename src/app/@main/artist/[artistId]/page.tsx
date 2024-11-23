@@ -1,5 +1,5 @@
-import { PreloadQuery } from '@/lib/apollo/ApolloClient'
-import { GET_ARTIST } from '@/lib/queries/artistsQuery'
+import { PreloadQuery } from '@/lib/apollo/apollo-client'
+import { GET_ARTIST } from '@/lib/queries/artists.query'
 import { Suspense, lazy } from 'react'
 
 const ProfileHeader = lazy(() => import('./_components/ProfileHeader'))
