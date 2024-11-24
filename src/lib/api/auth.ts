@@ -1,17 +1,16 @@
 'use server'
 
-import { User } from '@/types/auth'
-import { cookies } from 'next/headers'
 import { revalidateTag } from 'next/cache'
-import { deleteApi, get, post } from './base'
+import { cookies } from 'next/headers'
 import { extractSessionId } from '../utils/auth/extract-sessionid'
+import { deleteApi, get, post } from './base'
 
 export const getSpotifyUrl = async () => {
   const { data } = await get(`/api/auth/spotify-auth-url`)
   return data.url
 }
 
-export const login = async (code: string): Promise<User> => {
+export const login = async (code: string) => {
   const { data, headers } = await post(`/api/auth/spotify-callback`, {
     body: JSON.stringify({ code }),
   })
@@ -25,7 +24,7 @@ export const login = async (code: string): Promise<User> => {
     path: '/',
   })
 
-  return data.user
+  return data
 }
 
 export const logout = async () => {
@@ -35,9 +34,7 @@ export const logout = async () => {
 
 export const verifySession = async (): Promise<boolean> => {
   const { data } = await get('/api/auth/status', {
-    next: {
-      tags: ['session'],
-    },
+    cache: 'no-store',
   })
   return data.authenticated
 }

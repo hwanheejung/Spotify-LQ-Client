@@ -6,11 +6,16 @@ import { FaBackwardStep, FaForwardStep } from 'react-icons/fa6'
 const PausePlayButton = ({
   player,
   isPaused,
-}: Required<Pick<PlaybackState, 'player' | 'isPaused'>>) => {
+  isActive,
+}: Required<Pick<PlaybackState, 'player' | 'isPaused' | 'isActive'>>) => {
   return (
     <Tooltip label={isPaused ? 'Play' : 'Pause'}>
       <button
         onClick={() => {
+          if (!isActive) {
+            console.log('Activating player...')
+            player.activateElement()
+          }
           player.togglePlay()
         }}
         className="flex items-center justify-center rounded-full bg-gray-0 p-1.5 text-gray-900"
@@ -61,14 +66,18 @@ const Progress = () => {
 }
 
 const Player = () => {
-  const { player, isPaused } = usePlaybackStore()
+  const { player, isPaused, isActive } = usePlaybackStore()
   if (!player) return null
 
   return (
     <div className="flex flex-col justify-center gap-3">
       <div className="flex items-center justify-center gap-6">
         <PreviousButton player={player} />
-        <PausePlayButton player={player} isPaused={isPaused} />
+        <PausePlayButton
+          player={player}
+          isPaused={isPaused}
+          isActive={isActive}
+        />
         <NextButton player={player} />
       </div>
       <Progress />
