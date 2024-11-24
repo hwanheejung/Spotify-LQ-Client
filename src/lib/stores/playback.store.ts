@@ -15,6 +15,11 @@ export interface PlaybackState {
   player?: Spotify.Player
 
   /**
+   * the name of the player.
+   */
+  playerName: string
+
+  /**
    * the current track being played.
    */
   currentTrack: Track
@@ -27,6 +32,7 @@ export interface PlaybackState {
    */
   isActive: boolean
   setPlayer: (player: Spotify.Player) => void
+  setPlayerName: (playerName: string) => void
   setCurrentTrack: (currentTrack: Track) => void
   setIsPaused: (isPaused: boolean) => void
   setIsActive: (isActive: boolean) => void
@@ -34,6 +40,7 @@ export interface PlaybackState {
 
 export const usePlaybackStore = create<PlaybackState>((set) => ({
   player: undefined,
+  playerName: 'Project',
   currentTrack: {
     name: '',
     album: {
@@ -44,6 +51,7 @@ export const usePlaybackStore = create<PlaybackState>((set) => ({
   isPaused: true,
   isActive: false,
   setPlayer: (player) => set({ player }),
+  setPlayerName: (playerName) => set({ playerName }),
   setCurrentTrack: (currentTrack) => set({ currentTrack }),
   setIsPaused: (isPaused) => set({ isPaused }),
   setIsActive: (isActive) => set({ isActive }),

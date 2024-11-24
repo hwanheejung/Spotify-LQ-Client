@@ -8,8 +8,10 @@ import {
   MenuList,
 } from '@/components/menu'
 import { Tooltip } from '@/components/tooltip'
+import { useRouter } from 'next/navigation'
 
 const Profile = ({ logout }: { logout: () => Promise<void> }) => {
+  const router = useRouter()
   return (
     <Menu placement="bottom-end">
       <Tooltip label="Name" placement="bottom">
@@ -22,7 +24,7 @@ const Profile = ({ logout }: { logout: () => Promise<void> }) => {
       <MenuList>
         <MenuItem>Account</MenuItem>
         <MenuItem>Profile</MenuItem>
-        <MenuItem>Settings</MenuItem>
+        <MenuItem onClick={() => router.push('/settings')}>Settings</MenuItem>
         <Divider />
         <MenuItem onClick={logout}>Logout</MenuItem>
       </MenuList>
