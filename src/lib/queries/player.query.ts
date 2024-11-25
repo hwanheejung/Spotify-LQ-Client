@@ -11,3 +11,9 @@ export const GET_AVAILABLE_DEVICES = gql`
     }
   }
 `
+
+export const TRANSFER_PLAYBACK = gql`
+  mutation ($deviceId: String!) {
+    transferPlayback(deviceId: $deviceId)
+  }
+`

@@ -6,7 +6,7 @@ import CurrentDevice from './CurrentDevice'
 import OtherDevices from './OtherDevices'
 
 const Device = () => {
-  const { loading, error, data } = useQuery(GET_AVAILABLE_DEVICES)
+  const { loading, error, data, refetch } = useQuery(GET_AVAILABLE_DEVICES)
   if (loading) return 'Loading...'
   if (error) return `Error! ${error.message}`
 
@@ -20,7 +20,7 @@ const Device = () => {
     <div>
       <Header title="Connect to a device" />
       <CurrentDevice {...currentDevice} />
-      <OtherDevices data={Object.values(otherDevices)} />
+      <OtherDevices data={Object.values(otherDevices)} refetch={refetch} />
     </div>
   )
 }

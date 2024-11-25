@@ -6,6 +6,7 @@ import { MdComputer, MdOutlineSpeaker } from 'react-icons/md'
 const CurrentDevice = (props: DeviceDTO) => {
   const { name, type } = props
   const { playerName } = usePlaybackStore()
+
   return (
     <div className="rounded-md bg-gradient-to-b from-spotifyGreen/20 to-gray-900 px-3 py-4 pr-16">
       <div className="flex items-center gap-3">

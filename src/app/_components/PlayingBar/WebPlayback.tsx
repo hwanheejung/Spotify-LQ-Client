@@ -30,7 +30,6 @@ const WebPlayback = ({ token }: { token: string }) => {
     setIsPaused(state.paused)
 
     player.getCurrentState().then((state) => {
-      console.log('I am called')
       if (!state) {
         console.error(`User is not playing music through the [${playerName}]`)
         setIsActive(false)
