@@ -1,11 +1,16 @@
 import { create } from 'zustand'
 
 type Track = {
+  id: string | null
   name: string
+  is_playable: boolean
   album: {
+    name: string
     images: { url: string }[]
   }
   artists: { name: string }[]
+  duration: number
+  position: number
 }
 
 export interface PlaybackState {
@@ -22,7 +27,7 @@ export interface PlaybackState {
   /**
    * the current track being played.
    */
-  currentTrack: Track
+  currentTrack?: Track
   /**
    * indicates whether the current track is being played or not.
    */
@@ -41,13 +46,7 @@ export interface PlaybackState {
 export const usePlaybackStore = create<PlaybackState>((set) => ({
   player: undefined,
   playerName: 'Project',
-  currentTrack: {
-    name: '',
-    album: {
-      images: [{ url: '' }],
-    },
-    artists: [{ name: '' }],
-  },
+  currentTrack: undefined,
   isPaused: true,
   isActive: false,
   setPlayer: (player) => set({ player }),

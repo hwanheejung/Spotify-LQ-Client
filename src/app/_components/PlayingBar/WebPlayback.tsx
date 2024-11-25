@@ -26,8 +26,28 @@ const WebPlayback = ({ token }: { token: string }) => {
   ) => {
     if (!state) return
 
-    setCurrentTrack(state.track_window.current_track)
-    setIsPaused(state.paused)
+    const {
+      duration,
+      position,
+      track_window: { current_track },
+      paused,
+    } = state
+
+    const _current_track = {
+      id: current_track.id,
+      name: current_track.name,
+      is_playable: current_track.is_playable,
+      album: {
+        name: current_track.album.name,
+        images: current_track.album.images,
+      },
+      artists: current_track.artists,
+      duration,
+      position,
+    }
+
+    setCurrentTrack(_current_track)
+    setIsPaused(paused)
 
     player.getCurrentState().then((state) => {
       if (!state) {
