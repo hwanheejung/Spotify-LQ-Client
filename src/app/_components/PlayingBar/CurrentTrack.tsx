@@ -1,9 +1,19 @@
+import { Skeleton, SkeletonText } from '@/components/skeleton'
 import { usePlaybackStore } from '@/lib/stores/playback.store'
 import Image from 'next/image'
 
 const CurrentTrack = () => {
   const { currentTrack } = usePlaybackStore()
-  if (!currentTrack) return <div />
+
+  if (!currentTrack)
+    return (
+      <div className="flex items-center gap-3">
+        <Skeleton className="h-12 w-12 rounded-md" />
+        <div className="w-36">
+          <SkeletonText lines={2} />
+        </div>
+      </div>
+    )
 
   return (
     <div className="flex items-center gap-3">
@@ -11,7 +21,7 @@ const CurrentTrack = () => {
         src={currentTrack.album.images[0].url}
         width={50}
         height={50}
-        alt=""
+        alt={currentTrack.name}
       />
       <div>
         <p className="text-xs">{currentTrack.name}</p>
