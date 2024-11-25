@@ -3,6 +3,7 @@ import { DeviceDTO } from '@/types/player'
 import { useMutation } from '@apollo/client'
 import { IoPhonePortraitOutline } from 'react-icons/io5'
 import { MdComputer, MdOutlineSpeaker } from 'react-icons/md'
+import OtherDevicesSkeleton from './OtherDevices.skeleton'
 
 const OtherDevices = ({
   data,
@@ -30,7 +31,7 @@ const OtherDevices = ({
     }
   }
 
-  if (loading) return 'Loading...'
+  if (loading) return <OtherDevicesSkeleton />
 
   return (
     <div className="px-3 py-5">
@@ -49,7 +50,6 @@ const OtherDevices = ({
             {device.type === 'Speaker' && <MdOutlineSpeaker size="1rem" />}
           </span>
           <div>{device.name}</div>
-          <div>{device.is_active}</div>
         </button>
       ))}
     </div>
