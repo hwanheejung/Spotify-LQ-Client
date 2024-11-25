@@ -65,7 +65,7 @@ const SeekBar = () => {
   const handleSeek = async (event: ChangeEvent<HTMLInputElement>) => {
     const newPosition = parseInt(event.target.value, 10)
 
-    if (player) await player.seek(newPosition)
+    await player!.seek(newPosition)
   }
 
   return (
