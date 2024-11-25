@@ -1,6 +1,6 @@
 'use client'
 
-import { Tooltip, TooltipOptions } from '@/components/tooltip'
+import { Placement, Tooltip, TooltipOptions } from '@/components/tooltip'
 import { useSidebarStore } from '@/lib/stores/sidebar.store'
 import { usePathname, useRouter } from 'next/navigation'
 import { AiOutlinePlaySquare } from 'react-icons/ai'
@@ -58,12 +58,12 @@ const SidebarNav = () => {
       selected: activeComponent === 'Device',
       onClick: () => setActiveComponent('Device'),
       icon: <HiOutlineDeviceMobile size="1.2rem" />,
-      tooltipPlacement: 'top-end',
+      placement: 'top-end' as Placement,
     },
   ]
 
   return (
-    <div className="ml-auto flex">
+    <div className="flex items-center justify-end">
       {navItems.map((item) => (
         <SidebarNavItem key={item.label} {...item} />
       ))}

@@ -4,7 +4,7 @@ const nextConfig: NextConfig = {
   env: {
     API_HOST: process.env.API_HOST,
   },
-  reactStrictMode: true,
+  reactStrictMode: false,
   images: {
     remotePatterns: [
       {
