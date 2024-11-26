@@ -1,36 +1,85 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+<p align="center">
 
-## Getting Started
+<img src="https://img.shields.io/badge/Spotify-1ED760?style=for-the-badge&logo=spotify&logoColor=white" alt="Spotify Badge">
+<img src="https://img.shields.io/badge/Next-000000?style=for-the-badge&logo=Next.js&logoColor=white" alt="Next Badge">
+<img src="https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white" alt="Typescript Badge">
+<img src="https://img.shields.io/badge/apollographql-311C87?style=for-the-badge&logo=apollographql&logoColor=white" alt="ApolloGraphql Badge">
+<img src="https://img.shields.io/badge/tailwindcss-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white" alt="tailwindcss Badge">
 
-First, run the development server:
+</p>
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+# 🎧 Spotify
+
+> [!IMPORTANT]  
+> Both **Spotify Playback** and **Spotify Web API** require users to authenticate with a valid Spotify **Premium** subscription.
+
+<br />
+
+# 🎹 Features
+
+♪ **Real-Time Music Playback**: Play songs using the Spotify Playback SDK.  
+♪ **Playback Controls**: Full playback functionality including play, pause, next, previous, shuffle, and repeat.  
+♪ **Personalized Access**: View and play your saved playlists, albums, and liked songs.  
+♪ **Playback Devices**: Switch between different playback devices (desktop, mobile, smart speakers).  
+♪ **Lyrics Sync**: Follow along with synced lyrics for a karaoke-like experience.  
+♪ **Custom Playlists**: Create and manage your own playlists within the app.
+
+<br />
+
+# 🎸 Technologies Used
+
+♪ **Next.js**: Frontend framework for building user interface.  
+♪ **Apollo Client**: GraphQL client for fetching data from Apollo Server.  
+♪ **Zustand**: Client state management.  
+♪ **Node.js(Express)**: Backend server handling Spotify Web API requests and managing authentication.  
+♪ **Apollo Server**: GraphQL server for securely delivering Spotify data to the frontend.  
+♪ [**Spotify Web API**](https://developer.spotify.com/documentation/web-api): Used exclusively by the backend server for fetching Spotify data like playlists, albums, and playback status.  
+♪ [**Spotify Playback SDK**](https://developer.spotify.com/documentation/web-playback-sdk): Enables real-time music playback on the frontend.
+
+<br />
+
+# 🥁 Architecture Overview
+
+This project follows a client-server architecture that integrates the Spotify Web Playback SDK for real-time music playback and the Spotify Web API for data fetching.
+
+### 1. Backend (Express + Apollo Server) 👉 [repo](https://github.com/hwanheejung/Spotify-LT-Server)
+
+- Handles authentication with `Spotify API` (OAuth flow). 👉 [blog post](https://hwanheejung.tistory.com/65)
+- Fetches Spotify data (e.g., playlists, albums, playback state) via the `Spotify Web API`.
+- Acts as a `GraphQL server` (using Apollo Server) to securely expose Spotify data to the frontend.
+- Manages sensitive credentials (e.g., Spotify client ID and secret) and ensures they are never exposed to the client.
+
+### 2. Frontend (Next.js + Apollo Client)
+
+- Connects to the backend's `Apollo Server` to retrieve and display Spotify data using GraphQL.
+- Manages playback controls (play, pause, skip) and state updates via the `Spotify Web Playback SDK`.
+- Directly interacts with `Spotify's playback server` for real-time track streaming and control.
+- Does not directly communicate with the `Spotify Web API`, ensuring API credentials are securely managed by the backend.
+
+### 3. Communication Flow
+
+```mermaid
+graph LR
+A[Frontend] -->|GraphQL Queries| B[Apollo Client]
+B -->|Fetch Data| C[Apollo Server]
+C -->|API Requests| D[Spotify Web API]
+D -->|API Responses| C
+C -->|GraphQL Responses| B
+B -->|Update UI| A
+A -->|Playback Controls| E[Spotify Web Playback SDK]
+E -->|Manage Playback| A
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+<br />
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+# 📸 Screenshots
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+<br />
 
-## Learn More
+# 🛠️ Troubleshooting
 
-To learn more about Next.js, take a look at the following resources:
+- **Playback Not Starting**: Ensure you have a Spotify **Premium** account and the app is connected to an active device.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- **Authentication Errors**: Verify your environment variables and Spotify Developer Dashboard settings.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- **API Rate Limits**: Avoid exceeding Spotify Web API’s rate limits. Use caching to optimize requests.
