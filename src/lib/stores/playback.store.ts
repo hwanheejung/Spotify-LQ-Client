@@ -14,44 +14,31 @@ type Track = {
 }
 
 export interface PlaybackState {
-  /**
-   * the Spotify player instance.
-   */
   player?: Spotify.Player
-
-  /**
-   * the name of the player.
-   */
   playerName: string
-
-  /**
-   * the current track being played.
-   */
   currentTrack?: Track
-  /**
-   * indicates whether the current track is being played or not.
-   */
   isPaused: boolean
-  /**
-   * indicates whether the current playback has been transferred to this player or not.
-   */
   isActive: boolean
+  deviceId: string | null
   setPlayer: (player: Spotify.Player) => void
   setPlayerName: (playerName: string) => void
   setCurrentTrack: (currentTrack: Track) => void
   setIsPaused: (isPaused: boolean) => void
   setIsActive: (isActive: boolean) => void
+  setDeviceId: (deviceId: string | null) => void
 }
 
 export const usePlaybackStore = create<PlaybackState>((set) => ({
   player: undefined,
-  playerName: 'Project',
+  playerName: 'Spotify Player',
   currentTrack: undefined,
   isPaused: true,
   isActive: false,
+  deviceId: null,
   setPlayer: (player) => set({ player }),
   setPlayerName: (playerName) => set({ playerName }),
   setCurrentTrack: (currentTrack) => set({ currentTrack }),
   setIsPaused: (isPaused) => set({ isPaused }),
   setIsActive: (isActive) => set({ isActive }),
+  setDeviceId: (deviceId) => set({ deviceId }),
 }))

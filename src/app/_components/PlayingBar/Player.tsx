@@ -1,3 +1,5 @@
+'use client'
+
 import { Tooltip } from '@/components/tooltip'
 import { usePlaybackStore } from '@/lib/stores/playback.store'
 import { formatDuration } from '@/lib/utils/format-duration'
@@ -70,14 +72,16 @@ const SeekBar = () => {
 
   return (
     <div className="flex items-center gap-3">
-      <span className="text-xxs text-gray-200">{formatDuration(position)}</span>
+      <span className="w-8 text-right text-xxs text-gray-200">
+        {formatDuration(position)}
+      </span>
       <input
         type="range"
         min="0"
         max={duration}
         value={position}
         onChange={handleSeek}
-        className="h-1.5 flex-1 appearance-none rounded-md bg-gray-300"
+        className="h-1.5 flex-1 cursor-pointer appearance-none rounded-md bg-gray-300"
         style={{
           background: `linear-gradient(to right, #f9fafb ${(position / duration) * 100}%, #535353 ${(position / duration) * 100}%)`,
         }}
@@ -104,7 +108,9 @@ const SeekBar = () => {
           background-color: transparent;
         }
       `}</style>
-      <span className="text-xxs text-gray-200">{formatDuration(duration)}</span>
+      <span className="8 text-xxs text-gray-200">
+        {formatDuration(duration)}
+      </span>
     </div>
   )
 }
