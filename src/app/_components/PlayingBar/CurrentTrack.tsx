@@ -1,3 +1,5 @@
+'use client'
+
 import { Skeleton, SkeletonText } from '@/components/skeleton'
 import { usePlaybackStore } from '@/lib/stores/playback.store'
 import Image from 'next/image'

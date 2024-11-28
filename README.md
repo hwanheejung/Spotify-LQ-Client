@@ -15,7 +15,7 @@
 
 <br />
 
-# 🎹 Features
+## 🎹 Features
 
 ♪ **Real-Time Music Playback**: Play songs using the Spotify Playback SDK.  
 ♪ **Playback Controls**: Full playback functionality including play, pause, next, previous, shuffle, and repeat.  
@@ -26,7 +26,7 @@
 
 <br />
 
-# 🎸 Technologies Used
+## 🎸 Technologies Used
 
 ♪ **Next.js**: Frontend framework for building user interface.  
 ♪ **Apollo Client**: GraphQL client for fetching data from Apollo Server.  
@@ -38,7 +38,7 @@
 
 <br />
 
-# 🥁 Architecture Overview
+## 🥁 Architecture Overview
 
 This project follows a client-server architecture that integrates the Spotify Web Playback SDK for real-time music playback and the Spotify Web API for data fetching.
 
@@ -72,11 +72,11 @@ E -->|Manage Playback| A
 
 <br />
 
-# 📸 Screenshots
+## 📸 Screenshots
 
 <br />
 
-# 🛠️ Troubleshooting
+## 🛠️ Troubleshooting
 
 - **Playback Not Starting**: Ensure you have a Spotify **Premium** account and the app is connected to an active device.
 
