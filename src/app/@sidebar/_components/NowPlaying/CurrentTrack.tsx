@@ -12,8 +12,9 @@ const CurrentTrack = ({ track }: CurrentTrackProps) => {
       <Image
         src={track.album.images[0].url}
         alt={track.name}
-        width={300}
-        height={300}
+        width={250}
+        height={250}
+        className="rounded-md"
       />
       <p className="pt-2 text-xl font-bold">{track.name}</p>
       <Link

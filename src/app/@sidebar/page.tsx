@@ -12,7 +12,7 @@ const SideBarPage = () => {
 
   if (!activeComponent || !authenticated) return null
   return (
-    <div className="h-full min-w-[250px] rounded-lg bg-gray-700">
+    <div className="h-full min-w-[250px] max-w-[300px] rounded-lg bg-gray-700">
       {activeComponent === 'NowPlaying' && <NowPlaying />}
       {activeComponent === 'Queue' && <Queue />}
       {activeComponent === 'Device' && <Device />}

@@ -4,6 +4,7 @@ import { CurrentlyPlayingDTO, QueueItemDTO } from '@/types/player'
 import { useQuery } from '@apollo/client'
 import Header from '../Header'
 import Track from './Track'
+import TrackSkeleton from './Track.skeleton'
 
 const Queue = () => {
   const { isActive } = usePlaybackStore()
@@ -15,7 +16,11 @@ const Queue = () => {
     return (
       <div>
         <Header title="Queue" />
-        <div>No data</div>
+        <div className="flex-1 px-3 pt-3">
+          <TrackSkeleton />
+          <TrackSkeleton />
+          <TrackSkeleton />
+        </div>
       </div>
     )
 

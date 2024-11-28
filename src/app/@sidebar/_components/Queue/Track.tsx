@@ -16,7 +16,9 @@ const Track = ({ track }: TrackProps) => (
       className="rounded-sm"
     />
     <div>
-      <p>{track.name}</p>
+      <p className="w-[200px] overflow-hidden text-ellipsis whitespace-nowrap">
+        {track.name}
+      </p>
       <Link
         href={`/artist/${track.artists[0].id}`}
         className="cursor-pointer text-xs text-gray-200 hover:text-gray-0 hover:underline"
