@@ -17,3 +17,34 @@ export const TRANSFER_PLAYBACK = gql`
     transferPlayback(deviceId: $deviceId)
   }
 `
+
+export const GET_QUEUE = gql`
+  query {
+    getQueue {
+      currently_playing {
+        id
+        name
+        album {
+          id
+          name
+          images {
+            url
+          }
+        }
+        artists {
+          id
+          name
+        }
+      }
+
+      queue {
+        id
+        name
+        artists {
+          id
+          name
+        }
+      }
+    }
+  }
+`
