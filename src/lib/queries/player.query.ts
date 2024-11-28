@@ -40,6 +40,13 @@ export const GET_QUEUE = gql`
       queue {
         id
         name
+        album {
+          id
+          name
+          images {
+            url
+          }
+        }
         artists {
           id
           name

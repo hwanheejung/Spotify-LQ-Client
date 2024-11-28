@@ -8,7 +8,7 @@ import CurrentTrackSkeleton from './CurrentTrack.skeleton'
 
 const NowPlaying = () => {
   const { isActive } = usePlaybackStore()
-  const { data, loading } = useQuery(GET_QUEUE, {
+  const { data, loading, refetch } = useQuery(GET_QUEUE, {
     skip: !isActive,
   })
 
@@ -21,6 +21,8 @@ const NowPlaying = () => {
     )
 
   const track = data.getQueue.currently_playing as CurrentlyPlayingDTO
+
+  if (!track) refetch()
 
   return (
     <div>

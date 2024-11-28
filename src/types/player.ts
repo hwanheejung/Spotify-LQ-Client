@@ -23,3 +23,4 @@ type Track = {
 }
 
 export type CurrentlyPlayingDTO = Track
+export type QueueItemDTO = Track
