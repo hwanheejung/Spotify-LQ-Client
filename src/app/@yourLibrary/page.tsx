@@ -6,7 +6,7 @@ import Header from './_components/Header'
 const YourLibraryPage = async () => {
   const { isAuthenticated } = await auth()
   return (
-    <div className="overflow-hidden rounded-lg bg-gray-700">
+    <div className="h-full overflow-hidden rounded-lg bg-gray-700">
       <Header />
       {isAuthenticated ? (
         <div className="max-h-[calc(100dvh-230px)] overflow-y-scroll scrollbar-hide">

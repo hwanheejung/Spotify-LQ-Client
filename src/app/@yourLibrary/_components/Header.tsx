@@ -30,12 +30,7 @@ const Header = () => {
   const { isOpen, setIsOpen } = useYourLibraryStore()
 
   return (
-    <div
-      className={twMerge(
-        'min-w-[250px] text-gray-200',
-        isOpen ? 'w-[500px]' : '',
-      )}
-    >
+    <div className={twMerge('text-gray-200', isOpen ? 'w-[500px]' : '')}>
       <div className="flex items-center justify-between px-3 py-4">
         <button className="flex gap-2 hover:text-gray-0">
           <IoLibrarySharp size="1.4rem" style={{ paddingBottom: 2 }} />
