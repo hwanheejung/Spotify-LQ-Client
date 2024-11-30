@@ -35,7 +35,11 @@ const TrackItem = ({ track }: TrackItemProps) => {
       className="group flex items-center rounded-sm pr-5 text-gray-100 hover:bg-gray-500"
     >
       <div className="mx-3 flex h-5 w-5 items-center justify-center">
-        <p className="group-hover:hidden">{track.track_number}</p>
+        <p
+          className={`group-hover:hidden ${currentTrack?.id === track.id ? 'text-spotifyGreen' : 'text-gray-0'}`}
+        >
+          {track.track_number}
+        </p>
         <button className="hidden group-hover:block" onClick={handleStart}>
           <HiMiniPlay className="h-4 w-4" />
         </button>

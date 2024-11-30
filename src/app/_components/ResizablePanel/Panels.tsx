@@ -1,7 +1,7 @@
 'use client'
 
 import { useLayoutStore } from '@/lib/stores/layout.store'
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { ImperativePanelHandle, Panel } from 'react-resizable-panels'
 
 interface PanelProps {
@@ -76,11 +76,14 @@ export const LeftPanel = ({ children, defaultSize }: PanelProps) => {
       setLeftPanelState('DEFAULT')
   }, [isCollapsed, leftPanelState, setLeftPanelState])
 
-  const sizes = {
-    COLLAPSED: LEFT_PANNEL_SIZE.COLLAPSED,
-    DEFAULT: LEFT_PANNEL_SIZE.DEFAULT,
-    EXPANDED: LEFT_PANNEL_SIZE.EXPANDED,
-  }
+  const sizes = useMemo(
+    () => ({
+      COLLAPSED: LEFT_PANNEL_SIZE.COLLAPSED,
+      DEFAULT: LEFT_PANNEL_SIZE.DEFAULT,
+      EXPANDED: LEFT_PANNEL_SIZE.EXPANDED,
+    }),
+    [],
+  )
 
   // Handle panel collapse/expand based on state
   useEffect(() => {
@@ -116,6 +119,7 @@ export const MainPanel = ({ children, defaultSize }: PanelProps) => {
       minSize={MAIN_PANNEL_SIZE.MIN}
       maxSize={MAIN_PANNEL_SIZE.MAX}
       ref={ref}
+      className="rounded-lg bg-gray-700"
     >
       {children}
     </Panel>

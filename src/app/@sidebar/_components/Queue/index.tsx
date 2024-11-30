@@ -1,18 +1,16 @@
-import { GET_QUEUE } from '@/lib/queries/player.query'
-import { usePlaybackStore } from '@/lib/stores/playback.store'
 import { CurrentlyPlayingDTO, QueueItemDTO } from '@/types/player'
-import { useQuery } from '@apollo/client'
 import Header from '../Header'
 import Track from './Track'
 import TrackSkeleton from './Track.skeleton'
 
-const Queue = () => {
-  const { isActive } = usePlaybackStore()
-  const { data, loading } = useQuery(GET_QUEUE, {
-    skip: !isActive,
-  })
+interface QueueProps {
+  currentlyPlaying?: CurrentlyPlayingDTO
+  queue?: QueueItemDTO[]
+  loading: boolean
+}
 
-  if (loading || !data)
+const Queue = ({ currentlyPlaying, queue, loading }: QueueProps) => {
+  if (loading || !currentlyPlaying || !queue)
     return (
       <div>
         <Header title="Queue" />
@@ -24,14 +22,10 @@ const Queue = () => {
       </div>
     )
 
-  const currentlyPlaying = data.getQueue
-    .currently_playing as CurrentlyPlayingDTO
-  const queue = data.getQueue.queue as QueueItemDTO[]
-
   return (
     <div className="flex h-full flex-col">
       <Header title="Queue" />
-      <div className="flex-1 overflow-y-scroll px-3 pt-3">
+      <div className="flex-1 overflow-y-scroll px-3 pb-10 pt-3 scrollbar-hide">
         <h2 className="font-bold">Now playing</h2>
         {currentlyPlaying && <Track track={currentlyPlaying} />}
 
