@@ -6,16 +6,28 @@ import { formatDuration } from '@/lib/utils/format-duration'
 import { ChangeEvent } from 'react'
 import { FaBackwardStep, FaForwardStep } from 'react-icons/fa6'
 import { HiMiniPause, HiMiniPlay } from 'react-icons/hi2'
+import { twMerge } from 'tailwind-merge'
 
 const PausePlayButton = () => {
-  const { player, isPaused } = usePlaybackStore()
+  const { player, isPaused, currentTrack } = usePlaybackStore()
+
+  const label = () => {
+    if (!player || !currentTrack) return ''
+    if (isPaused) return 'Play'
+    return 'Pause'
+  }
+
   return (
-    <Tooltip label={isPaused ? 'Play' : 'Pause'}>
+    <Tooltip label={label()}>
       <button
+        disabled={!player || !currentTrack}
         onClick={() => {
           player!.togglePlay()
         }}
-        className="flex items-center justify-center rounded-full bg-gray-0 p-1.5 text-gray-900"
+        className={twMerge(
+          'flex items-center justify-center rounded-full bg-gray-0 p-1.5 text-gray-900',
+          (!player || !currentTrack) && 'cursor-not-allowed opacity-50',
+        )}
       >
         {isPaused ? (
           <HiMiniPlay size="1.5rem" className="pl-[2px]" />
@@ -28,30 +40,33 @@ const PausePlayButton = () => {
 }
 
 const PreviousButton = () => {
-  const { player } = usePlaybackStore()
+  const { player, currentTrack } = usePlaybackStore()
+
   return (
     <button
+      disabled={!player || !currentTrack}
       onClick={() => {
         player!.previousTrack()
       }}
-      className="text-gray-200 hover:text-gray-0"
+      className={`text-gray-200 ${player && currentTrack ? 'hover:text-gray-0' : 'cursor-not-allowed'} `}
     >
-      <Tooltip label="Previous" spacing={16}>
+      <Tooltip label={player && currentTrack ? 'Previous' : ''} spacing={16}>
         <FaBackwardStep size="1.3rem" />
       </Tooltip>
     </button>
   )
 }
 const NextButton = () => {
-  const { player } = usePlaybackStore()
+  const { player, currentTrack } = usePlaybackStore()
   return (
     <button
+      disabled={!player || !currentTrack}
       onClick={() => {
         player!.nextTrack()
       }}
-      className="text-gray-200 hover:text-gray-0"
+      className={`text-gray-200 ${player && currentTrack ? 'hover:text-gray-0' : 'cursor-not-allowed'} `}
     >
-      <Tooltip label="Next" spacing={16}>
+      <Tooltip label={player && currentTrack ? 'Next' : ''} spacing={16}>
         <FaForwardStep size="1.3rem" />
       </Tooltip>
     </button>
@@ -60,13 +75,15 @@ const NextButton = () => {
 
 const SeekBar = () => {
   const { player, currentTrack } = usePlaybackStore()
-  if (!currentTrack) return null
+  let [duration, position] = [0, 0]
 
-  const { duration, position } = currentTrack
+  if (currentTrack) {
+    duration = currentTrack.duration
+    position = currentTrack.position
+  }
 
   const handleSeek = async (event: ChangeEvent<HTMLInputElement>) => {
     const newPosition = parseInt(event.target.value, 10)
-
     await player!.seek(newPosition)
   }
 
@@ -108,7 +125,7 @@ const SeekBar = () => {
           background-color: transparent;
         }
       `}</style>
-      <span className="8 text-xxs text-gray-200">
+      <span className="w-8 text-xxs text-gray-200">
         {formatDuration(duration)}
       </span>
     </div>
@@ -116,11 +133,8 @@ const SeekBar = () => {
 }
 
 const Player = () => {
-  const { player } = usePlaybackStore()
-  if (!player) return <div />
-
   return (
-    <div className="flex flex-col justify-center gap-3">
+    <div className="flex flex-col justify-center gap-2">
       <div className="flex items-center justify-center gap-6">
         <PreviousButton />
         <PausePlayButton />

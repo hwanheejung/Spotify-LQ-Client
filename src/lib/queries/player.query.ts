@@ -18,6 +18,24 @@ export const TRANSFER_PLAYBACK = gql`
   }
 `
 
+export const START_PLAYBACK = gql`
+  mutation (
+    $deviceId: String!
+    $type: String!
+    $id: String
+    $ids: [String]
+    $offset: OffsetInput
+  ) {
+    startResumePlayback(
+      deviceId: $deviceId
+      type: $type
+      id: $id
+      ids: $ids
+      offset: $offset
+    )
+  }
+`
+
 export const GET_QUEUE = gql`
   query {
     getQueue {

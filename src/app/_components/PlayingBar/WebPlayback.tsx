@@ -137,7 +137,7 @@ const WebPlayback = ({ children }: { children: ReactNode }) => {
     }
   }, [initializePlayer, stopStatePolling])
 
-  return <div className="grid w-full grid-cols-3 px-5 py-3">{children}</div>
+  return <div className="grid w-full grid-cols-3 px-5 py-2">{children}</div>
 }
 
 export default WebPlayback
