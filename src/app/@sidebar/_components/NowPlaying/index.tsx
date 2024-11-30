@@ -15,7 +15,7 @@ const NowPlaying = () => {
   if (loading || !data)
     return (
       <div>
-        <Header title="Now Playing" />
+        <Header title="Select the track" />
         <CurrentTrackSkeleton />
       </div>
     )
@@ -26,7 +26,7 @@ const NowPlaying = () => {
 
   return (
     <div>
-      <Header title={track ? track.album.name : 'Now Playing'} />
+      <Header title={track ? track.album.name : 'Select the track'} />
       <div className="px-3">
         {data?.getQueue.currently_playing ? (
           <CurrentTrack track={track} />

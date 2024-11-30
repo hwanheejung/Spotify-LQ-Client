@@ -17,7 +17,7 @@ const AlbumPage = async ({ params }: AlbumPageProps) => {
   const { albumId } = await params
 
   return (
-    <div className="scrollbar-hide">
+    <div className="h-full overflow-y-scroll scrollbar-hide">
       <PreloadQuery query={GET_ALBUM} variables={{ albumId }}>
         <Suspense fallback={<AlbumOverviewSkeleton />}>
           <AlbumOverview albumId={albumId} />
