@@ -102,68 +102,6 @@ export const LeftPanel = ({ children, defaultSize }: PanelProps) => {
   )
 }
 
-// export const LeftPanel = ({ children, defaultSize }: PanelProps) => {
-//   const ref = useRef<ImperativePanelHandle>(null!)
-//   const { setLeftPanelRef, leftPanelState, setLeftPanelState } =
-//     useLayoutStore()
-
-//   const [isCollapsed, setIsCollapsed] = useState(false)
-
-//   useEffect(() => {
-//     if (ref.current) setLeftPanelRef(ref)
-//   }, [ref, setLeftPanelRef])
-
-//   // Observe resize changes
-//   useEffect(() => {
-//     if (!ref.current) return () => {}
-
-//     const element = document.querySelector(
-//       `[data-panel-id="${ref.current.getId()}"]`,
-//     ) as HTMLElement | null
-//     if (!element) return () => {}
-
-//     const resizeObserver = new ResizeObserver(() => {
-//       const collapsed = ref.current?.isCollapsed()
-//       if (collapsed !== (leftPanelState === 'COLLAPSED'))
-//         setIsCollapsed(collapsed || false)
-//     })
-
-//     resizeObserver.observe(element)
-
-//     return () => {
-//       resizeObserver.unobserve(element)
-//     }
-//   }, [leftPanelState])
-
-//   useEffect(() => {
-//     if (ref.current) {
-//       if (leftPanelState === 'COLLAPSED')
-//         ref.current.resize(LEFT_PANNEL_SIZE.COLLAPSED)
-//       if (leftPanelState === 'DEFAULT')
-//         ref.current.resize(LEFT_PANNEL_SIZE.DEFAULT)
-//       if (leftPanelState === 'EXPANDED')
-//         ref.current.resize(LEFT_PANNEL_SIZE.EXPANDED)
-//     }
-//   }, [leftPanelState])
-
-//   useEffect(() => {
-//     if (isCollapsed) setLeftPanelState('COLLAPSED')
-//   }, [isCollapsed])
-
-//   return (
-//     <Panel
-//       defaultSize={defaultSize}
-//       minSize={LEFT_PANNEL_SIZE.MIN}
-//       maxSize={LEFT_PANNEL_SIZE.MAX}
-//       ref={ref}
-//       collapsible
-//       collapsedSize={LEFT_PANNEL_SIZE.COLLAPSED}
-//     >
-//       {children}
-//     </Panel>
-//   )
-// }
-
 export const MainPanel = ({ children, defaultSize }: PanelProps) => {
   const ref = useRef<ImperativePanelHandle>(null!)
   const { setMainPanelRef } = useLayoutStore()
