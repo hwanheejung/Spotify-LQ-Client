@@ -21,7 +21,7 @@ const NowPlaying = () => {
       refetch()
   }, [currentTrack, data, refetch])
 
-  const track = data.getQueue.currently_playing as CurrentlyPlayingDTO
+  const track = data?.getQueue?.currently_playing as CurrentlyPlayingDTO
 
   return (
     <div>
