@@ -1,6 +1,6 @@
 'use client'
 
-import { useYourLibraryStore } from '@/lib/stores/your-library.store'
+import { useLayoutStore } from '@/lib/stores/layout.store'
 import { capitalizeFirstLetter } from '@/lib/utils/capitalize-first-letter'
 import { getTimeAgo } from '@/lib/utils/get-time-ago'
 import { AlbumItemDTO } from '@/types/albums'
@@ -9,55 +9,57 @@ import Link from 'next/link'
 import { ReactNode } from 'react'
 
 export const DateAdded = ({ added_at }: Pick<AlbumItemDTO, 'added_at'>) => {
-  const { isOpen } = useYourLibraryStore()
+  const leftPanelState = useLayoutStore((state) => state.leftPanelState)
   return (
-    <div className={`text-xs text-gray-200 ${!isOpen && 'hidden'}`}>
+    <div
+      className={`flex-shrink-0 text-xs text-gray-200 ${leftPanelState !== 'EXPANDED' && 'hidden'}`}
+    >
       {getTimeAgo(added_at)}
     </div>
   )
 }
 
 export const Album = ({ album }: Pick<AlbumItemDTO, 'album'>) => {
-  const { isOpen } = useYourLibraryStore()
+  const leftPanelState = useLayoutStore((state) => state.leftPanelState)
 
   return (
-    <div className="flex cursor-pointer items-center gap-4 rounded-md">
+    <div className="flex flex-1 cursor-pointer items-center gap-4 overflow-hidden rounded-md">
       <Image
         src={album.images[0].url}
         alt="Album Cover"
         width={56}
         height={56}
+        style={{
+          width: leftPanelState === 'COLLAPSED' ? '100%' : '56px',
+          height: leftPanelState === 'COLLAPSED' ? 'auto' : '56px',
+        }}
         className="rounded-sm"
       />
-      <div>
-        <div
-          className={`${isOpen ? 'w-[300px]' : 'w-[250px]'} overflow-hidden text-ellipsis whitespace-nowrap`}
-        >
-          {album.name}
+      {leftPanelState !== 'COLLAPSED' && (
+        <div className="flex-1 overflow-hidden">
+          <div className="block w-[90%] flex-1 overflow-hidden text-ellipsis whitespace-nowrap">
+            {album.name}
+          </div>
+          <div className="block items-center gap-1 overflow-hidden text-ellipsis whitespace-nowrap text-sm text-gray-200">
+            {capitalizeFirstLetter(album.type)} • {album.artists[0].name}
+          </div>
         </div>
-        <div className="flex items-center gap-1 text-sm text-gray-200">
-          <div>{capitalizeFirstLetter(album.type)}</div>
-          <div className="h-[3px] w-[3px] rounded-full bg-gray-200" />
-          <div>{album.artists[0].name}</div>
-        </div>
-      </div>
+      )}
     </div>
   )
 }
 
 const AlbumContainer = ({
   children,
-  key,
   id,
 }: {
   children: ReactNode
-  key: string
+
   id: string
 }) => {
   return (
     <Link
       href={`/album/${id}`}
-      key={key}
       className="flex items-center justify-between gap-5 px-3 py-3 hover:bg-gray-500"
     >
       {children}

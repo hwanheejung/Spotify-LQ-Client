@@ -1,13 +1,13 @@
 'use client'
 
 import { Placement, Tooltip, TooltipOptions } from '@/components/tooltip'
-import { useSidebarStore } from '@/lib/stores/sidebar.store'
+import { useLayoutStore } from '@/lib/stores/layout.store'
 import { usePathname, useRouter } from 'next/navigation'
+import { ReactNode } from 'react'
 import { AiOutlinePlaySquare } from 'react-icons/ai'
 import { HiOutlineDeviceMobile } from 'react-icons/hi'
 import { HiOutlineQueueList } from 'react-icons/hi2'
 import { TbMicrophone2 } from 'react-icons/tb'
-import { ReactNode } from 'react'
 import Button from './IconButton'
 
 interface SidebarNavItemProps extends Pick<TooltipOptions, 'placement'> {
@@ -30,15 +30,15 @@ const SidebarNavItem = ({
 )
 
 const SidebarNav = () => {
-  const { activeComponent, setActiveComponent } = useSidebarStore()
+  const { rightPanelState, setRightPanelState } = useLayoutStore()
   const router = useRouter()
   const pathname = usePathname()
 
   const navItems = [
     {
       label: 'Now playing view',
-      selected: activeComponent === 'NowPlaying',
-      onClick: () => setActiveComponent('NowPlaying'),
+      selected: rightPanelState === 'NOW_PLAYING',
+      onClick: () => setRightPanelState('NOW_PLAYING'),
       icon: <AiOutlinePlaySquare size="1.2rem" />,
     },
     {
@@ -49,14 +49,14 @@ const SidebarNav = () => {
     },
     {
       label: 'Queue',
-      selected: activeComponent === 'Queue',
-      onClick: () => setActiveComponent('Queue'),
+      selected: rightPanelState === 'QUEUE',
+      onClick: () => setRightPanelState('QUEUE'),
       icon: <HiOutlineQueueList size="1.2rem" />,
     },
     {
       label: 'Connect to a device',
-      selected: activeComponent === 'Device',
-      onClick: () => setActiveComponent('Device'),
+      selected: rightPanelState === 'DEVICE',
+      onClick: () => setRightPanelState('DEVICE'),
       icon: <HiOutlineDeviceMobile size="1.2rem" />,
       placement: 'top-end' as Placement,
     },

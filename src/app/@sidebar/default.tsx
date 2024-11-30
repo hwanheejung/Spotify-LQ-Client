@@ -1,21 +1,21 @@
 'use client'
 
-import { useSidebarStore } from '@/lib/stores/sidebar.store'
+import { useLayoutStore } from '@/lib/stores/layout.store'
+import Device from './_components/Device'
 import NowPlaying from './_components/NowPlaying'
 import Queue from './_components/Queue'
-import Device from './_components/Device'
 
 const DefaultSidebar = () => {
-  const { activeComponent } = useSidebarStore()
+  const { rightPanelState } = useLayoutStore()
 
   const authenticated = true
 
-  if (!activeComponent || !authenticated) return null
+  if (!rightPanelState || !authenticated) return null
   return (
-    <div className="h-full min-w-[250px] rounded-lg bg-gray-700">
-      <div>{activeComponent === 'NowPlaying' && <NowPlaying />}</div>
-      <div>{activeComponent === 'Queue' && <Queue />}</div>
-      <div>{activeComponent === 'Device' && <Device />}</div>
+    <div className="h-full rounded-lg bg-gray-700">
+      <div>{rightPanelState === 'NOW_PLAYING' && <NowPlaying />}</div>
+      <div>{rightPanelState === 'QUEUE' && <Queue />}</div>
+      <div>{rightPanelState === 'DEVICE' && <Device />}</div>
     </div>
   )
 }
