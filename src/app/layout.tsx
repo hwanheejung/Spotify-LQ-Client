@@ -6,8 +6,11 @@ import { cookies } from 'next/headers'
 import { ReactNode } from 'react'
 import '../styles/globals.css'
 import {
+  MainPanel,
+  RightPanel,
+  LeftPanel,
+  LEFT_PANNEL_SIZE,
   Handler,
-  PanelItem,
   ResizableGroup,
 } from './_components/ResizablePanel'
 
@@ -28,7 +31,7 @@ async function getDefaultLayout(): Promise<number[]> {
   const layout = cookieStore.get('react-resizable-panels:layout')
   if (layout) return JSON.parse(layout.value)
 
-  return [30, 40, 30]
+  return [LEFT_PANNEL_SIZE.DEFAULT, 40, 30]
 }
 
 export default async function RootLayout({
@@ -45,17 +48,13 @@ export default async function RootLayout({
           <Header />
           <div className="flex-1 overflow-hidden px-3">
             <ResizableGroup>
-              <PanelItem defaultSize={defaultLayout[0]} minSize={20}>
+              <LeftPanel defaultSize={defaultLayout[0]}>
                 {yourLibrary}
-              </PanelItem>
+              </LeftPanel>
               <Handler />
-              <PanelItem defaultSize={defaultLayout[1]} minSize={45}>
-                {main}
-              </PanelItem>
+              <MainPanel defaultSize={defaultLayout[1]}>{main}</MainPanel>
               <Handler />
-              <PanelItem defaultSize={defaultLayout[2]} minSize={20}>
-                {sidebar}
-              </PanelItem>
+              <RightPanel defaultSize={defaultLayout[2]}>{sidebar}</RightPanel>
             </ResizableGroup>
           </div>
           <PlayingBar />
