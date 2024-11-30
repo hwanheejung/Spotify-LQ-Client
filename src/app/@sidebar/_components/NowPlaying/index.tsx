@@ -2,37 +2,37 @@ import { GET_QUEUE } from '@/lib/queries/player.query'
 import { usePlaybackStore } from '@/lib/stores/playback.store'
 import { CurrentlyPlayingDTO } from '@/types/player'
 import { useQuery } from '@apollo/client'
+import { useEffect } from 'react'
 import Header from '../Header'
 import CurrentTrack from './CurrentTrack'
 import CurrentTrackSkeleton from './CurrentTrack.skeleton'
 
 const NowPlaying = () => {
-  const { isActive } = usePlaybackStore()
+  const { isActive, currentTrack } = usePlaybackStore()
   const { data, loading, refetch } = useQuery(GET_QUEUE, {
     skip: !isActive,
   })
 
-  if (loading || !data)
-    return (
-      <div>
-        <Header title="Select the track" />
-        <CurrentTrackSkeleton />
-      </div>
+  useEffect(() => {
+    if (
+      currentTrack &&
+      data?.getQueue?.currently_playing?.id !== currentTrack.id
     )
+      refetch()
+  }, [currentTrack, data, refetch])
 
   const track = data.getQueue.currently_playing as CurrentlyPlayingDTO
-
-  if (!track) refetch()
 
   return (
     <div>
       <Header title={track ? track.album.name : 'Select the track'} />
       <div className="px-3">
-        {data?.getQueue.currently_playing ? (
-          <CurrentTrack track={track} />
+        {loading || !track ? (
+          <CurrentTrackSkeleton />
         ) : (
-          <div>No data</div>
+          <CurrentTrack track={track} />
         )}
+        {!loading && !track && <div>No data</div>}
       </div>
     </div>
   )
