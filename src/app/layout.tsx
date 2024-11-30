@@ -6,12 +6,14 @@ import { cookies } from 'next/headers'
 import { ReactNode } from 'react'
 import '../styles/globals.css'
 import {
-  MainPanel,
-  RightPanel,
-  LeftPanel,
-  LEFT_PANNEL_SIZE,
   Handler,
+  LEFT_PANNEL_SIZE,
+  LeftPanel,
+  MAIN_PANNEL_SIZE,
+  MainPanel,
+  RIGHT_PANNEL_SIZE,
   ResizableGroup,
+  RightPanel,
 } from './_components/ResizablePanel'
 
 export const metadata: Metadata = {
@@ -31,7 +33,11 @@ async function getDefaultLayout(): Promise<number[]> {
   const layout = cookieStore.get('react-resizable-panels:layout')
   if (layout) return JSON.parse(layout.value)
 
-  return [LEFT_PANNEL_SIZE.DEFAULT, 40, 30]
+  return [
+    LEFT_PANNEL_SIZE.DEFAULT,
+    MAIN_PANNEL_SIZE.DEFAULT,
+    RIGHT_PANNEL_SIZE.DEFAULT,
+  ]
 }
 
 export default async function RootLayout({

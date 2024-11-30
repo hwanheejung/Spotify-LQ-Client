@@ -26,13 +26,28 @@ const DefaultHeader = () => (
 )
 
 const Header = () => {
-  const { leftPanelState, setLeftPanelState } = useLayoutStore()
+  const { leftPanelState, setLeftPanelState, leftPanelRef } = useLayoutStore()
+
+  if (leftPanelState === 'COLLAPSED')
+    return (
+      <div className="flex items-center justify-center px-3 py-4">
+        <button
+          className="flex gap-2 text-gray-200 hover:text-gray-0"
+          onClick={() => leftPanelRef?.current.expand()}
+        >
+          <IoLibrarySharp size="1.6rem" style={{ paddingBottom: 2 }} />
+        </button>
+      </div>
+    )
 
   return (
     <div className="text-gray-200">
       <div className="flex items-center justify-between px-3 py-4">
-        <button className="flex gap-2 hover:text-gray-0">
-          <IoLibrarySharp size="1.4rem" style={{ paddingBottom: 2 }} />
+        <button
+          className="flex gap-2 hover:text-gray-0"
+          onClick={() => leftPanelRef?.current.collapse()}
+        >
+          <IoLibrarySharp size="1.6rem" style={{ paddingBottom: 2 }} />
           <span className="text-md font-bold">Your Library</span>
         </button>
         <div className="mr-3 flex items-center gap-3">

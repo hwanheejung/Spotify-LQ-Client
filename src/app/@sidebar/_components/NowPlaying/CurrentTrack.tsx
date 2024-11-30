@@ -14,6 +14,10 @@ const CurrentTrack = ({ track }: CurrentTrackProps) => {
         alt={track.name}
         width={250}
         height={250}
+        style={{
+          width: '100%',
+          height: 'auto',
+        }}
         className="rounded-md"
       />
       <p className="pt-2 text-xl font-bold">{track.name}</p>

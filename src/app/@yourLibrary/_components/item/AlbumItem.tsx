@@ -9,10 +9,10 @@ import Link from 'next/link'
 import { ReactNode } from 'react'
 
 export const DateAdded = ({ added_at }: Pick<AlbumItemDTO, 'added_at'>) => {
-  const { leftPanelState } = useLayoutStore()
+  const leftPanelState = useLayoutStore((state) => state.leftPanelState)
   return (
     <div
-      className={`flex-shrink-0 text-xs text-gray-200 ${leftPanelState === 'DEFAULT' && 'hidden'}`}
+      className={`flex-shrink-0 text-xs text-gray-200 ${leftPanelState !== 'EXPANDED' && 'hidden'}`}
     >
       {getTimeAgo(added_at)}
     </div>
@@ -20,6 +20,8 @@ export const DateAdded = ({ added_at }: Pick<AlbumItemDTO, 'added_at'>) => {
 }
 
 export const Album = ({ album }: Pick<AlbumItemDTO, 'album'>) => {
+  const leftPanelState = useLayoutStore((state) => state.leftPanelState)
+
   return (
     <div className="flex flex-1 cursor-pointer items-center gap-4 overflow-hidden rounded-md">
       <Image
@@ -27,16 +29,22 @@ export const Album = ({ album }: Pick<AlbumItemDTO, 'album'>) => {
         alt="Album Cover"
         width={56}
         height={56}
+        style={{
+          width: leftPanelState === 'COLLAPSED' ? '100%' : '56px',
+          height: leftPanelState === 'COLLAPSED' ? 'auto' : '56px',
+        }}
         className="rounded-sm"
       />
-      <div className="flex-1 overflow-hidden">
-        <div className="block w-[90%] flex-1 overflow-hidden text-ellipsis whitespace-nowrap">
-          {album.name}
+      {leftPanelState !== 'COLLAPSED' && (
+        <div className="flex-1 overflow-hidden">
+          <div className="block w-[90%] flex-1 overflow-hidden text-ellipsis whitespace-nowrap">
+            {album.name}
+          </div>
+          <div className="block items-center gap-1 overflow-hidden text-ellipsis whitespace-nowrap text-sm text-gray-200">
+            {capitalizeFirstLetter(album.type)} • {album.artists[0].name}
+          </div>
         </div>
-        <div className="block items-center gap-1 overflow-hidden text-ellipsis whitespace-nowrap text-sm text-gray-200">
-          {capitalizeFirstLetter(album.type)} • {album.artists[0].name}
-        </div>
-      </div>
+      )}
     </div>
   )
 }

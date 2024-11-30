@@ -3,9 +3,9 @@ import { ImperativePanelHandle } from 'react-resizable-panels'
 import { create } from 'zustand'
 
 interface LayoutStore {
-  leftPanelRef: RefObject<ImperativePanelHandle> | null
-  mainPanelRef: RefObject<ImperativePanelHandle> | null
-  rightPanelRef: RefObject<ImperativePanelHandle> | null
+  leftPanelRef?: RefObject<ImperativePanelHandle>
+  mainPanelRef?: RefObject<ImperativePanelHandle>
+  rightPanelRef?: RefObject<ImperativePanelHandle>
   setLeftPanelRef: (ref: RefObject<ImperativePanelHandle>) => void
   setMainPanelRef: (ref: RefObject<ImperativePanelHandle>) => void
   setRightPanelRef: (ref: RefObject<ImperativePanelHandle>) => void
@@ -18,9 +18,9 @@ interface LayoutStore {
 }
 
 export const useLayoutStore = create<LayoutStore>((set) => ({
-  leftPanelRef: null,
-  mainPanelRef: null,
-  rightPanelRef: null,
+  leftPanelRef: undefined,
+  mainPanelRef: undefined,
+  rightPanelRef: undefined,
   setLeftPanelRef: (ref) => set({ leftPanelRef: ref }),
   setMainPanelRef: (ref) => set({ mainPanelRef: ref }),
   setRightPanelRef: (ref) => set({ rightPanelRef: ref }),
