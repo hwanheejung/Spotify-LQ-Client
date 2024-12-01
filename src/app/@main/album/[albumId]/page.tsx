@@ -1,4 +1,4 @@
-import { PreloadQuery } from '@/lib/apollo/apollo-client'
+import { PreloadQuery } from '@/lib/graphql/apollo-client'
 import { GET_ALBUM } from '@/lib/queries/albums.query'
 import { Suspense, lazy } from 'react'
 import AlbumOverviewSkeleton from './_components/AlbumOverview.skeleton'
