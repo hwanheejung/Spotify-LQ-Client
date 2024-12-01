@@ -6,7 +6,7 @@ import { FiSearch } from 'react-icons/fi'
 import { GoArrowLeft, GoArrowRight } from 'react-icons/go'
 import { IoLibrarySharp } from 'react-icons/io5'
 import { MdOutlineFormatListBulleted } from 'react-icons/md'
-import CreateButton from './Header/CreateButton'
+import CreateButton from './CreateButton'
 
 const ExpandedHeader = () => (
   <div className="mx-3 flex h-10 items-center justify-between border-b-[0.5px] border-gray-500 text-xxs font-bold">
@@ -33,7 +33,7 @@ const Header = () => {
       <div className="flex items-center justify-center px-3 py-4">
         <button
           className="flex gap-2 text-gray-200 hover:text-gray-0"
-          onClick={() => leftPanelRef?.current.expand()}
+          onClick={() => leftPanelRef?.current?.expand()}
         >
           <IoLibrarySharp size="1.6rem" style={{ paddingBottom: 2 }} />
         </button>
@@ -45,7 +45,7 @@ const Header = () => {
       <div className="flex items-center justify-between px-3 py-4">
         <button
           className="flex gap-2 hover:text-gray-0"
-          onClick={() => leftPanelRef?.current.collapse()}
+          onClick={() => leftPanelRef?.current?.collapse()}
         >
           <IoLibrarySharp size="1.6rem" style={{ paddingBottom: 2 }} />
           <span className="text-md font-bold">Your Library</span>
