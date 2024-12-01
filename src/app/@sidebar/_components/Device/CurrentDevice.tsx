@@ -1,5 +1,5 @@
 import { usePlaybackStore } from '@/lib/stores/playback.store'
-import { DeviceDTO } from '@/types/player'
+import { DeviceDTO } from '@/types/player.types'
 import { IoPhonePortraitOutline } from 'react-icons/io5'
 import { MdComputer, MdOutlineSpeaker } from 'react-icons/md'
 

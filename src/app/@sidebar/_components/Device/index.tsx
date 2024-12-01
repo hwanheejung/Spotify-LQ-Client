@@ -1,5 +1,5 @@
 import { GET_AVAILABLE_DEVICES } from '@/lib/queries/player.query'
-import { DeviceDTO } from '@/types/player'
+import { DeviceDTO } from '@/types/player.types'
 import { useQuery } from '@apollo/client'
 import Header from '../Header'
 import CurrentDevice from './CurrentDevice'

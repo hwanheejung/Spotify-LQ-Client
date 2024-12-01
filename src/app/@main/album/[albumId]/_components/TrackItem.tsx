@@ -3,7 +3,7 @@
 import { START_PLAYBACK } from '@/lib/queries/player.query'
 import { usePlaybackStore } from '@/lib/stores/playback.store'
 import { formatDuration } from '@/lib/utils/format-duration'
-import { AlbumTrackDTO } from '@/types/albums'
+import { AlbumTrackDTO } from '@/types/albums.types'
 import { useMutation } from '@apollo/client'
 import { HiMiniPlay } from 'react-icons/hi2'
 

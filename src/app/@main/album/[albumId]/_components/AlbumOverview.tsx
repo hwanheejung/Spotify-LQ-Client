@@ -3,7 +3,7 @@
 import { GET_ALBUM } from '@/lib/queries/albums.query'
 import { capitalizeFirstLetter } from '@/lib/utils/capitalize-first-letter'
 import { parseDate } from '@/lib/utils/parse-date'
-import { AlbumDTO } from '@/types/albums'
+import { AlbumDTO } from '@/types/albums.types'
 import { useSuspenseQuery } from '@apollo/client'
 import Image from 'next/image'
 import Link from 'next/link'

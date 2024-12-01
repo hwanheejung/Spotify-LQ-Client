@@ -9,9 +9,7 @@ const AlbumOverview = lazy(() => import('./_components/AlbumOverview'))
 const Tracks = lazy(() => import('./_components/Tracks'))
 
 interface AlbumPageProps {
-  params: {
-    albumId: string
-  }
+  params: Promise<{ albumId: string }>
 }
 
 const AlbumPage = async ({ params }: AlbumPageProps) => {

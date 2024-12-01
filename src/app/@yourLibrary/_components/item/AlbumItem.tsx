@@ -3,7 +3,7 @@
 import { useLayoutStore } from '@/lib/stores/layout.store'
 import { capitalizeFirstLetter } from '@/lib/utils/capitalize-first-letter'
 import { getTimeAgo } from '@/lib/utils/get-time-ago'
-import { AlbumItemDTO } from '@/types/albums'
+import { AlbumItemDTO } from '@/types/albums.types'
 import Image from 'next/image'
 import Link from 'next/link'
 import { ReactNode } from 'react'

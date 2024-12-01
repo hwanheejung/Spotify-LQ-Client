@@ -5,9 +5,7 @@ import { Suspense, lazy } from 'react'
 const ProfileHeader = lazy(() => import('./_components/ProfileHeader'))
 
 interface ArtistPageProps {
-  params: {
-    artistId: string
-  }
+  params: Promise<{ artistId: string }>
 }
 
 const ArtistPage = async ({ params }: ArtistPageProps) => {

@@ -1,32 +1,18 @@
+import { useQuizStore } from '@/lib/stores/quiz.store'
+import { Level, LevelId, levels } from '@/types/quiz.types'
+import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 
-type Level = {
-  name: 'Easy' | 'Medium' | 'Hard'
-  description: string
-}
-
-const levels: Level[] = [
-  {
-    name: 'Easy',
-    description: 'Only some words are blanked out.',
-  },
-  { name: 'Medium', description: 'More blanks to challenge your skills.' },
-  {
-    name: 'Hard',
-    description: 'All words are blanked out. no hints provided.',
-  },
-]
-
 interface LevelButtonProps {
-  currentLevel: Level
+  currentLevelId: LevelId
   level: Level
-  setLevel: (level: Level) => void
+  setLevel: (level: LevelId) => void
 }
 
-const LevelButton = ({ currentLevel, level, setLevel }: LevelButtonProps) => {
+const LevelButton = ({ currentLevelId, level, setLevel }: LevelButtonProps) => {
   return (
     <button
-      onClick={() => setLevel(level)}
+      onClick={() => setLevel(level.id)}
       className="flex items-center justify-between gap-1"
     >
       <div className="flex flex-1 flex-col items-start text-start">
@@ -34,18 +20,27 @@ const LevelButton = ({ currentLevel, level, setLevel }: LevelButtonProps) => {
         <p className="text-xs text-gray-100">{level.description}</p>
       </div>
       <div
-        className={`flex h-5 w-5 items-center justify-center rounded-full border-2 ${currentLevel.name === level.name ? 'border-spotifyGreen' : 'border-gray-300'} `}
+        className={`flex h-5 w-5 items-center justify-center rounded-full border-2 ${currentLevelId === level.id ? 'border-spotifyGreen' : 'border-gray-300'} `}
       >
         <div
-          className={`h-2 w-2 rounded-full ${currentLevel.name === level.name && 'bg-spotifyGreen'}`}
+          className={`h-2 w-2 rounded-full ${currentLevelId === level.id && 'bg-spotifyGreen'}`}
         />
       </div>
     </button>
   )
 }
 
-const Quiz = () => {
-  const [level, setLevel] = useState<Level>(levels[0])
+const Quiz = ({ trackId }: { trackId: string }) => {
+  const [levelId, setLevelId] = useState<LevelId>(0)
+  const router = useRouter()
+  const { setTrackId, setLevel, setStatus } = useQuizStore()
+
+  const handleStart = () => {
+    setTrackId(trackId)
+    setLevel(levelId)
+    setStatus('PLAYING')
+    router.push(`/quiz/${trackId}?level=${levelId}`)
+  }
 
   return (
     <div className="flex flex-col gap-3 rounded-md bg-gray-400 p-3">
@@ -56,14 +51,14 @@ const Quiz = () => {
           <LevelButton
             key={lvl.name}
             level={lvl}
-            setLevel={setLevel}
-            currentLevel={level}
+            setLevel={setLevelId}
+            currentLevelId={levelId}
           />
         ))}
       </div>
 
       <button
-        onClick={() => console.log('Start quiz', level)}
+        onClick={handleStart}
         className="rounded-md bg-spotifyGreen px-4 py-2 font-bold text-gray-900 transition-all hover:scale-105 focus:outline-none"
       >
         Start
