@@ -35,6 +35,7 @@ export const logout = async () => {
 export const verifySession = async (): Promise<boolean> => {
   const { data } = await get('/api/auth/status', {
     next: {
+      revalidate: 60 * 60, // 1 hour
       tags: ['session-status'],
     },
   })

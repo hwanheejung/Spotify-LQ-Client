@@ -1,7 +1,7 @@
 import { CurrentlyPlayingDTO } from '@/types/player'
 import Header from '../Header'
-import CurrentTrack from './CurrentTrack'
-import CurrentTrackSkeleton from './CurrentTrack.skeleton'
+import { CurrentTrack, CurrentTrackSkeleton } from './CurrentTrack'
+import Quiz from './Quiz'
 
 interface NowPlayingProps {
   track?: CurrentlyPlayingDTO
@@ -10,14 +10,15 @@ interface NowPlayingProps {
 
 const NowPlaying = ({ loading, track }: NowPlayingProps) => {
   return (
-    <div>
+    <div className="flex h-full flex-col">
       <Header title={track ? track.album.name : 'Select the track'} />
-      <div className="px-3">
+      <div className="flex flex-1 flex-col gap-5 overflow-y-scroll px-3 pb-3">
         {loading || !track ? (
           <CurrentTrackSkeleton />
         ) : (
           <CurrentTrack track={track} />
         )}
+        <Quiz />
       </div>
     </div>
   )

@@ -1,20 +1,51 @@
 'use client'
 
+import { GET_QUEUE } from '@/lib/queries/player.query'
 import { useLayoutStore } from '@/lib/stores/layout.store'
-import Device from './_components/Device'
+import { usePlaybackStore } from '@/lib/stores/playback.store'
+import { useQuery } from '@apollo/client'
+import { useEffect } from 'react'
 import NowPlaying from './_components/NowPlaying'
 import Queue from './_components/Queue'
+import Device from './_components/Device'
 
 const DefaultSidebar = () => {
   const { rightPanelState } = useLayoutStore()
 
-  const authenticated = true
+  const { isActive, currentTrack } = usePlaybackStore()
+  const { data, loading, refetch } = useQuery(GET_QUEUE, {
+    skip: !isActive,
+  })
 
-  if (!rightPanelState || !authenticated) return null
+  useEffect(() => {
+    if (
+      currentTrack &&
+      data?.getQueue?.currently_playing?.id !== currentTrack.id
+    )
+      refetch()
+  }, [currentTrack, data, refetch])
+
+  if (!rightPanelState) return null
+
   return (
-    <div className="h-full rounded-lg bg-gray-700">
-      <div>{rightPanelState === 'NOW_PLAYING' && <NowPlaying />}</div>
-      <div>{rightPanelState === 'QUEUE' && <Queue />}</div>
+    <div className="h-full rounded-lg bg-gray-700 scrollbar-hide">
+      <div>
+        {rightPanelState === 'NOW_PLAYING' && (
+          <NowPlaying
+            track={data?.getQueue?.currently_playing}
+            loading={loading}
+          />
+        )}
+      </div>
+
+      {rightPanelState === 'QUEUE' && (
+        <Queue
+          currentlyPlaying={data?.getQueue?.currently_playing}
+          queue={data?.getQueue?.queue}
+          loading={loading}
+        />
+      )}
+
       <div>{rightPanelState === 'DEVICE' && <Device />}</div>
     </div>
   )
