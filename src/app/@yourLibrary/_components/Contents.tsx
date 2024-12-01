@@ -10,7 +10,7 @@ const Contents = async () => {
   })
 
   return (
-    <div className="overflow-hidden text-gray-0">
+    <div className="overflow-hidden pb-10 text-gray-0">
       <div className="flex flex-col overflow-y-scroll scrollbar-hide">
         {data.getSavedAlbums.items.map((item: AlbumItemDTO) => (
           <AlbumContainer key={item.album.id} id={item.album.id}>
