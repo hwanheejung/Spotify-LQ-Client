@@ -1,5 +1,5 @@
 import { usePlaybackStore } from '@/lib/stores/playback.store'
-import { CurrentlyPlayingDTO, QueueItemDTO } from '@/types/player'
+import { CurrentlyPlayingDTO, QueueItemDTO } from '@/types/player.types'
 import Image from 'next/image'
 import Link from 'next/link'
 

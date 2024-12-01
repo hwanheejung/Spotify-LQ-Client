@@ -1,7 +1,7 @@
 'use client'
 
 import { GET_ALBUM } from '@/lib/queries/albums.query'
-import { AlbumDTO, AlbumTrackDTO } from '@/types/albums'
+import { AlbumDTO, AlbumTrackDTO } from '@/types/albums.types'
 import { useSuspenseQuery } from '@apollo/client'
 import TrackItem from './TrackItem'
 
@@ -13,7 +13,7 @@ const Tracks = ({ albumId }: { albumId: string }) => {
   return (
     <>
       {tracks.items.map((track: AlbumTrackDTO) => (
-        <TrackItem key={track.id} track={track} />
+        <TrackItem key={track.id} track={track} albumId={albumId} />
       ))}
     </>
   )

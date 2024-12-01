@@ -1,4 +1,4 @@
-import { CurrentlyPlayingDTO, QueueItemDTO } from '@/types/player'
+import { CurrentlyPlayingDTO, QueueItemDTO } from '@/types/player.types'
 import Header from '../Header'
 import Track from './Track'
 import TrackSkeleton from './Track.skeleton'

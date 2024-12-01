@@ -5,6 +5,7 @@ import type { Metadata } from 'next'
 import { cookies } from 'next/headers'
 import { ReactNode } from 'react'
 import '../styles/globals.css'
+import { auth } from '@/lib/utils/auth/auth'
 import {
   Handler,
   LEFT_PANNEL_SIZE,
@@ -46,6 +47,7 @@ export default async function RootLayout({
   sidebar,
 }: Readonly<RootLayoutProps>) {
   const defaultLayout = await getDefaultLayout()
+  const { isAuthenticated } = await auth()
 
   return (
     <html lang="en">
@@ -59,8 +61,14 @@ export default async function RootLayout({
               </LeftPanel>
               <Handler />
               <MainPanel defaultSize={defaultLayout[1]}>{main}</MainPanel>
-              <Handler />
-              <RightPanel defaultSize={defaultLayout[2]}>{sidebar}</RightPanel>
+              {isAuthenticated && (
+                <>
+                  <Handler />
+                  <RightPanel defaultSize={defaultLayout[2]}>
+                    {sidebar}
+                  </RightPanel>
+                </>
+              )}
             </ResizableGroup>
           </div>
           <PlayingBar />

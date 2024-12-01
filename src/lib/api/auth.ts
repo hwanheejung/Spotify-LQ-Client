@@ -29,12 +29,15 @@ export const login = async (code: string) => {
 
 export const logout = async () => {
   await deleteApi('/api/auth/logout')
-  revalidateTag('session')
+  revalidateTag('session-status')
 }
 
 export const verifySession = async (): Promise<boolean> => {
   const { data } = await get('/api/auth/status', {
-    cache: 'no-store',
+    next: {
+      revalidate: 60 * 60, // 1 hour
+      tags: ['session-status'],
+    },
   })
   return data.authenticated
 }

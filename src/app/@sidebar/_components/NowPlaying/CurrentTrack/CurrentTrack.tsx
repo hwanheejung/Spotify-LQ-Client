@@ -1,4 +1,4 @@
-import { CurrentlyPlayingDTO } from '@/types/player'
+import { CurrentlyPlayingDTO } from '@/types/player.types'
 import Image from 'next/image'
 import Link from 'next/link'
 

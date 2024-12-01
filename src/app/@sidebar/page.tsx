@@ -1,15 +1,15 @@
 'use client'
 
+import { GET_QUEUE } from '@/lib/queries/player.query'
 import { useLayoutStore } from '@/lib/stores/layout.store'
 import { usePlaybackStore } from '@/lib/stores/playback.store'
 import { useQuery } from '@apollo/client'
-import { GET_QUEUE } from '@/lib/queries/player.query'
 import { useEffect } from 'react'
-import Queue from './_components/Queue'
 import NowPlaying from './_components/NowPlaying'
+import Queue from './_components/Queue'
 import Device from './_components/Device'
 
-const SideBarPage = () => {
+const SidebarPage = () => {
   const { rightPanelState } = useLayoutStore()
 
   const { isActive, currentTrack } = usePlaybackStore()
@@ -29,14 +29,12 @@ const SideBarPage = () => {
 
   return (
     <div className="h-full rounded-lg bg-gray-700 scrollbar-hide">
-      <div>
-        {rightPanelState === 'NOW_PLAYING' && (
-          <NowPlaying
-            track={data?.getQueue?.currently_playing}
-            loading={loading}
-          />
-        )}
-      </div>
+      {rightPanelState === 'NOW_PLAYING' && (
+        <NowPlaying
+          track={data?.getQueue?.currently_playing}
+          loading={loading}
+        />
+      )}
 
       {rightPanelState === 'QUEUE' && (
         <Queue
@@ -46,9 +44,9 @@ const SideBarPage = () => {
         />
       )}
 
-      <div>{rightPanelState === 'DEVICE' && <Device />}</div>
+      {rightPanelState === 'DEVICE' && <Device />}
     </div>
   )
 }
 
-export default SideBarPage
+export default SidebarPage

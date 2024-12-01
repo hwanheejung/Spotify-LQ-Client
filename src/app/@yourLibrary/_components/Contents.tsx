@@ -1,6 +1,6 @@
 import { getClient } from '@/lib/apollo/apollo-client'
 import { GET_SAVED_ALBUMS } from '@/lib/queries/albums.query'
-import { AlbumItemDTO } from '@/types/albums'
+import { AlbumItemDTO } from '@/types/albums.types'
 import AlbumContainer, { Album, DateAdded } from './item/AlbumItem'
 
 const Contents = async () => {
@@ -10,7 +10,7 @@ const Contents = async () => {
   })
 
   return (
-    <div className="overflow-hidden text-gray-0">
+    <div className="overflow-hidden pb-10 text-gray-0">
       <div className="flex flex-col overflow-y-scroll scrollbar-hide">
         {data.getSavedAlbums.items.map((item: AlbumItemDTO) => (
           <AlbumContainer key={item.album.id} id={item.album.id}>
