@@ -45,3 +45,7 @@ input[type='range']::-webkit-slider-thumb {
 &::-moz-range-thumb {
   border: none;
 }
+
+.range-slider:disabled {
+  cursor: not-allowed;
+}
