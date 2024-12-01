@@ -9,9 +9,10 @@ import { HiMiniPlay } from 'react-icons/hi2'
 
 interface TrackItemProps {
   track: AlbumTrackDTO
+  albumId: string
 }
 
-const TrackItem = ({ track }: TrackItemProps) => {
+const TrackItem = ({ track, albumId }: TrackItemProps) => {
   const { deviceId, currentTrack } = usePlaybackStore()
   const [startResumePlayback] = useMutation(START_PLAYBACK)
 
@@ -20,8 +21,11 @@ const TrackItem = ({ track }: TrackItemProps) => {
       await startResumePlayback({
         variables: {
           deviceId,
-          type: 'track',
-          ids: [track.id],
+          type: 'album',
+          id: albumId,
+          offset: {
+            position: track.track_number - 1,
+          },
         },
       })
     } catch (err) {

@@ -13,7 +13,7 @@ const Tracks = ({ albumId }: { albumId: string }) => {
   return (
     <>
       {tracks.items.map((track: AlbumTrackDTO) => (
-        <TrackItem key={track.id} track={track} />
+        <TrackItem key={track.id} track={track} albumId={albumId} />
       ))}
     </>
   )
