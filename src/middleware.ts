@@ -1,17 +1,29 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { auth } from './lib/utils/auth/auth'
 
-export default async function middleware(req: NextRequest) {
-  // check if router is protected
-  const protectedRoutes = ['/mypage']
-  const currentPath = req.nextUrl.pathname
-  const isProtectedRoute = protectedRoutes.includes(currentPath)
+function isMatch(pathname: string, urls: string[]) {
+  return urls.some((url) => {
+    return pathname.startsWith(url)
+  })
+}
 
-  if (isProtectedRoute) {
-    // check for valid session
+export default async function middleware(req: NextRequest) {
+  const protectedRoutes = [
+    '/mypage',
+    '/album',
+    '/artist',
+    '/lyrics',
+    '/search',
+    '/settings',
+  ]
+  const currentPath = req.nextUrl.pathname
+
+  if (isMatch(currentPath, protectedRoutes)) {
     const { isAuthenticated } = await auth()
-    if (!isAuthenticated)
-      return NextResponse.redirect(new URL('/', req.nextUrl))
+
+    return isAuthenticated
+      ? NextResponse.next()
+      : NextResponse.redirect(new URL(`/`, req.nextUrl))
   }
 
   return NextResponse.next()

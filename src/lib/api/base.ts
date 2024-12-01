@@ -1,5 +1,6 @@
 'use server'
 
+import { revalidateTag } from 'next/cache'
 import { RequestInit } from 'next/dist/server/web/spec-extension/request'
 import { cookies } from 'next/headers'
 
@@ -22,22 +23,24 @@ const fetchApi = async (
   const sessionId = cookieStore.get('sessionId')?.value
 
   const fetchOptions = {
+    cache: 'force-cache' as RequestCache,
+    credentials: 'include' as RequestCredentials,
     ...options,
     headers: {
       'content-type': 'application/json',
       ...(sessionId ? { Cookie: `sessionId=${sessionId}` } : {}),
       ...options?.headers,
     },
-    cache: 'force-cache' as RequestCache,
-    credentials: 'include' as RequestCredentials,
   }
 
   const res = await fetch(getBaseUrl(useMocked) + path, fetchOptions)
 
-  if (!res.ok)
+  if (!res.ok) {
+    revalidateTag('session-status')
     throw new Error(
       `[ERROR] ${res.status} - ${res.statusText}. ${errorMessage}`,
     )
+  }
 
   const { headers } = res
   const text = await res.text()

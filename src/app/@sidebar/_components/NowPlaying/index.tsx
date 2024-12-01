@@ -18,7 +18,6 @@ const NowPlaying = ({ loading, track }: NowPlayingProps) => {
         ) : (
           <CurrentTrack track={track} />
         )}
-        {!loading && !track && <div>No data</div>}
       </div>
     </div>
   )
