@@ -2,13 +2,10 @@
 
 import { MusicBars } from '@/components/icons'
 import { Tooltip } from '@/components/tooltip'
-import { START_PLAYBACK } from '@/lib/queries/player.query'
-import { usePlaybackStore } from '@/lib/stores/playback.store'
+import useTrackControl from '@/lib/hooks/useTrackControl'
 import { formatDuration } from '@/lib/utils/format-duration'
 import { AlbumTrackDTO } from '@/types/albums.types'
-import { useMutation } from '@apollo/client'
-import { useMemo } from 'react'
-import { HiMiniPlay, HiMiniPause } from 'react-icons/hi2'
+import { HiMiniPause, HiMiniPlay } from 'react-icons/hi2'
 
 interface TrackItemProps {
   track: AlbumTrackDTO
@@ -16,29 +13,18 @@ interface TrackItemProps {
 }
 
 const TrackItem = ({ track, albumId }: TrackItemProps) => {
-  const { deviceId, currentTrack, isPaused, player } = usePlaybackStore()
-  const [startResumePlayback] = useMutation(START_PLAYBACK)
+  const { isPaused, isCurrent, handleStart, pause } = useTrackControl({
+    trackIds: [track.id],
+  })
 
-  const isCurrentTrack = useMemo(
-    () => currentTrack?.id === track.id,
-    [currentTrack, track.id],
-  )
-
-  const handleStart = async () => {
-    try {
-      await startResumePlayback({
-        variables: {
-          deviceId,
-          type: 'album',
-          id: albumId,
-          offset: {
-            position: track.track_number - 1,
-          },
-        },
-      })
-    } catch (err) {
-      console.error('Failed to start playback', err)
-    }
+  const handleStartClick = async () => {
+    await handleStart({
+      type: 'album',
+      id: albumId,
+      offset: {
+        position: track.track_number - 1,
+      },
+    })
   }
 
   return (
@@ -47,29 +33,29 @@ const TrackItem = ({ track, albumId }: TrackItemProps) => {
       className="group flex items-center rounded-sm pr-5 text-gray-100 hover:bg-gray-500"
     >
       <div className="mx-3 flex h-5 w-5 items-center justify-center">
-        {!isPaused && isCurrentTrack ? (
+        {!isPaused && isCurrent ? (
           <MusicBars className="group-hover:hidden" />
         ) : (
           <p
             className={`group-hover:hidden ${
-              isCurrentTrack ? 'text-spotifyGreen' : 'text-gray-0'
+              isCurrent ? 'text-spotifyGreen' : 'text-gray-0'
             }`}
           >
             {track.track_number}
           </p>
         )}
-        {isCurrentTrack && !isPaused ? (
+        {isCurrent && !isPaused ? (
           <Tooltip label="Pause">
-            <button
-              className="hidden group-hover:block"
-              onClick={() => player?.togglePlay()}
-            >
+            <button className="hidden group-hover:block" onClick={pause}>
               <HiMiniPause className="h-4 w-4" />
             </button>
           </Tooltip>
         ) : (
           <Tooltip label="Play">
-            <button className="hidden group-hover:block" onClick={handleStart}>
+            <button
+              className="hidden group-hover:block"
+              onClick={handleStartClick}
+            >
               <HiMiniPlay className="h-4 w-4" />
             </button>
           </Tooltip>
@@ -77,7 +63,7 @@ const TrackItem = ({ track, albumId }: TrackItemProps) => {
       </div>
       <div className="flex-1 py-1 pl-2">
         <h2
-          className={`font-semibold ${currentTrack?.id === track.id ? 'text-spotifyGreen' : 'text-gray-0'}`}
+          className={`font-semibold ${isCurrent ? 'text-spotifyGreen' : 'text-gray-0'}`}
         >
           {track.name}
         </h2>

@@ -1,7 +1,7 @@
-import { getClient } from '@/lib/apollo/apollo-client'
+import { getClient } from '@/lib/graphql/apollo-client'
 import { GET_SAVED_ALBUMS } from '@/lib/queries/albums.query'
 import { AlbumItemDTO } from '@/types/albums.types'
-import AlbumContainer, { Album, DateAdded } from './item/AlbumItem'
+import AlbumContainer, { Album, DateAdded } from './AlbumItem'
 
 const Contents = async () => {
   const { data } = await getClient().query({

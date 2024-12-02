@@ -29,14 +29,12 @@ const DefaultSidebar = () => {
 
   return (
     <div className="h-full rounded-lg bg-gray-700 scrollbar-hide">
-      <div>
-        {rightPanelState === 'NOW_PLAYING' && (
-          <NowPlaying
-            track={data?.getQueue?.currently_playing}
-            loading={loading}
-          />
-        )}
-      </div>
+      {rightPanelState === 'NOW_PLAYING' && (
+        <NowPlaying
+          track={data?.getQueue?.currently_playing}
+          loading={loading}
+        />
+      )}
 
       {rightPanelState === 'QUEUE' && (
         <Queue
@@ -46,7 +44,7 @@ const DefaultSidebar = () => {
         />
       )}
 
-      <div>{rightPanelState === 'DEVICE' && <Device />}</div>
+      {rightPanelState === 'DEVICE' && <Device />}
     </div>
   )
 }

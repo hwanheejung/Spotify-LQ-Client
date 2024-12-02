@@ -26,6 +26,8 @@ const Tooltip = (props: TooltipProps) => {
   const openTooltip = useCallback(() => setIsOpen(true), [])
   const closeTooltip = useCallback(() => setIsOpen(false), [])
 
+  if (!label) return children
+
   return (
     <div className="relative w-fit">
       <span

@@ -19,3 +19,33 @@ body {
   background: var(--background);
   font-family: sans-serif, Helvetica, Arial;
 }
+
+.range-slider {
+  background: linear-gradient(
+    to right,
+    #f9fafb var(--progress, 0%),
+    #535353 var(--progress, 0%)
+  );
+}
+
+input[type='range']::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 0;
+  width: 0;
+  background: none;
+  border: none;
+  box-shadow: none;
+}
+
+.range-slider::-webkit-slider-runnable-track {
+  background-color: transparent;
+}
+
+&::-moz-range-thumb {
+  border: none;
+}
+
+.range-slider:disabled {
+  cursor: not-allowed;
+}

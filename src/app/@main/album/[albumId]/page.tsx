@@ -1,12 +1,18 @@
-import { PreloadQuery } from '@/lib/apollo/apollo-client'
+import { PreloadQuery } from '@/lib/graphql/apollo-client'
 import { GET_ALBUM } from '@/lib/queries/albums.query'
 import { Suspense, lazy } from 'react'
-import AlbumOverviewSkeleton from './_components/AlbumOverview.skeleton'
-import TracksSkeleton from './_components/Tracks.skeleton'
 import AlbumNav from './_components/AlbumNav'
+import { AlbumOverviewSkeleton } from './_components/AlbumOverview'
+import { TracksSkeleton } from './_components/Tracks'
 
-const AlbumOverview = lazy(() => import('./_components/AlbumOverview'))
-const Tracks = lazy(() => import('./_components/Tracks'))
+const Tracks = lazy(() =>
+  import('./_components/Tracks').then((module) => ({ default: module.Tracks })),
+)
+const AlbumOverview = lazy(() =>
+  import('./_components/AlbumOverview').then((module) => ({
+    default: module.AlbumOverview,
+  })),
+)
 
 interface AlbumPageProps {
   params: Promise<{ albumId: string }>

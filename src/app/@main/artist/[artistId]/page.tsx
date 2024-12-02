@@ -1,4 +1,4 @@
-import { PreloadQuery } from '@/lib/apollo/apollo-client'
+import { PreloadQuery } from '@/lib/graphql/apollo-client'
 import { GET_ARTIST } from '@/lib/queries/artists.query'
 import { Suspense, lazy } from 'react'
 
