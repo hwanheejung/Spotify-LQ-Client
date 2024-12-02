@@ -15,13 +15,23 @@
 
 <br />
 
+## 📸 Screenshots
+<details>
+  <summary><b>Real-time lyrics sync</b></summary>
+    
+  ![화면 기록 2024-12-02 오후 4 40 29](https://github.com/user-attachments/assets/9e26b864-1774-4381-90f4-797513120321)   
+  
+</details>
+
+<br />
+
 ## 🎹 Features
 
 ♪ **Real-Time Music Playback**: Play songs using the Spotify Playback SDK.  
 ♪ **Playback Controls**: Full playback functionality including play, pause, next, previous, shuffle, and repeat.  
 ♪ **Personalized Access**: View and play your saved playlists, albums, and liked songs.  
 ♪ **Playback Devices**: Switch between different playback devices (desktop, mobile, smart speakers).  
-♪ **Lyrics Sync**: Follow along with synced lyrics for a karaoke-like experience.  
+♪ **Lyrics Sync**: Follow along with synced lyrics for a karaoke-like experience.
 ♪ **Custom Playlists**: Create and manage your own playlists within the app.
 
 <br />
@@ -69,10 +79,6 @@ B -->|Update UI| A
 A -->|Playback Controls| E[Spotify Web Playback SDK]
 E -->|Manage Playback| A
 ```
-
-<br />
-
-## 📸 Screenshots
 
 <br />
 
