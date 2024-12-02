@@ -1,3 +1,4 @@
+import { Lyrics } from '@/types/player.types'
 import { create } from 'zustand'
 
 type Track = {
@@ -20,12 +21,14 @@ export interface PlaybackState {
   isPaused: boolean
   isActive: boolean
   deviceId: string | null
+  currentTrackLyrics: Lyrics | null
   setPlayer: (player: Spotify.Player) => void
   setPlayerName: (playerName: string) => void
   setCurrentTrack: (currentTrack: Track) => void
   setIsPaused: (isPaused: boolean) => void
   setIsActive: (isActive: boolean) => void
   setDeviceId: (deviceId: string | null) => void
+  setCurrentTrackLyrics: (currentTrackLyrics: Lyrics) => void
 }
 
 export const usePlaybackStore = create<PlaybackState>((set) => ({
@@ -35,10 +38,12 @@ export const usePlaybackStore = create<PlaybackState>((set) => ({
   isPaused: true,
   isActive: false,
   deviceId: null,
+  currentTrackLyrics: null,
   setPlayer: (player) => set({ player }),
   setPlayerName: (playerName) => set({ playerName }),
   setCurrentTrack: (currentTrack) => set({ currentTrack }),
   setIsPaused: (isPaused) => set({ isPaused }),
   setIsActive: (isActive) => set({ isActive }),
   setDeviceId: (deviceId) => set({ deviceId }),
+  setCurrentTrackLyrics: (currentTrackLyrics) => set({ currentTrackLyrics }),
 }))
