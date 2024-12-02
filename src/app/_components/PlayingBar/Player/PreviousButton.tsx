@@ -15,21 +15,21 @@ const PreviousButton = () => {
   }
 
   return (
-    <button
-      disabled={isDisabled}
-      onClick={handleClick}
-      className={`text-gray-200 ${
-        !isDisabled ? 'hover:text-gray-0' : 'cursor-not-allowed'
-      }`}
+    <Tooltip
+      label={!isDisabled ? 'Previous' : ''}
+      spacing={16}
+      className="flex items-center"
     >
-      {player && currentTrack ? (
-        <Tooltip label="Previous" spacing={16}>
-          <FaBackwardStep size="1.3rem" />
-        </Tooltip>
-      ) : (
+      <button
+        disabled={isDisabled}
+        onClick={handleClick}
+        className={`text-gray-200 ${
+          !isDisabled ? 'hover:text-gray-0' : 'cursor-not-allowed'
+        }`}
+      >
         <FaBackwardStep size="1.3rem" />
-      )}
-    </button>
+      </button>
+    </Tooltip>
   )
 }
 
