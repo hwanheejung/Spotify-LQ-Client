@@ -4,49 +4,55 @@ import { GET_QUEUE } from '@/lib/queries/player.query'
 import { useLayoutStore } from '@/lib/stores/layout.store'
 import { usePlaybackStore } from '@/lib/stores/playback.store'
 import { useQuery } from '@apollo/client'
-import { useEffect } from 'react'
+import { useEffect, useMemo } from 'react'
 import NowPlaying from './_components/NowPlaying'
 import Queue from './_components/Queue'
 import Device from './_components/Device'
 
 const SidebarPage = () => {
   const { rightPanelState } = useLayoutStore()
-
   const { isActive, currentTrack, setCurrentTrackLyrics } = usePlaybackStore()
+
   const { data, loading, refetch } = useQuery(GET_QUEUE, {
     skip: !isActive,
   })
 
-  useEffect(() => {
-    if (
-      currentTrack &&
-      data?.getQueue?.currently_playing?.id !== currentTrack.id
-    )
-      refetch()
+  const currentlyPlaying = useMemo(
+    () => data?.getQueue?.currently_playing,
+    [data],
+  )
+  const queue = useMemo(() => data?.getQueue?.queue, [data])
 
-    setCurrentTrackLyrics(data?.getQueue?.currently_playing?.lyrics)
-  }, [currentTrack, data, refetch])
+  useEffect(() => {
+    if (currentTrack && currentlyPlaying?.id !== currentTrack.id) refetch()
+
+    setCurrentTrackLyrics(currentlyPlaying.lyrics)
+  }, [currentTrack, currentlyPlaying, refetch, setCurrentTrackLyrics])
 
   if (!rightPanelState) return null
 
+  const renderContent = () => {
+    switch (rightPanelState) {
+      case 'NOW_PLAYING':
+        return <NowPlaying track={currentlyPlaying} loading={loading} />
+      case 'QUEUE':
+        return (
+          <Queue
+            currentlyPlaying={currentlyPlaying}
+            queue={queue}
+            loading={loading}
+          />
+        )
+      case 'DEVICE':
+        return <Device />
+      default:
+        return null
+    }
+  }
+
   return (
     <div className="h-full rounded-lg bg-gray-700 scrollbar-hide">
-      {rightPanelState === 'NOW_PLAYING' && (
-        <NowPlaying
-          track={data?.getQueue?.currently_playing}
-          loading={loading}
-        />
-      )}
-
-      {rightPanelState === 'QUEUE' && (
-        <Queue
-          currentlyPlaying={data?.getQueue?.currently_playing}
-          queue={data?.getQueue?.queue}
-          loading={loading}
-        />
-      )}
-
-      {rightPanelState === 'DEVICE' && <Device />}
+      {renderContent()}
     </div>
   )
 }
