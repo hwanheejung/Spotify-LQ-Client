@@ -22,5 +22,17 @@ type Track = {
   }[]
 }
 
-export type CurrentlyPlayingDTO = Track
+export type Lyrics = {
+  available: boolean
+  locked: boolean
+  data: {
+    id: string
+    plainLyrics: string
+    syncedLyrics: string
+  }
+}
+
+export type CurrentlyPlayingDTO = Track & {
+  lyrics: Lyrics
+}
 export type QueueItemDTO = Track

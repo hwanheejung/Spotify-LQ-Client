@@ -18,7 +18,7 @@ const NowPlaying = ({ loading, track }: NowPlayingProps) => {
         ) : (
           <>
             <CurrentTrack track={track} />
-            <Quiz trackId={track.id} />
+            {track.lyrics.available && <Quiz trackId={track.id} />}
           </>
         )}
       </div>

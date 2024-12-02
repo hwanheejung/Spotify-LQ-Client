@@ -12,7 +12,7 @@ import Device from './_components/Device'
 const DefaultSidebar = () => {
   const { rightPanelState } = useLayoutStore()
 
-  const { isActive, currentTrack } = usePlaybackStore()
+  const { isActive, currentTrack, setCurrentTrackLyrics } = usePlaybackStore()
   const { data, loading, refetch } = useQuery(GET_QUEUE, {
     skip: !isActive,
   })
@@ -23,6 +23,8 @@ const DefaultSidebar = () => {
       data?.getQueue?.currently_playing?.id !== currentTrack.id
     )
       refetch()
+
+    setCurrentTrackLyrics(data?.getQueue?.currently_playing?.lyrics)
   }, [currentTrack, data, refetch])
 
   if (!rightPanelState) return null

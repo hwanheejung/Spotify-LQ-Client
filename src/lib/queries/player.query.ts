@@ -55,6 +55,15 @@ export const GET_QUEUE = gql`
           id
           name
         }
+        lyrics {
+          available
+          locked
+          data {
+            id
+            plainLyrics
+            syncedLyrics
+          }
+        }
       }
 
       queue {
