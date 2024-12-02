@@ -9,7 +9,7 @@ const Locked = () => {
       <p className="whitespace-pre-line text-lg font-bold text-gray-100 blur-sm filter">
         {dummyLyrics}
       </p>
-      <div className="absolute left-1/2 top-1/2 flex -translate-x-1/2 -translate-y-1/2 flex-col bg-gray-400 px-5 py-4">
+      <div className="absolute left-1/2 top-1/2 flex -translate-x-1/2 -translate-y-1/2 flex-col rounded-md bg-gray-400 px-5 py-4">
         <FaSpotify size="1.3rem" className="mb-3" />
         <h2 className="text-2xl font-extrabold text-softBlue">Lyrics Access</h2>
         <p className="text-nowrap">Solve the quiz to unlock the full lyrics!</p>

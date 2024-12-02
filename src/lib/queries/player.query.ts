@@ -25,6 +25,7 @@ export const START_PLAYBACK = gql`
     $id: String
     $ids: [String]
     $offset: OffsetInput
+    $positionMs: Int
   ) {
     startResumePlayback(
       deviceId: $deviceId
@@ -32,6 +33,7 @@ export const START_PLAYBACK = gql`
       id: $id
       ids: $ids
       offset: $offset
+      positionMs: $positionMs
     )
   }
 `
