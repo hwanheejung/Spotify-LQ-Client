@@ -18,7 +18,9 @@ const SyncedLyrics = ({ lyrics }: { lyrics: string }) => {
       time
         .replace('[', '')
         .split(':')
-        .reduce<number>((acc, val) => acc * 60 + parseFloat(val), 0) * 1000
+        .reduce<number>((acc, val) => acc * 60 + parseFloat(val), 0) *
+        1000 -
+      1000
 
     return {
       time: Math.round(timestamp),

@@ -25,8 +25,7 @@ const DefaultSidebar = () => {
 
   useEffect(() => {
     if (currentTrack && currentlyPlaying?.id !== currentTrack.id) refetch()
-
-    setCurrentTrackLyrics(currentlyPlaying.lyrics)
+    if (currentTrack) setCurrentTrackLyrics(currentlyPlaying?.lyrics)
   }, [currentTrack, currentlyPlaying, refetch, setCurrentTrackLyrics])
 
   if (!rightPanelState) return null
