@@ -1,0 +1,48 @@
+import Link from 'next/link'
+import { ReactNode } from 'react'
+
+type SectionProps = {
+  title: string
+  children: ReactNode
+} & (
+  | { hasLink: false }
+  | {
+      hasLink: true
+      href: string
+      showShowAllText?: boolean
+    }
+)
+
+const Section = (props: SectionProps) => {
+  const { title, children, hasLink } = props
+
+  if (!hasLink)
+    return (
+      <section className="pt-10">
+        <h1 className="text-xl font-extrabold">{title}</h1>
+        <div>{children}</div>
+      </section>
+    )
+
+  const { href, showShowAllText = true } = props
+  return (
+    <section className="pt-10">
+      <div className="flex items-center justify-between">
+        <Link href={href} className="text-xl font-extrabold hover:underline">
+          {title}
+        </Link>
+        {showShowAllText && (
+          <Link
+            href={href}
+            className="text-xs font-bold text-gray-200 hover:underline"
+          >
+            Show all
+          </Link>
+        )}
+      </div>
+      <div>{children}</div>
+    </section>
+  )
+}
+
+export default Section
