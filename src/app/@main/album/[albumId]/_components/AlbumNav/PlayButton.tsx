@@ -16,11 +16,14 @@ const PlayButton = ({ albumId }: PlayButtonProps) => {
 
   const handleStart = async () => {
     try {
+      const input = {
+        deviceId,
+        type: 'album',
+        id: albumId,
+      }
       await startResumePlayback({
         variables: {
-          deviceId,
-          type: 'album',
-          id: albumId,
+          input,
         },
       })
     } catch (err) {

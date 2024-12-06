@@ -27,7 +27,6 @@ const Search = () => {
     (event: React.ChangeEvent<HTMLInputElement>) => {
       const { value } = event.target
       setValue(value)
-      console.log('Value >> ', value)
       debouncedSearch(value)
     },
     [debouncedSearch],

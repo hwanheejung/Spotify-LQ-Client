@@ -12,11 +12,11 @@ const OtherDevices = ({
   data: DeviceDTO[]
   refetch: () => void
 }) => {
-  const [transferPlayback, { loading }] = useMutation(TRANSFER_PLAYBACK)
+  const [playbackTransfer, { loading }] = useMutation(TRANSFER_PLAYBACK)
 
   const handleDeviceClick = async (deviceId: string) => {
     try {
-      await transferPlayback({
+      await playbackTransfer({
         variables: {
           deviceId,
         },

@@ -17,11 +17,8 @@ const DefaultSidebar = () => {
     skip: !isActive,
   })
 
-  const currentlyPlaying = useMemo(
-    () => data?.getQueue?.currently_playing,
-    [data],
-  )
-  const queue = useMemo(() => data?.getQueue?.queue, [data])
+  const currentlyPlaying = useMemo(() => data?.player?.currentTrack, [data])
+  const queue = useMemo(() => data?.player?.queue, [data])
 
   useEffect(() => {
     if (currentTrack && currentlyPlaying?.id !== currentTrack.id) refetch()

@@ -18,7 +18,7 @@ const Device = () => {
     )
   if (error) return `Error! ${error.message}`
 
-  const devices = data.getAvailableDevices
+  const devices = data.availableDevices
   const currentDevice = devices.find((device: DeviceDTO) => device.is_active)
   const otherDevices = devices.filter(
     (device: DeviceDTO) => device.is_active !== true,

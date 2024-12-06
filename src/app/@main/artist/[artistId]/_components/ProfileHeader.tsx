@@ -5,10 +5,10 @@ import { ArtistDTO } from '@/types/artists.types'
 import { useSuspenseQuery } from '@apollo/client'
 
 const ProfileHeader = ({ artistId }: { artistId: string }) => {
-  const { data } = useSuspenseQuery<{ getArtist: ArtistDTO }>(GET_ARTIST, {
+  const { data } = useSuspenseQuery<{ artist: ArtistDTO }>(GET_ARTIST, {
     variables: { artistId },
   })
-  const { name, followers, images } = data.getArtist
+  const { name, followers, images } = data.artist
 
   return (
     <div

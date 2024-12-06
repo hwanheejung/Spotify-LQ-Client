@@ -47,9 +47,7 @@ const useTrackControl = ({ trackIds }: UseTrackControlProps) => {
     try {
       await startResumePlayback({
         variables: {
-          deviceId,
-          positionMs,
-          ...variables,
+          input: { deviceId, positionMs, ...variables },
         },
       })
 
