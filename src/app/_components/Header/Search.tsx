@@ -1,17 +1,17 @@
 'use client'
 
-import Link from 'next/link'
+import { debounce } from 'lodash'
+import { usePathname, useRouter } from 'next/navigation'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { FiSearch } from 'react-icons/fi'
 import { IoFileTraySharp } from 'react-icons/io5'
 import { LiaTimesSolid } from 'react-icons/lia'
 import { twMerge } from 'tailwind-merge'
-import { debounce } from 'lodash'
-import { useRouter } from 'next/navigation'
 
 const Search = () => {
   const [value, setValue] = useState<string>('')
   const router = useRouter()
+  const pathname = usePathname()
 
   const onSearch = useCallback((searchTerm: string) => {
     router.push(`/search/${searchTerm}`)
@@ -21,7 +21,7 @@ const Search = () => {
     () =>
       debounce((searchTerm: string) => {
         onSearch(searchTerm)
-      }, 300),
+      }, 500),
     [onSearch],
   )
 
@@ -40,9 +40,14 @@ const Search = () => {
     }
   }, [debouncedSearch])
 
+  const handleClick = () => {
+    if (!pathname.startsWith('/search')) router.push('/search')
+  }
+
   return (
-    <Link
-      href="/search"
+    <div
+      role="presentation"
+      onClick={handleClick}
       className="flex h-10 min-w-[500px] items-center justify-between rounded-full bg-gray-500 px-3 text-gray-200"
     >
       <FiSearch size="1.5rem" />
@@ -63,7 +68,7 @@ const Search = () => {
       ) : (
         <IoFileTraySharp size="1.5rem" />
       )}
-    </Link>
+    </div>
   )
 }
 

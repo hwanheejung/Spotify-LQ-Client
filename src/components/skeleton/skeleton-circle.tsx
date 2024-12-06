@@ -10,7 +10,7 @@ const SkeletonCircle = ({ size = '50px' }: SkeletonCircleProps) => {
       className="rounded-full"
       style={{
         width: size,
-        height: size,
+        aspectRatio: '1 / 1',
       }}
     />
   )
