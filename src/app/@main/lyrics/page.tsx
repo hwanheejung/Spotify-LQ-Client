@@ -1,15 +1,23 @@
 'use client'
 
-import { usePlaybackStore } from '@/lib/stores/playback.store'
+import { GET_LYRICS } from '@/lib/queries/player.query'
+import { useQuery } from '@apollo/client'
+import { useMemo } from 'react'
+import { Lyrics as LyricsType } from '@/types/player.types'
 import Locked from './_components/Locked'
 import Lyrics from './_components/Lyrics'
 import NoData from './_components/NoData'
 import SyncedLyrics from './_components/SyncedLyrics'
 
 const LyricsPage = () => {
-  const lyrics = usePlaybackStore((state) => state.currentTrackLyrics)
+  const { data, loading } = useQuery(GET_LYRICS)
 
-  if (!lyrics?.available) return <NoData />
+  const lyrics: LyricsType = useMemo(
+    () => data?.player?.currentTrack?.lyrics,
+    [data],
+  )
+
+  if (!lyrics?.available || loading) return <NoData />
   if (lyrics.locked) return <Locked />
 
   return lyrics.data.syncedLyrics ? (

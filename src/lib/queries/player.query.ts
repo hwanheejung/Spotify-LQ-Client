@@ -24,6 +24,24 @@ export const START_PLAYBACK = gql`
   }
 `
 
+export const GET_LYRICS = gql`
+  query {
+    player {
+      currentTrack {
+        lyrics {
+          available
+          locked
+          data {
+            id
+            plainLyrics
+            syncedLyrics
+          }
+        }
+      }
+    }
+  }
+`
+
 export const GET_QUEUE = gql`
   query {
     player {
@@ -43,12 +61,6 @@ export const GET_QUEUE = gql`
         }
         lyrics {
           available
-          locked
-          data {
-            id
-            plainLyrics
-            syncedLyrics
-          }
         }
       }
 
