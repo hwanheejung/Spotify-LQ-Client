@@ -1,6 +1,13 @@
 import { Section } from '@/components/section'
 
-const Artists = () => {
+export type Artist = {
+  id: string
+  name: string
+  type: string
+}
+
+const Artists = ({ artists }: { artists: Artist[] }) => {
+  console.log(artists)
   return (
     <Section title="Artists" hasLink href="/">
       <div>artist</div>

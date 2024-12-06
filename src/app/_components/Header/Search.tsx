@@ -7,12 +7,14 @@ import { IoFileTraySharp } from 'react-icons/io5'
 import { LiaTimesSolid } from 'react-icons/lia'
 import { twMerge } from 'tailwind-merge'
 import { debounce } from 'lodash'
+import { useRouter } from 'next/navigation'
 
 const Search = () => {
   const [value, setValue] = useState<string>('')
+  const router = useRouter()
 
   const onSearch = useCallback((searchTerm: string) => {
-    console.log('Search >> ', searchTerm)
+    router.push(`/search/${searchTerm}`)
   }, [])
 
   const debouncedSearch = useMemo(
