@@ -1,14 +1,43 @@
 'use client'
 
 import Link from 'next/link'
-import { useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { FiSearch } from 'react-icons/fi'
 import { IoFileTraySharp } from 'react-icons/io5'
 import { LiaTimesSolid } from 'react-icons/lia'
 import { twMerge } from 'tailwind-merge'
+import { debounce } from 'lodash'
 
 const Search = () => {
-  const [value, setValue] = useState('')
+  const [value, setValue] = useState<string>('')
+
+  const onSearch = useCallback((searchTerm: string) => {
+    console.log('Search >> ', searchTerm)
+  }, [])
+
+  const debouncedSearch = useMemo(
+    () =>
+      debounce((searchTerm: string) => {
+        onSearch(searchTerm)
+      }, 300),
+    [onSearch],
+  )
+
+  const handleChange = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      const { value } = event.target
+      setValue(value)
+      console.log('Value >> ', value)
+      debouncedSearch(value)
+    },
+    [debouncedSearch],
+  )
+
+  useEffect(() => {
+    return () => {
+      debouncedSearch.cancel()
+    }
+  }, [debouncedSearch])
 
   return (
     <Link
@@ -19,7 +48,7 @@ const Search = () => {
       <input
         type="text"
         value={value}
-        onChange={(e) => setValue(e.target.value)}
+        onChange={handleChange}
         placeholder="What do you want to play?"
         className={twMerge(
           'm-2 mr-2.5 flex-1 bg-transparent text-gray-0 placeholder-gray-200 outline-none',
