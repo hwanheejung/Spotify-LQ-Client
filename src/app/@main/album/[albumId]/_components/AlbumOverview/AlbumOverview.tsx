@@ -9,11 +9,11 @@ import Image from 'next/image'
 import Link from 'next/link'
 
 const AlbumOverview = ({ albumId }: { albumId: string }) => {
-  const { data } = useSuspenseQuery<{ getAlbum: AlbumDTO }>(GET_ALBUM, {
+  const { data } = useSuspenseQuery<{ album: AlbumDTO }>(GET_ALBUM, {
     variables: { albumId },
   })
   const { name, images, artists, album_type, total_tracks, release_date } =
-    data.getAlbum
+    data.album
   const { year } = parseDate(release_date)
 
   return (

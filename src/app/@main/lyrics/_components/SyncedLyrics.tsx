@@ -10,21 +10,28 @@ const SyncedLyrics = ({ lyrics }: { lyrics: string }) => {
   const currentTime = usePlaybackStore((state) => state.currentTrack?.position)
   const lineRefs = useRef<(HTMLParagraphElement | null)[]>([])
 
-  const parsedLyrics: SyncedLine[] = lyrics.split('\n').map((line: string) => {
-    const [time, text] = line.split(']')
+  const parsedLyrics: SyncedLine[] = lyrics
+    .split('\n')
+    .map((line: string) => {
+      const [time, text] = line.split(']')
 
-    // [mm:ss.ms] -> ms
-    const timestamp =
-      time
-        .replace('[', '')
-        .split(':')
-        .reduce<number>((acc, val) => acc * 60 + parseFloat(val), 0) * 1000
+      if (!text || !time) return null
 
-    return {
-      time: Math.round(timestamp),
-      text: text.trim(),
-    }
-  })
+      // [mm:ss.ms] -> ms
+      const timestamp =
+        time
+          .replace('[', '')
+          .split(':')
+          .reduce<number>((acc, val) => acc * 60 + parseFloat(val), 0) *
+          1000 -
+        1000
+
+      return {
+        time: Math.round(timestamp),
+        text: text.trim(),
+      }
+    })
+    .filter(Boolean) as SyncedLine[]
 
   useEffect(() => {
     if (!currentTime) return

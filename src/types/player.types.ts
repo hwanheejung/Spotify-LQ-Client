@@ -33,6 +33,6 @@ export type Lyrics = {
 }
 
 export type CurrentlyPlayingDTO = Track & {
-  lyrics: Lyrics
+  lyrics: Pick<Lyrics, 'available'>
 }
 export type QueueItemDTO = Track

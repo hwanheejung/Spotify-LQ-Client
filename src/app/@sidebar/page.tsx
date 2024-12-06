@@ -11,23 +11,18 @@ import Device from './_components/Device'
 
 const SidebarPage = () => {
   const { rightPanelState } = useLayoutStore()
-  const { isActive, currentTrack, setCurrentTrackLyrics } = usePlaybackStore()
+  const { isActive, currentTrack } = usePlaybackStore()
 
   const { data, loading, refetch } = useQuery(GET_QUEUE, {
     skip: !isActive,
   })
 
-  const currentlyPlaying = useMemo(
-    () => data?.getQueue?.currently_playing,
-    [data],
-  )
-  const queue = useMemo(() => data?.getQueue?.queue, [data])
+  const currentlyPlaying = useMemo(() => data?.player?.currentTrack, [data])
+  const queue = useMemo(() => data?.player?.queue, [data])
 
   useEffect(() => {
     if (currentTrack && currentlyPlaying?.id !== currentTrack.id) refetch()
-
-    setCurrentTrackLyrics(currentlyPlaying.lyrics)
-  }, [currentTrack, currentlyPlaying, refetch, setCurrentTrackLyrics])
+  }, [currentTrack, currentlyPlaying, refetch])
 
   if (!rightPanelState) return null
 

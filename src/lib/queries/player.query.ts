@@ -2,7 +2,7 @@ import { gql } from '@apollo/client'
 
 export const GET_AVAILABLE_DEVICES = gql`
   query {
-    getAvailableDevices {
+    availableDevices {
       id
       name
       type
@@ -14,34 +14,38 @@ export const GET_AVAILABLE_DEVICES = gql`
 
 export const TRANSFER_PLAYBACK = gql`
   mutation ($deviceId: String!) {
-    transferPlayback(deviceId: $deviceId)
+    playbackTransfer(deviceId: $deviceId)
   }
 `
 
 export const START_PLAYBACK = gql`
-  mutation (
-    $deviceId: String!
-    $type: String!
-    $id: String
-    $ids: [String]
-    $offset: OffsetInput
-    $positionMs: Int
-  ) {
-    startResumePlayback(
-      deviceId: $deviceId
-      type: $type
-      id: $id
-      ids: $ids
-      offset: $offset
-      positionMs: $positionMs
-    )
+  mutation ($input: StartResumePlaybackInput!) {
+    startResumePlayback(input: $input)
+  }
+`
+
+export const GET_LYRICS = gql`
+  query {
+    player {
+      currentTrack {
+        lyrics {
+          available
+          locked
+          data {
+            id
+            plainLyrics
+            syncedLyrics
+          }
+        }
+      }
+    }
   }
 `
 
 export const GET_QUEUE = gql`
   query {
-    getQueue {
-      currently_playing {
+    player {
+      currentTrack {
         id
         name
         album {
@@ -57,12 +61,6 @@ export const GET_QUEUE = gql`
         }
         lyrics {
           available
-          locked
-          data {
-            id
-            plainLyrics
-            syncedLyrics
-          }
         }
       }
 

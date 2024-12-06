@@ -2,7 +2,7 @@ import { gql } from '@apollo/client'
 
 export const GET_ARTIST = gql`
   query ($artistId: String!) {
-    getArtist(artistId: $artistId) {
+    artist(artistId: $artistId) {
       id
       name
       type

@@ -3,6 +3,7 @@
 import { useLayoutStore } from '@/lib/stores/layout.store'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { ImperativePanelHandle, Panel } from 'react-resizable-panels'
+import { throttle } from 'lodash'
 
 interface PanelProps {
   children: React.ReactNode
@@ -48,20 +49,22 @@ export const LeftPanel = ({ children, defaultSize }: PanelProps) => {
     const element = document.querySelector(
       `[data-panel-id="${ref.current.getId()}"]`,
     ) as HTMLElement | null
-
     if (!element) return () => {}
 
-    const resizeObserver = new ResizeObserver(() => {
+    const handleResize = throttle(() => {
       const collapsed = ref.current?.isCollapsed()
-      setIsCollapsed(collapsed || false)
-    })
+      if (collapsed !== isCollapsed) setIsCollapsed(collapsed || false)
+    }, 200)
+
+    const resizeObserver = new ResizeObserver(handleResize)
 
     resizeObserver.observe(element)
 
     return () => {
       resizeObserver.unobserve(element)
+      handleResize.cancel()
     }
-  }, [ref])
+  }, [isCollapsed])
 
   useEffect(() => {
     const cleanup = observeResize()
@@ -146,15 +149,17 @@ export const RightPanel = ({ children, defaultSize }: PanelProps) => {
     ) as HTMLElement | null
     if (!element) return () => {}
 
-    const resizeObserver = new ResizeObserver(() => {
+    const handleResize = throttle(() => {
       const collapsed = ref.current?.isCollapsed()
       if (collapsed !== isCollapsed) setIsCollapsed(collapsed || false)
-    })
+    }, 200)
 
+    const resizeObserver = new ResizeObserver(handleResize)
     resizeObserver.observe(element)
 
     return () => {
-      resizeObserver.unobserve(element)
+      resizeObserver.unobserve(element) // Cleanup observer
+      handleResize.cancel() // Cleanup throttle
     }
   }, [isCollapsed])
 

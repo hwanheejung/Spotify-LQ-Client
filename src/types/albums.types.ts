@@ -38,8 +38,5 @@ export type AlbumDTO = {
   album_type: string
   total_tracks: number
   release_date: string
-  tracks: {
-    total: number
-    items: AlbumTrackDTO[]
-  }
+  tracks: AlbumTrackDTO[]
 }
