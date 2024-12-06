@@ -22,6 +22,11 @@ export const GET_SEARCH_RESULTS = gql`
         id
         name
         type
+        images {
+          url
+          height
+          width
+        }
       }
       tracks {
         id
