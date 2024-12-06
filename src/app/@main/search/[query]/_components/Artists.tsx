@@ -26,17 +26,18 @@ const Artists = ({ artists }: { artists: Artist[] }) => {
               height={100}
               style={{
                 width: '100%',
-                height: 'auto',
+                aspectRatio: '1 / 1',
+                objectFit: 'cover',
               }}
               className="mb-4 rounded-full"
             />
             <Link
               href={`/artist/${artist.id}`}
-              className="mt-2 text-sm hover:underline"
+              className="mt-2 text-sm font-semibold hover:underline"
             >
               {artist.name}
             </Link>
-            <p className="text-gray-200">{artist.type}</p>
+            <p className="text-xs text-gray-200">{artist.type}</p>
           </div>
         ))}
       </div>

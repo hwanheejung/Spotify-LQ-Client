@@ -11,7 +11,7 @@ const SearchResultPage = async ({ params }: SearchResultPageProps) => {
   const { query } = await params
 
   return (
-    <div className="h-full overflow-y-scroll px-5">
+    <div className="mb-20 h-full overflow-y-scroll px-5 pb-20">
       <PreloadQuery query={GET_SEARCH_RESULTS} variables={{ query }}>
         <Suspense fallback={<div>Loading...</div>}>
           <ResultContainer query={query} />

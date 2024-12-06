@@ -1,4 +1,7 @@
 import { Section } from '@/components/section'
+import { parseDate } from '@/lib/utils/parse-date'
+import Image from 'next/image'
+import Link from 'next/link'
 
 export type Album = {
   id: string
@@ -17,12 +20,35 @@ export type Album = {
 }
 
 const Albums = ({ albums }: { albums: Album[] }) => {
-  console.log(albums)
   return (
     <Section title="Albums" hasLink href="/">
-      <div>Albums</div>
-      <div>Albums</div>
-      <div>Albums</div>
+      <div className="grid grid-cols-4">
+        {albums.map((album) => (
+          <div key={album.id} className="rounded-md p-3 hover:bg-gray-600">
+            <Image
+              src={album.images[0].url}
+              alt={album.name}
+              width={100}
+              height={100}
+              style={{
+                width: '100%',
+                aspectRatio: '1 / 1',
+                objectFit: 'cover',
+              }}
+              className="mb-4 rounded-lg"
+            />
+            <Link
+              href={`/album/${album.id}`}
+              className="mt-2 text-sm font-semibold hover:underline"
+            >
+              {album.name}
+            </Link>
+            <p className="text-xs text-gray-200">
+              {parseDate(album.release_date).year} • {album.artists[0].name}
+            </p>
+          </div>
+        ))}
+      </div>
     </Section>
   )
 }
