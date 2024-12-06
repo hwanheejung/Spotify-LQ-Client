@@ -23,6 +23,15 @@
   
 </details>
 
+<details>
+  <summary><b>Search</b></summary>
+    
+ ![화면 기록 2024-12-07 오전 3 20 56](https://github.com/user-attachments/assets/3a670915-0931-4395-8eb7-fed42fb5b3be)
+  
+</details>
+
+    
+
 <br />
 
 ## 🎹 Features
