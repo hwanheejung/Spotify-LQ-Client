@@ -2,10 +2,12 @@
 
 import { useSuspenseQuery } from '@apollo/client'
 import { GET_SEARCH_RESULTS } from '@/lib/queries/search.query'
+import { useMemo } from 'react'
+import { calculateTextSimilarity } from '@/lib/utils/calculate-text-similarity'
 import Albums, { Album } from './Albums'
 import Artists, { Artist } from './Artists'
 import Songs, { Track } from './Songs'
-import TopResult from './TopResult'
+import TopResult, { TopResultProps } from './TopResult'
 
 type SearchDTO = {
   tracks: Track[]
@@ -18,10 +20,28 @@ const ResultContainer = ({ query }: { query: string }) => {
     variables: { query },
   })
 
+  const topResult = useMemo<TopResultProps>(() => {
+    const track = data.search.tracks[0]
+    const album = data.search.albums[0]
+    const artist = data.search.artists[0]
+
+    const trackScore = calculateTextSimilarity(track.name, query)
+    const albumScore = calculateTextSimilarity(album.name, query)
+    const artistScore = calculateTextSimilarity(artist.name, query)
+
+    if (trackScore >= albumScore && trackScore >= artistScore)
+      return { type: 'track', data: track }
+
+    if (albumScore >= trackScore && albumScore >= artistScore)
+      return { type: 'album', data: album }
+
+    return { type: 'artist', data: artist }
+  }, [data, query])
+
   return (
     <>
-      <div className="grid grid-cols-2">
-        <TopResult />
+      <div className="grid grid-cols-2 gap-3">
+        <TopResult type={topResult.type} data={topResult.data} />
         <Songs tracks={data.search.tracks} />
       </div>
       <Artists artists={data.search.artists} />

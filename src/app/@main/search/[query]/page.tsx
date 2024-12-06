@@ -1,7 +1,8 @@
 import { PreloadQuery } from '@/lib/graphql/apollo-client'
 import { GET_SEARCH_RESULTS } from '@/lib/queries/search.query'
-import { Suspense } from 'react'
-import ResultContainer from './_components/ResultContainer'
+import { Suspense, lazy } from 'react'
+
+const ResultContainer = lazy(() => import('./_components/ResultContainer'))
 
 interface SearchResultPageProps {
   params: Promise<{ query: string }>
