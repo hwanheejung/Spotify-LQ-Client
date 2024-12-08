@@ -26,6 +26,7 @@ const NextButton = () => {
         className={`text-gray-200 ${
           !isDisabled ? 'hover:text-gray-0' : 'cursor-not-allowed'
         }`}
+        aria-label="Play next track"
       >
         <FaForwardStep size="1.3rem" />
       </button>

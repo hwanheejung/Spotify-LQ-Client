@@ -34,6 +34,7 @@ const Header = () => {
         <button
           className="flex gap-2 text-gray-200 hover:text-gray-0"
           onClick={() => leftPanelRef?.current?.expand()}
+          aria-label="Expand"
         >
           <IoLibrarySharp size="1.6rem" style={{ paddingBottom: 2 }} />
         </button>
@@ -46,13 +47,14 @@ const Header = () => {
         <button
           className="flex gap-2 hover:text-gray-0"
           onClick={() => leftPanelRef?.current?.collapse()}
+          aria-label="Collapse"
         >
           <IoLibrarySharp size="1.6rem" style={{ paddingBottom: 2 }} />
           <span className="text-md font-bold">Your Library</span>
         </button>
         <div className="mr-3 flex items-center gap-3">
           <CreateButton />
-          <button>
+          <button aria-label="Toggle left panel">
             {leftPanelState === 'EXPANDED' ? (
               <Tooltip label="Show Less" placement="top">
                 <GoArrowLeft

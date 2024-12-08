@@ -25,7 +25,12 @@ const SidebarNavItem = ({
   placement = 'top',
 }: SidebarNavItemProps) => (
   <Tooltip label={label} spacing={20} placement={placement}>
-    <Button selected={selected} onClick={onClick} icon={icon} />
+    <Button
+      selected={selected}
+      onClick={onClick}
+      icon={icon}
+      aria-label={label}
+    />
   </Tooltip>
 )
 

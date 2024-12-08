@@ -39,6 +39,7 @@ const PlayButton = ({ albumId }: PlayButtonProps) => {
         !player && 'cursor-not-allowed opacity-50',
       )}
       onClick={isPaused ? handleStart : () => player?.togglePlay()}
+      aria-label="Play"
     >
       {isPaused ? (
         <HiMiniPlay className="h-6 w-6" />

@@ -1,5 +1,3 @@
-import { Lyrics } from '@/types/player.types'
-
 const Lyrics = ({ lyrics }: { lyrics: string }) => {
   return (
     <div className="h-full overflow-y-scroll px-10 py-20 scrollbar-hide">
