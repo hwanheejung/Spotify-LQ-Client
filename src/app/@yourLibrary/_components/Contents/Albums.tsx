@@ -8,7 +8,7 @@ import { useSuspenseQuery } from '@apollo/client'
 import Image from 'next/image'
 import Link from 'next/link'
 import { GET_ALBUMS_ARTISTS } from '@/lib/queries/albums.query'
-import { useFilter } from '../FilterContext'
+import { useMenu } from '../MenuContext'
 
 const DateAdded = ({ added_at }: Pick<AlbumItemDTO, 'added_at'>) => {
   const leftPanelState = useLayoutStore((state) => state.leftPanelState)
@@ -52,7 +52,7 @@ const AlbumItem = ({ album }: Pick<AlbumItemDTO, 'album'>) => {
 }
 
 const Albums = () => {
-  const { filter } = useFilter()
+  const { filter } = useMenu()
   const { data } = useSuspenseQuery<{ savedAlbums: AlbumItemDTO[] }>(
     GET_ALBUMS_ARTISTS,
     {

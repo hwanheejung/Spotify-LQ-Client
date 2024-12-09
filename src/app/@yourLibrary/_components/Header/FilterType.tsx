@@ -1,10 +1,10 @@
 'use client'
 
 import { twMerge } from 'tailwind-merge'
-import { IFilterType, useFilter } from '../FilterContext'
+import { IFilterType, useMenu } from '../MenuContext'
 
 const FilterButton = ({ type }: { type: IFilterType }) => {
-  const { filter, setFilter } = useFilter()
+  const { filter, setFilter } = useMenu()
   const handleClick = () => {
     setFilter(type)
     document.cookie = `left-panel:filter=${type}`

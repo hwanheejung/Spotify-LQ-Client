@@ -5,10 +5,10 @@ import { useSuspenseQuery } from '@apollo/client'
 import Image from 'next/image'
 import Link from 'next/link'
 import { GET_ALBUMS_ARTISTS } from '@/lib/queries/albums.query'
-import { useFilter } from '../FilterContext'
+import { useMenu } from '../MenuContext'
 
 const Artists = () => {
-  const { filter } = useFilter()
+  const { filter } = useMenu()
   const { data } = useSuspenseQuery<{ savedArtists: ArtistDTO[] }>(
     GET_ALBUMS_ARTISTS,
   )

@@ -11,40 +11,46 @@ import {
 } from 'react'
 
 export type IFilterType = 'ALBUM' | 'ARTIST'
+export type IViewAs = 'COMPACT' | 'LIST' | 'GRID'
 
 interface ContextProps {
   filter: IFilterType
+  viewAs: IViewAs
   setFilter: Dispatch<SetStateAction<IFilterType>>
+  setViewAs: Dispatch<SetStateAction<IViewAs>>
 }
 
-const FilterContext = createContext<ContextProps | undefined>(undefined)
+const MenuContext = createContext<ContextProps | undefined>(undefined)
 
-interface FilterProviderProps {
+interface MenuProviderProps {
   children: ReactNode
   defaultFilter: IFilterType
+  defaultViewAs: IViewAs
 }
 
-export const FilterProvider = ({
+export const MenuProvider = ({
   children,
   defaultFilter,
-}: FilterProviderProps) => {
+  defaultViewAs,
+}: MenuProviderProps) => {
   const [filter, setFilter] = useState<IFilterType>(defaultFilter)
+  const [viewAs, setViewAs] = useState<IViewAs>(defaultViewAs)
 
   const value = useMemo(
     () => ({
       filter,
+      viewAs,
       setFilter,
+      setViewAs,
     }),
-    [filter],
+    [filter, viewAs],
   )
 
-  return (
-    <FilterContext.Provider value={value}>{children}</FilterContext.Provider>
-  )
+  return <MenuContext.Provider value={value}>{children}</MenuContext.Provider>
 }
 
-export const useFilter = () => {
-  const context = useContext(FilterContext)
+export const useMenu = () => {
+  const context = useContext(MenuContext)
   if (context === undefined) throw new Error('Error at useFilter')
 
   return context
