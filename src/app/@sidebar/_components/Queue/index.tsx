@@ -1,4 +1,5 @@
 import { CurrentlyPlayingDTO, QueueItemDTO } from '@/types/player.types'
+import { FlatList } from '@/components/flatlist'
 import Header from '../Header'
 import Track from './Track'
 import TrackSkeleton from './Track.skeleton'
@@ -30,9 +31,11 @@ const Queue = ({ currentlyPlaying, queue, loading }: QueueProps) => {
         {currentlyPlaying && <Track track={currentlyPlaying} />}
 
         <h2 className="mt-4 font-bold">Next</h2>
-        {queue.map((track, index) => (
-          <Track key={`${track.id}-${index}`} track={track} />
-        ))}
+        <FlatList
+          data={queue}
+          renderItem={(track) => <Track track={track} />}
+          keyExtractor={(item, index) => `${item.id}-${index}`}
+        />
       </div>
     </div>
   )
