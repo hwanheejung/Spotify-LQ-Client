@@ -1,24 +1,22 @@
-import { getClient } from '@/lib/graphql/apollo-client'
-import { GET_SAVED_ALBUMS } from '@/lib/queries/albums.query'
-import { AlbumItemDTO } from '@/types/albums.types'
-import AlbumContainer, { Album, DateAdded } from './AlbumItem'
+import { PreloadQuery } from '@/lib/graphql/apollo-client'
+import { GET_ALBUMS_ARTISTS } from '@/lib/queries/albums.query'
+import { Suspense } from 'react'
+import Albums from './Albums'
+import Artists from './Artists'
+import ContentsSkeleton from './Contents.skeleton'
 
 const Contents = async () => {
-  const { data } = await getClient().query({
-    query: GET_SAVED_ALBUMS,
-    variables: { offset: 0, limit: 20 },
-  })
-
   return (
-    <div className="overflow-hidden pb-10 text-gray-0">
-      <div className="flex flex-col overflow-y-scroll scrollbar-hide">
-        {data.savedAlbums.map((item: AlbumItemDTO) => (
-          <AlbumContainer key={item.album.id} id={item.album.id}>
-            <Album album={item.album} />
-            <DateAdded added_at={item.added_at} />
-          </AlbumContainer>
-        ))}
-      </div>
+    <div className="flex-1 overflow-hidden overflow-y-scroll pb-10 text-gray-0 scrollbar-hide">
+      <PreloadQuery
+        query={GET_ALBUMS_ARTISTS}
+        variables={{ offset: 0, limit: 20 }}
+      >
+        <Suspense fallback={<ContentsSkeleton />}>
+          <Albums />
+          <Artists />
+        </Suspense>
+      </PreloadQuery>
     </div>
   )
 }

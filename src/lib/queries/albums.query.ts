@@ -1,8 +1,8 @@
 import { gql } from '@apollo/client'
 
-export const GET_SAVED_ALBUMS = gql`
-  query ($offset: Int = 0, $limit: Int = 20) {
-    savedAlbums(offset: $offset, limit: $limit) {
+export const GET_ALBUMS_ARTISTS = gql`
+  query ($offset: Int = 0, $limit: Int = 20, $after: String) {
+    savedAlbums: savedAlbums(offset: $offset, limit: $limit) {
       added_at
       album {
         id
@@ -14,6 +14,13 @@ export const GET_SAVED_ALBUMS = gql`
         artists {
           name
         }
+      }
+    }
+    savedArtists: savedArtists(after: $after) {
+      id
+      name
+      images {
+        url
       }
     }
   }

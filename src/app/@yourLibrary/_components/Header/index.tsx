@@ -7,6 +7,7 @@ import { GoArrowLeft, GoArrowRight } from 'react-icons/go'
 import { IoLibrarySharp } from 'react-icons/io5'
 import { MdOutlineFormatListBulleted } from 'react-icons/md'
 import CreateButton from './CreateButton'
+import FilterType from './FilterType'
 
 const ExpandedHeader = () => (
   <div className="mx-3 flex h-10 items-center justify-between border-b-[0.5px] border-gray-500 text-xxs font-bold">
@@ -73,6 +74,8 @@ const Header = () => {
           </button>
         </div>
       </div>
+
+      <FilterType />
       {leftPanelState === 'DEFAULT' && <DefaultHeader />}
       {leftPanelState === 'EXPANDED' && <ExpandedHeader />}
     </div>
