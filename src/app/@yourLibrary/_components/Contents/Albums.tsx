@@ -1,37 +1,15 @@
 'use client'
 
+import { FlatList } from '@/components/flatlist'
 import { GET_ALBUMS_ARTISTS } from '@/lib/queries/albums.query'
+import { useLayoutStore } from '@/lib/stores/layout.store'
 import { AlbumItemDTO } from '@/types/albums.types'
 import { useSuspenseQuery } from '@apollo/client'
-import { useLayoutStore } from '@/lib/stores/layout.store'
-import { ReactNode } from 'react'
 import { useMenu } from '../MenuContext'
-import AlbumListView from './Album.list'
+import AlbumCollapsedView from './Album.collapsed'
 import AlbumCompactView from './Album.compact'
 import AlbumGridView from './Album.grid'
-import AlbumCollapsedView from './Album.collapsed'
-
-interface FlatListProps<T> {
-  data: T[]
-  renderItem: (item: T, index: number) => ReactNode
-  keyExtractor: (item: T, index: number) => string | number
-  className?: string
-}
-
-const FlatList = <T,>({
-  data,
-  renderItem,
-  keyExtractor,
-  className,
-}: FlatListProps<T>) => {
-  return (
-    <div className={className}>
-      {data.map((item, index) => (
-        <div key={keyExtractor(item, index)}>{renderItem(item, index)}</div>
-      ))}
-    </div>
-  )
-}
+import AlbumListView from './Album.list'
 
 const Albums = () => {
   const { filter, viewAs } = useMenu()
