@@ -30,12 +30,10 @@ const Albums = ({ albums }: { albums: Album[] }) => {
               alt={album.name}
               width={100}
               height={100}
+              className="mb-4 aspect-square rounded-lg object-cover"
               style={{
                 width: '100%',
-                aspectRatio: '1 / 1',
-                objectFit: 'cover',
               }}
-              className="mb-4 rounded-lg"
             />
             <Link
               href={`/album/${album.id}`}
