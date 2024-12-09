@@ -1,38 +1,50 @@
 'use client'
 
+import { FlatList } from '@/components/flatlist'
+import { GET_ALBUMS_ARTISTS } from '@/lib/queries/albums.query'
+import { useLayoutStore } from '@/lib/stores/layout.store'
 import { ArtistDTO } from '@/types/artists.types'
 import { useSuspenseQuery } from '@apollo/client'
-import Image from 'next/image'
-import Link from 'next/link'
-import { GET_ALBUMS_ARTISTS } from '@/lib/queries/albums.query'
 import { useMenu } from '../MenuContext'
+import {
+  ArtistCollapsedView,
+  ArtistCompactView,
+  ArtistGridView,
+  ArtistListView,
+} from './ArtistItems'
 
 const Artists = () => {
-  const { filter } = useMenu()
+  const { filter, viewAs } = useMenu()
+  const leftPanelState = useLayoutStore((state) => state.leftPanelState)
   const { data } = useSuspenseQuery<{ savedArtists: ArtistDTO[] }>(
     GET_ALBUMS_ARTISTS,
   )
 
   if (filter !== 'ARTIST') return null
+
+  const renderItem = (artist: ArtistDTO) => {
+    if (leftPanelState === 'COLLAPSED')
+      return <ArtistCollapsedView artist={artist} />
+
+    switch (viewAs) {
+      case 'LIST':
+        return <ArtistListView artist={artist} />
+      case 'COMPACT':
+        return <ArtistCompactView artist={artist} />
+      case 'GRID':
+        return <ArtistGridView artist={artist} />
+      default:
+        return null
+    }
+  }
+
   return (
-    <div className="flex cursor-pointer flex-col overflow-y-scroll scrollbar-hide">
-      {data.savedArtists.map((artist: ArtistDTO) => (
-        <Link
-          href={`/artist/${artist.id}`}
-          key={artist.id}
-          className="flex items-center gap-4 px-3 py-3 hover:bg-gray-500"
-        >
-          <Image
-            src={artist.images[0].url}
-            alt={artist.name}
-            className="aspect-square rounded-full object-cover"
-            width={56}
-            height={56}
-          />
-          <p>{artist.name}</p>
-        </Link>
-      ))}
-    </div>
+    <FlatList
+      data={data.savedArtists}
+      renderItem={renderItem}
+      keyExtractor={(item) => item.id}
+      className="overflow-y-scroll scrollbar-hide"
+    />
   )
 }
 

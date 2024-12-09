@@ -6,10 +6,12 @@ import { useLayoutStore } from '@/lib/stores/layout.store'
 import { AlbumItemDTO } from '@/types/albums.types'
 import { useSuspenseQuery } from '@apollo/client'
 import { useMenu } from '../MenuContext'
-import AlbumCollapsedView from './Album.collapsed'
-import AlbumCompactView from './Album.compact'
-import AlbumGridView from './Album.grid'
-import AlbumListView from './Album.list'
+import {
+  AlbumCollapsedView,
+  AlbumCompactView,
+  AlbumGridView,
+  AlbumListView,
+} from './AlbumItems'
 
 const Albums = () => {
   const { filter, viewAs } = useMenu()
