@@ -1,11 +1,11 @@
 import { ApolloWrapper } from '@/app/_components/ApolloWrapper'
 import Header from '@/app/_components/Header'
 import PlayingBar from '@/app/_components/PlayingBar'
+import { auth } from '@/lib/utils/auth/auth'
 import type { Metadata } from 'next'
 import { cookies } from 'next/headers'
 import { ReactNode } from 'react'
 import '../styles/globals.css'
-import { auth } from '@/lib/utils/auth/auth'
 import {
   Handler,
   LEFT_PANNEL_SIZE,

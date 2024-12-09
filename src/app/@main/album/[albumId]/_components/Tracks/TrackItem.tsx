@@ -46,7 +46,11 @@ const TrackItem = ({ track, albumId }: TrackItemProps) => {
         )}
         {isCurrent && !isPaused ? (
           <Tooltip label="Pause">
-            <button className="hidden group-hover:block" onClick={pause}>
+            <button
+              className="hidden group-hover:block"
+              onClick={pause}
+              aria-label="pause"
+            >
               <HiMiniPause className="h-4 w-4" />
             </button>
           </Tooltip>
@@ -55,6 +59,7 @@ const TrackItem = ({ track, albumId }: TrackItemProps) => {
             <button
               className="hidden group-hover:block"
               onClick={handleStartClick}
+              aria-label="play"
             >
               <HiMiniPlay className="h-4 w-4" />
             </button>

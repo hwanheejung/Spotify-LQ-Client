@@ -26,6 +26,7 @@ const PreviousButton = () => {
         className={`text-gray-200 ${
           !isDisabled ? 'hover:text-gray-0' : 'cursor-not-allowed'
         }`}
+        aria-label="Play previous track"
       >
         <FaBackwardStep size="1.3rem" />
       </button>

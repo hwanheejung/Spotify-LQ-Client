@@ -14,7 +14,11 @@ const CreateButton = () => {
   return (
     <Menu placement="bottom-end">
       <Tooltip label="Create playlist or folder" className="flex">
-        <MenuButton as="button" className="my-auto">
+        <MenuButton
+          as="button"
+          className="my-auto"
+          aria-label="Create playlist or folder"
+        >
           <GoPlus size="1.6rem" />
         </MenuButton>
       </Tooltip>

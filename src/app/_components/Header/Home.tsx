@@ -5,6 +5,7 @@ const Home = () => (
   <Link
     href="/"
     className="flex h-10 w-10 items-center justify-center rounded-full bg-gray-400 text-gray-200"
+    aria-label="Home"
   >
     <GrHomeRounded size="1.3rem" />
   </Link>

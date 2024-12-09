@@ -33,9 +33,15 @@ const PausePlayButton = () => {
         )}
       >
         {isPaused ? (
-          <HiMiniPlay size="1.5rem" className="pl-[2px]" />
+          <>
+            <HiMiniPlay size="1.5rem" className="pl-[2px]" />
+            <span className="sr-only">Play</span>
+          </>
         ) : (
-          <HiMiniPause size="1.5rem" />
+          <>
+            <HiMiniPause size="1.5rem" />
+            <span className="sr-only">Pause</span>
+          </>
         )}
       </button>
     </Tooltip>

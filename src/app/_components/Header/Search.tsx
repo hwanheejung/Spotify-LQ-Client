@@ -62,7 +62,7 @@ const Search = () => {
         )}
       />
       {value ? (
-        <button onClick={() => setValue('')}>
+        <button onClick={() => setValue('')} aria-label="erase">
           <LiaTimesSolid size="1.5rem" />
         </button>
       ) : (

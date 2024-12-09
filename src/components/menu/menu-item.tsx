@@ -1,4 +1,5 @@
 import { HTMLAttributes, ReactNode } from 'react'
+import { twMerge } from 'tailwind-merge'
 import MenuIcon from './menu-icon'
 
 interface ItemProps extends HTMLAttributes<HTMLButtonElement> {
@@ -8,18 +9,28 @@ interface ItemProps extends HTMLAttributes<HTMLButtonElement> {
 }
 
 const MenuItem = (props: ItemProps) => {
-  const { children, iconLeft, iconRight, disabled = false, ...rest } = props
+  const {
+    children,
+    iconLeft,
+    iconRight,
+    disabled = false,
+    className,
+    ...rest
+  } = props
 
   const shouldWrap = iconLeft || iconRight
   const _children = shouldWrap ? (
-    <span style={{ pointerEvents: 'none', flex: 1 }}>{children}</span>
+    <span className="pointer-events-none flex-1 text-start">{children}</span>
   ) : (
     children
   )
 
   return (
     <button
-      className="flex w-full items-center gap-3 rounded-sm bg-transparent p-3 text-xs hover:bg-gray-300"
+      className={twMerge(
+        'flex w-full items-center gap-3 rounded-sm bg-transparent p-3 text-xs hover:bg-gray-300',
+        className,
+      )}
       disabled={disabled}
       {...rest}
     >
