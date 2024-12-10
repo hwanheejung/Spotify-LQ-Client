@@ -5,11 +5,11 @@ import { AlbumItemDTO } from '@/types/albums.types'
 import Image from 'next/image'
 import Link from 'next/link'
 
-export const AlbumCollapsedView = ({
-  album,
-}: {
-  album: AlbumItemDTO['album']
-}) => (
+interface AlbumViewProps {
+  item: AlbumItemDTO
+}
+
+export const AlbumCollapsedView = ({ item: { album } }: AlbumViewProps) => (
   <Link
     href={`/album/${album.id}`}
     className="flex items-center justify-center p-3 hover:bg-gray-500"
@@ -29,9 +29,7 @@ export const AlbumCollapsedView = ({
 
 export const AlbumListView = ({
   item: { album, added_at },
-}: {
-  item: AlbumItemDTO
-}) => {
+}: AlbumViewProps) => {
   const leftPanelState = useLayoutStore((state) => state.leftPanelState)
 
   return (
@@ -68,9 +66,7 @@ export const AlbumListView = ({
 
 export const AlbumCompactView = ({
   item: { album, added_at },
-}: {
-  item: AlbumItemDTO
-}) => {
+}: AlbumViewProps) => {
   const leftPanelState = useLayoutStore((state) => state.leftPanelState)
 
   return (
@@ -90,7 +86,7 @@ export const AlbumCompactView = ({
   )
 }
 
-export const AlbumGridView = ({ album }: { album: AlbumItemDTO['album'] }) => (
+export const AlbumGridView = ({ item: { album } }: AlbumViewProps) => (
   <Link
     href={`/album/${album.id}`}
     className="flex flex-col gap-3 p-3 hover:bg-gray-500"

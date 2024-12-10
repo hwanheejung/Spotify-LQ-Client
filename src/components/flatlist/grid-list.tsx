@@ -46,9 +46,7 @@ const GridList = <T,>(props: GridListProps<T>) => {
       data={visibleData}
       className={twMerge('grid gap-2', className)}
       style={{
-        gridTemplateColumns: wrap
-          ? `repeat(auto-fit, minmax(${itemMinWidth}px, 1fr))`
-          : `repeat(auto-fit, minmax(${itemMinWidth}px, 1fr))`,
+        gridTemplateColumns: `repeat(auto-fit, minmax(${itemMinWidth}px, 1fr))`,
       }}
       {...rest}
     />

@@ -1,3 +1,5 @@
+'use client'
+
 import { GridList } from '@/components/flatlist'
 import { Section } from '@/components/section'
 import { Skeleton, SkeletonText } from '@/components/skeleton'

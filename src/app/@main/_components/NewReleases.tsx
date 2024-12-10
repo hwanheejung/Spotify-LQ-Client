@@ -42,6 +42,7 @@ const NewReleases = () => {
         itemMinWidth={150}
         keyExtractor={(item) => item.id}
         renderItem={RenderItem}
+        maxNum={5}
       />
     </Section>
   )

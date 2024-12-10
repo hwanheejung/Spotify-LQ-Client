@@ -5,13 +5,24 @@ import { GET_ALBUMS_ARTISTS } from '@/lib/queries/albums.query'
 import { useLayoutStore } from '@/lib/stores/layout.store'
 import { AlbumItemDTO } from '@/types/albums.types'
 import { useSuspenseQuery } from '@apollo/client'
-import { useMenu } from '../MenuContext'
+import { ComponentType } from 'react'
+import { IViewAs, useMenu } from '../MenuContext'
 import {
   AlbumCollapsedView,
   AlbumCompactView,
   AlbumGridView,
   AlbumListView,
 } from './AlbumItems'
+
+const viewComponents: Record<
+  IViewAs | 'COLLAPSED',
+  ComponentType<{ item: AlbumItemDTO }>
+> = {
+  COLLAPSED: AlbumCollapsedView,
+  LIST: AlbumListView,
+  COMPACT: AlbumCompactView,
+  GRID: AlbumGridView,
+}
 
 const Albums = () => {
   const { filter, viewAs } = useMenu()
@@ -25,19 +36,12 @@ const Albums = () => {
   if (filter !== 'ALBUM') return null
 
   const renderItem = (item: AlbumItemDTO) => {
-    if (leftPanelState === 'COLLAPSED')
-      return <AlbumCollapsedView album={item.album} />
+    const ViewComponent =
+      leftPanelState === 'COLLAPSED'
+        ? viewComponents.COLLAPSED
+        : viewComponents[viewAs]
 
-    switch (viewAs) {
-      case 'LIST':
-        return <AlbumListView item={item} />
-      case 'COMPACT':
-        return <AlbumCompactView item={item} />
-      case 'GRID':
-        return <AlbumGridView album={item.album} />
-      default:
-        return null
-    }
+    return <ViewComponent item={item} />
   }
 
   return (
