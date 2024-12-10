@@ -19,8 +19,8 @@ const Section = (props: SectionProps) => {
   if (!hasLink)
     return (
       <section className="flex flex-col pt-10">
-        <h1 className="text-xl font-extrabold">{title}</h1>
-        <div className="flex-1">{children}</div>
+        <h1 className="px-3 text-xl font-extrabold">{title}</h1>
+        <div className="flex-1 px-1">{children}</div>
       </section>
     )
 
@@ -28,7 +28,10 @@ const Section = (props: SectionProps) => {
   return (
     <section className="flex flex-col pt-10">
       <div className="flex items-center justify-between">
-        <Link href={href} className="text-xl font-extrabold hover:underline">
+        <Link
+          href={href}
+          className="px-3 text-xl font-extrabold hover:underline"
+        >
           {title}
         </Link>
         {showShowAllText && (
@@ -40,7 +43,7 @@ const Section = (props: SectionProps) => {
           </Link>
         )}
       </div>
-      <div className="flex-1">{children}</div>
+      <div className="flex-1 px-1">{children}</div>
     </section>
   )
 }

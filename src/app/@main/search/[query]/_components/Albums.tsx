@@ -30,7 +30,7 @@ const Albums = ({ albums }: { albums: Album[] }) => {
               alt={album.name}
               width={100}
               height={100}
-              className="mb-4 aspect-square rounded-lg object-cover"
+              className="mb-4 aspect-square h-auto w-auto rounded-lg object-cover"
               style={{
                 width: '100%',
               }}

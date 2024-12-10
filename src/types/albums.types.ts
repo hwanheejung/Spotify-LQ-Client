@@ -40,3 +40,8 @@ export type AlbumDTO = {
   release_date: string
   tracks: AlbumTrackDTO[]
 }
+
+export type NewReleasesDTO = Pick<
+  AlbumDTO,
+  'id' | 'name' | 'images' | 'artists'
+>
